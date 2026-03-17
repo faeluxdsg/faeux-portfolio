@@ -3,283 +3,215 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portfólio Faeux — Rafael, Social Media, Designer de Marketing e Gestor de Tráfego." />
   <title>Faeux | Portfólio</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
-
   <style>
-    /* ==============================
-       VARIÁVEIS
-    =============================== */
-    :root {
-      --bg:          #231123;
-      --accent:      #961B2B;
-      --accent-dark: #7a1522;
-      --smoke:       #F2F2F2;
-      --dim:         rgba(242,242,242,0.65);
-      --faint:       rgba(242,242,242,0.05);
-      --border:      rgba(150,27,43,0.35);
-      --border-soft: rgba(242,242,242,0.12);
-      --font-body:   'Space Grotesk', system-ui, sans-serif;
-      --font-display:'Bebas Neue', system-ui, sans-serif;
+
+    /* ─────────────────────────────
+       RESET ABSOLUTO — garante que
+       NADA herde cor errada
+    ───────────────────────────── */
+    html, body, div, span, h1, h2, h3, h4,
+    p, a, ul, li, button, input, textarea,
+    select, label, article, section, nav,
+    header, footer, main, form {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    /* ==============================
-       RESET
-    =============================== */
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html  { scroll-behavior:smooth; }
-    body  {
-      background: var(--bg);
-      color: var(--smoke);
-      font-family: var(--font-body);
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background-color: #231123;
+      color: #F2F2F2;          /* texto SEMPRE smoke */
+      font-family: 'Space Grotesk', sans-serif;
       line-height: 1.7;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
-    img   { max-width:100%; display:block; }
-    a     { text-decoration:none; color:inherit; }
-    ul    { list-style:none; }
+
+    /* garante que todo texto herde a cor branca por padrão */
+    * { color: inherit; }
+
+    a    { text-decoration: none; }
+    ul   { list-style: none; }
+    img  { max-width: 100%; display: block; }
+    button { font-family: inherit; cursor: pointer; }
 
     :focus-visible {
-      outline: 2px solid var(--accent);
+      outline: 2px solid #961B2B;
       outline-offset: 4px;
-      border-radius: 3px;
     }
 
-    /* ==============================
+    /* ─────────────────────────────
+       VARIÁVEIS
+    ───────────────────────────── */
+    :root {
+      --bg:      #231123;
+      --red:     #961B2B;
+      --red-dk:  #7a1522;
+      --smoke:   #F2F2F2;
+      --dim:     rgba(242,242,242,0.68);
+      --border:  rgba(150,27,43,0.38);
+      --faint:   rgba(242,242,242,0.05);
+    }
+
+    /* ─────────────────────────────
        CURSOR
-    =============================== */
-    .cursor {
+    ───────────────────────────── */
+    #cur {
       position: fixed;
-      inset: auto;
-      width: 12px;
-      height: 12px;
+      width: 12px; height: 12px;
       border-radius: 50%;
-      background: var(--smoke);
+      background: #F2F2F2;
       pointer-events: none;
-      transform: translate(-50%, -50%);
       z-index: 9999;
+      transform: translate(-50%,-50%);
       transition: width .15s, height .15s;
-      box-shadow: 0 0 8px rgba(242,242,242,0.55);
+      box-shadow: 0 0 8px rgba(242,242,242,0.5);
     }
-    .cursor.big { width:18px; height:18px; }
-    @media (hover:none) { .cursor { display:none; } }
+    #cur.big { width: 20px; height: 20px; }
+    @media (hover: none) { #cur { display: none; } }
 
-    /* ==============================
-       BOTÕES — SISTEMA
-    =============================== */
-
-    /* Vermelho sólido — apenas para CTAs de contato direto */
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 13px 26px;
-      border-radius: 3px;
-      background: var(--accent);
-      color: var(--smoke);
-      font-family: var(--font-body);
-      font-size: .85rem;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      border: none;
-      cursor: pointer;
-      transition: background .25s, transform .2s;
-    }
-    .btn-primary:hover {
-      background: var(--accent-dark);
-      transform: translateY(-2px);
-    }
-
-    /* Vidro fosco — botões internos de navegação/ação secundária */
-    .btn-glass {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 13px 26px;
-      border-radius: 3px;
-      /* camada de vidro */
-      background: rgba(242,242,242,0.07);
-      backdrop-filter: blur(10px) saturate(140%);
-      -webkit-backdrop-filter: blur(10px) saturate(140%);
-      /* borda iluminada sutil */
-      border: 1px solid rgba(242,242,242,0.18);
-      /* sombra interna leve */
-      box-shadow:
-        inset 0 1px 0 rgba(242,242,242,0.12),
-        0 4px 14px rgba(0,0,0,0.25);
-      color: var(--smoke);
-      font-family: var(--font-body);
-      font-size: .85rem;
-      font-weight: 500;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background .25s, border-color .25s, transform .2s, box-shadow .25s;
-    }
-    .btn-glass:hover {
-      background: rgba(150,27,43,0.18);
-      border-color: rgba(150,27,43,0.55);
-      box-shadow:
-        inset 0 1px 0 rgba(242,242,242,0.1),
-        0 6px 18px rgba(150,27,43,0.2);
-      transform: translateY(-2px);
-    }
-
-    /* Fallback para Firefox (sem backdrop-filter) */
-    @supports not (backdrop-filter: blur(1px)) {
-      .btn-glass {
-        background: rgba(60,30,55,0.85);
-        border-color: rgba(242,242,242,0.2);
-      }
-    }
-
-    /* Versão reduzida em mobile (performance) */
-    @media (max-width:480px) {
-      .btn-glass {
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
-      }
-    }
-
-    /* ==============================
+    /* ─────────────────────────────
        NAVBAR
-    =============================== */
-    nav {
+    ───────────────────────────── */
+    #navbar {
       position: fixed;
-      top:0; left:0; width:100%;
-      padding: 18px 6%;
+      top: 0; left: 0; width: 100%;
+      z-index: 1000;
+      background: rgba(35,17,35,0.97);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      padding: 16px 6%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 1000;
-      background: rgba(35,17,35,0.96);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(10px);
     }
+
     .logo {
-      font-family: var(--font-display);
+      font-family: 'Bebas Neue', sans-serif;
       font-size: 2rem;
       letter-spacing: .14em;
+      color: #F2F2F2;
     }
-    .logo span { color:var(--accent); }
+    .logo em { color: #961B2B; font-style: normal; }
 
     .nav-links {
       display: flex;
-      gap: 28px;
       align-items: center;
+      gap: 28px;
     }
     .nav-links a {
       font-size: .8rem;
+      font-weight: 500;
       letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--dim);
       position: relative;
-      transition: color .25s;
+      transition: color .2s;
     }
+    .nav-links a:hover { color: #F2F2F2; }
     .nav-links a::after {
-      content:'';
+      content: '';
       position: absolute;
-      bottom:-3px; left:0;
-      width:0; height:1px;
-      background: var(--accent);
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: #961B2B;
       transition: width .25s;
     }
-    .nav-links a:hover { color:var(--smoke); }
-    .nav-links a:hover::after { width:100%; }
+    .nav-links a:hover::after { width: 100%; }
 
     .nav-cta {
       padding: 9px 20px;
       border-radius: 3px;
-      background: var(--accent);
-      color: var(--smoke);
-      font-size: .8rem;
+      background: #961B2B;
+      color: #F2F2F2 !important;
       font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      transition: background .25s;
+      transition: background .2s;
     }
-    .nav-cta:hover { background: var(--accent-dark); }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover  { background: #7a1522; }
 
-    .nav-toggle {
+    .hamburger {
       display: none;
       flex-direction: column;
-      gap:4px;
-      border:none;
-      background:none;
-      cursor:pointer;
+      gap: 5px;
+      background: none;
+      border: none;
     }
-    .nav-toggle span {
-      width:22px; height:2px;
-      background: var(--smoke);
-      border-radius:2px;
+    .hamburger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: #F2F2F2;
+      border-radius: 2px;
     }
 
-    .nav-mobile {
+    #mobileMenu {
       display: none;
       position: fixed;
-      top:60px; left:0; width:100%;
-      background: rgba(35,17,35,0.98);
-      backdrop-filter: blur(10px);
+      top: 60px; left: 0; width: 100%;
+      background: rgba(35,17,35,0.99);
       border-bottom: 1px solid var(--border);
       flex-direction: column;
-      padding: 24px 6%;
-      gap: 18px;
-      z-index: 999;
+      padding: 22px 6%;
+      gap: 16px;
+      z-index: 998;
     }
-    .nav-mobile a {
-      font-size:.9rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:var(--dim);
-      transition:color .25s;
+    #mobileMenu a {
+      font-size: .9rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--dim);
     }
-    .nav-mobile a:hover { color:var(--smoke); }
+    #mobileMenu a:hover { color: #F2F2F2; }
 
-    /* ==============================
-       MAIN / SECTION
-    =============================== */
-    main { padding-top:80px; }
-    section { padding:80px 6%; }
+    /* ─────────────────────────────
+       MAIN — empurra conteúdo
+       para baixo da navbar
+    ───────────────────────────── */
+    main { padding-top: 62px; }
 
-    /* divisor entre seções */
-    section + section {
-      border-top: 1px solid var(--border);
-    }
-
-    /* ==============================
+    /* ─────────────────────────────
        HERO
-    =============================== */
-    .hero {
-      min-height: calc(100vh - 80px);
+    ───────────────────────────── */
+    #hero {
+      min-height: calc(100vh - 62px);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 28px;
+      padding: 60px 6% 80px;
+      gap: 24px;
     }
-    .hero-label {
-      font-size:.78rem;
-      letter-spacing:.2em;
-      text-transform:uppercase;
-      color:var(--accent);
-      font-weight:600;
-    }
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(3.4rem,8vw,5.6rem);
-      line-height: .95;
-      letter-spacing: .05em;
-    }
-    .hero-title span { color:var(--accent); }
 
-    .hero-sub {
-      max-width:520px;
-      color:var(--dim);
-      font-size:1rem;
+    .hero-eyebrow {
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: #961B2B;
     }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.2rem, 8vw, 6rem);
+      line-height: .95;
+      letter-spacing: .04em;
+      color: #F2F2F2;
+    }
+    .hero-title .accent { color: #961B2B; }
+    .hero-title .outline {
+      color: transparent;
+      -webkit-text-stroke: 2px #F2F2F2;
+    }
+
+    .hero-desc {
+      font-size: clamp(.95rem, 1.4vw, 1.08rem);
+      color: var(--dim);
+      max-width: 520px;
+    }
+
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
@@ -287,383 +219,551 @@
       margin-top: 8px;
     }
 
-    /* ==============================
-       SEÇÃO — RÓTULOS E TÍTULOS
-    =============================== */
-    .section-label {
-      font-size:.78rem;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:var(--accent);
-      margin-bottom:10px;
-      font-weight:600;
+    /* ─────────────────────────────
+       BOTÕES
+    ───────────────────────────── */
+
+    /* Vermelho sólido — só para CTAs de contato */
+    .btn-red {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 26px;
+      border-radius: 3px;
+      background: #961B2B;
+      color: #F2F2F2;
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border: none;
+      transition: background .2s, transform .18s;
     }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem,4.5vw,3.4rem);
-      letter-spacing:.06em;
-      margin-bottom:18px;
+    .btn-red:hover { background: #7a1522; transform: translateY(-2px); color: #F2F2F2; }
+
+    /* Vidro fosco — botões de navegação interna */
+    .btn-glass {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 26px;
+      border-radius: 3px;
+      background: rgba(242,242,242,0.08);
+      backdrop-filter: blur(10px) saturate(130%);
+      -webkit-backdrop-filter: blur(10px) saturate(130%);
+      border: 1px solid rgba(242,242,242,0.18);
+      box-shadow:
+        inset 0 1px 0 rgba(242,242,242,0.1),
+        0 4px 12px rgba(0,0,0,0.22);
+      color: #F2F2F2;
+      font-size: .85rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      transition: background .22s, border-color .22s, transform .18s;
     }
-    .section-text {
-      color:var(--dim);
-      max-width:620px;
-      font-size:.98rem;
+    .btn-glass:hover {
+      background: rgba(150,27,43,0.2);
+      border-color: rgba(150,27,43,0.5);
+      transform: translateY(-2px);
+      color: #F2F2F2;
     }
 
-    /* ==============================
+    /* Fallback Firefox */
+    @supports not (backdrop-filter: blur(1px)) {
+      .btn-glass {
+        background: rgba(55,25,50,0.88);
+        border-color: rgba(242,242,242,0.22);
+      }
+    }
+    @media (max-width: 480px) {
+      .btn-glass { backdrop-filter: blur(5px); }
+      .btn-red, .btn-glass { width: 100%; }
+    }
+
+    /* ─────────────────────────────
+       TICKER DESLIZANTE
+    ───────────────────────────── */
+    .ticker-wrap {
+      width: 100%;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.025);
+      padding: 18px 0;
+    }
+
+    .ticker-track {
+      display: flex;
+      align-items: center;
+      /* largura total = 2× o conteúdo para loop perfeito */
+      width: max-content;
+      /* 90s = muito lento, fácil de ler */
+      animation: ticker-scroll 90s linear infinite;
+    }
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Cada ferramenta no ticker */
+    .tk-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 44px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Ícone quadrado arredondado */
+    .tk-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .tk-icon svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    /* Nome da ferramenta */
+    .tk-name {
+      font-size: .85rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #F2F2F2;
+    }
+
+    /* Separador ponto */
+    .tk-sep {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #961B2B;
+      margin-left: 44px;
+      flex-shrink: 0;
+    }
+
+    /* ─────────────────────────────
+       SEÇÕES GENÉRICAS
+    ───────────────────────────── */
+    .section {
+      padding: 80px 6%;
+      border-top: 1px solid var(--border);
+    }
+
+    .sec-label {
+      font-size: .76rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: #961B2B;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .sec-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      letter-spacing: .06em;
+      color: #F2F2F2;
+      margin-bottom: 16px;
+    }
+
+    .sec-text {
+      color: var(--dim);
+      font-size: .98rem;
+      max-width: 640px;
+      margin-bottom: 0;
+    }
+
+    /* ─────────────────────────────
        QUEM SOU
-    =============================== */
+    ───────────────────────────── */
     .about-grid {
-      display:grid;
-      grid-template-columns:1.2fr 1fr;
-      gap:50px;
-      align-items:flex-start;
-      margin-top:28px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 50px;
+      align-items: start;
+      margin-top: 28px;
     }
-    .photo-placeholder {
-      aspect-ratio:3/4;
-      border-radius:4px;
-      border:1px dashed var(--border);
-      background:rgba(150,27,43,0.1);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      color:rgba(242,242,242,0.45);
-      font-size:.8rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
+
+    .about-text p {
+      color: var(--dim);
+      font-size: .98rem;
+      margin-bottom: 14px;
     }
+    .about-text strong { color: #F2F2F2; font-weight: 700; }
+    .about-text em     { color: #961B2B; font-style: normal; font-weight: 600; }
+
+    .photo-box {
+      aspect-ratio: 3/4;
+      border-radius: 4px;
+      border: 1px dashed var(--border);
+      background: rgba(150,27,43,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: rgba(242,242,242,0.45);
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
     .about-stats {
-      display:flex;
-      flex-wrap:wrap;
-      gap:24px;
-      margin-top:28px;
-      padding-top:18px;
-      border-top:1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
     }
-    .stat-number {
-      font-family:var(--font-display);
-      font-size:2.4rem;
-      letter-spacing:.06em;
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem;
+      letter-spacing: .06em;
+      color: #F2F2F2;
+      line-height: 1;
     }
-    .stat-number span { color:var(--accent); }
-    .stat-label {
-      font-size:.78rem;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      color:var(--dim);
-    }
-
-    /* ==============================
-       SERVIÇOS (ACCORDION)
-    =============================== */
-    .services-list {
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      margin-top:28px;
-    }
-    .service {
-      border:1px solid var(--border);
-      border-radius:4px;
-      background:rgba(242,242,242,0.02);
-      overflow:hidden;
-    }
-    .service-header {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      padding:18px 20px;
-      cursor:pointer;
-      width:100%;
-      background:none;
-      border:none;
-      color:var(--smoke);
-      text-align:left;
-    }
-    .service-header:hover .service-title {
-      color:var(--accent);
-    }
-    .service-title {
-      font-family:var(--font-display);
-      font-size:1.55rem;
-      letter-spacing:.06em;
-      transition:color .2s;
-    }
-    .service-badge {
-      font-size:.72rem;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      color:var(--dim);
-      margin-top:4px;
-    }
-    .service-toggle {
-      font-size:1.5rem;
-      color:var(--dim);
-      flex-shrink:0;
-      line-height:1;
-    }
-    .service-body {
-      max-height:0;
-      overflow:hidden;
-      padding:0 20px;
-      border-top:1px solid transparent;
-      transition:max-height .3s ease-out, padding .3s, border-color .3s;
-    }
-    .service-body.open {
-      max-height:400px;
-      padding:14px 20px 20px;
-      border-color:var(--border);
-    }
-    .service-body p {
-      font-size:.95rem;
-      color:var(--dim);
-      margin-bottom:12px;
+    .stat-num em { color: #961B2B; font-style: normal; }
+    .stat-lbl {
+      font-size: .76rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--dim);
+      margin-top: 4px;
     }
 
-    /* ==============================
-       TRABALHOS
-    =============================== */
-    .projects-grid {
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:18px;
-      margin-top:28px;
-    }
-    .project-card {
-      border-radius:4px;
-      border:1px solid var(--border);
-      background:rgba(242,242,242,0.02);
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      transition:border-color .25s, transform .25s;
-    }
-    .project-card:hover {
-      border-color:rgba(150,27,43,0.6);
-      transform:translateY(-5px);
-    }
-    .project-thumb {
-      aspect-ratio:4/3;
-      background:rgba(150,27,43,0.1);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      color:rgba(242,242,242,0.6);
-      font-size:.78rem;
-      letter-spacing:.1em;
-      text-transform:uppercase;
-    }
-    .project-thumb span:first-child { font-size:2rem; }
-
-    .project-body {
-      padding:18px 18px 20px;
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      flex:1;
-    }
-    .project-title {
-      font-family:var(--font-display);
-      font-size:1.4rem;
-      letter-spacing:.06em;
-    }
-    .project-meta {
-      font-size:.78rem;
-      color:var(--dim);
-      letter-spacing:.1em;
-      text-transform:uppercase;
-    }
-    .project-desc {
-      font-size:.88rem;
-      color:var(--dim);
-      margin-bottom:6px;
-    }
-
-    /* ==============================
-       REDES
-    =============================== */
-    .socials-grid {
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      margin-top:28px;
-    }
-    .social-card {
-      display:block;
-      border-radius:4px;
-      border:1px solid var(--border);
-      background:rgba(242,242,242,0.02);
-      padding:20px 28px;
-      min-width:180px;
-      transition:border-color .25s, background .25s, transform .25s;
-    }
-    .social-card:hover {
-      border-color:rgba(150,27,43,0.55);
-      background:rgba(150,27,43,0.08);
-      transform:translateY(-3px);
-    }
-    .social-label {
-      font-size:.75rem;
-      color:var(--dim);
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      margin-bottom:5px;
-    }
-    .social-handle {
-      font-family:var(--font-display);
-      font-size:1.3rem;
-      letter-spacing:.08em;
-    }
-
-    /* ==============================
-       CONTATO
-    =============================== */
-    .contact-grid {
-      display:grid;
-      grid-template-columns:1.1fr 1fr;
-      gap:48px;
-      margin-top:28px;
-    }
-    .contact-info p {
-      color:var(--dim);
-      margin-bottom:18px;
-      font-size:.95rem;
-    }
-    .contact-item {
-      margin-bottom:14px;
-    }
-    .contact-label {
-      font-size:.72rem;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      color:var(--accent);
-      margin-bottom:2px;
-    }
-    .contact-value {
-      font-size:.95rem;
-      color:var(--smoke);
-    }
-
-    /* formulário */
-    form .field {
-      margin-bottom:14px;
-      display:flex;
-      flex-direction:column;
-      gap:5px;
-    }
-    form label {
-      font-size:.75rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:rgba(242,242,242,0.5);
-      font-weight:600;
-    }
-    input, textarea, select {
-      border-radius:3px;
-      border:1px solid rgba(150,27,43,0.4);
-      background:rgba(255,255,255,0.03);
-      color:var(--smoke);
-      padding:10px 12px;
-      font-family:var(--font-body);
-      font-size:.9rem;
-      width:100%;
-      transition:border-color .25s;
-    }
-    input::placeholder, textarea::placeholder {
-      color:rgba(242,242,242,0.28);
-    }
-    input:focus, textarea:focus, select:focus {
-      border-color:rgba(150,27,43,0.7);
-      outline:none;
-    }
-    textarea { min-height:110px; resize:vertical; }
-    select option { background:var(--bg); }
-
-    /* ==============================
-       CTA BANNERS (entre seções)
-    =============================== */
+    /* ─────────────────────────────
+       CTA STRIP
+    ───────────────────────────── */
     .cta-strip {
-      padding:44px 6%;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      gap:22px;
-      background:rgba(150,27,43,0.07);
-      border-top:1px solid var(--border);
-      border-bottom:1px solid var(--border);
+      padding: 44px 6%;
+      background: rgba(150,27,43,0.07);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 22px;
     }
-    .cta-strip-label {
-      font-size:.75rem;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:var(--accent);
-      margin-bottom:6px;
-      font-weight:600;
+    .cta-strip-lbl {
+      font-size: .74rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: #961B2B;
+      margin-bottom: 6px;
     }
     .cta-strip-title {
-      font-family:var(--font-display);
-      font-size:clamp(1.6rem,3.5vw,2.6rem);
-      letter-spacing:.04em;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      letter-spacing: .04em;
+      color: #F2F2F2;
     }
-    .cta-strip-actions {
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
+    .cta-strip-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
-    /* ==============================
+    /* ─────────────────────────────
+       SERVIÇOS (ACCORDION)
+    ───────────────────────────── */
+    .services {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .svc {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: rgba(242,242,242,0.02);
+      overflow: hidden;
+    }
+
+    .svc-btn {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 20px;
+      background: none;
+      border: none;
+      color: #F2F2F2;
+      text-align: left;
+    }
+    .svc-btn:hover .svc-title { color: #961B2B; }
+
+    .svc-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.55rem;
+      letter-spacing: .06em;
+      color: #F2F2F2;
+      transition: color .2s;
+    }
+    .svc-badge {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--dim);
+      margin-top: 4px;
+    }
+    .svc-icon {
+      font-size: 1.5rem;
+      color: var(--dim);
+      flex-shrink: 0;
+      line-height: 1;
+      transition: transform .3s;
+    }
+    .svc.open .svc-icon { transform: rotate(45deg); color: #961B2B; }
+    .svc.open .svc-title { color: #961B2B; }
+
+    .svc-body {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 20px;
+      border-top: 0px solid var(--border);
+      transition: max-height .35s ease, padding .3s, border-top-width .3s;
+    }
+    .svc.open .svc-body {
+      max-height: 400px;
+      padding: 14px 20px 20px;
+      border-top-width: 1px;
+    }
+    .svc-body p {
+      font-size: .95rem;
+      color: var(--dim);
+      margin-bottom: 12px;
+    }
+
+    /* ─────────────────────────────
+       TRABALHOS
+    ───────────────────────────── */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .proj-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: rgba(242,242,242,0.02);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color .25s, transform .25s;
+    }
+    .proj-card:hover {
+      border-color: rgba(150,27,43,0.6);
+      transform: translateY(-5px);
+    }
+
+    .proj-thumb {
+      aspect-ratio: 4/3;
+      background: rgba(150,27,43,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: rgba(242,242,242,0.55);
+      font-size: .78rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .proj-thumb span:first-child { font-size: 2.2rem; }
+
+    .proj-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+    .proj-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: .06em;
+      color: #F2F2F2;
+    }
+    .proj-meta {
+      font-size: .76rem;
+      color: var(--dim);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .proj-desc {
+      font-size: .88rem;
+      color: var(--dim);
+      margin-bottom: 4px;
+    }
+
+    /* ─────────────────────────────
+       REDES
+    ───────────────────────────── */
+    .socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .social-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: rgba(242,242,242,0.02);
+      padding: 20px 28px;
+      min-width: 170px;
+      transition: border-color .25s, background .25s, transform .22s;
+      display: block;
+    }
+    .social-card:hover {
+      border-color: rgba(150,27,43,0.55);
+      background: rgba(150,27,43,0.08);
+      transform: translateY(-3px);
+    }
+    .social-lbl {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--dim);
+      margin-bottom: 5px;
+    }
+    .social-handle {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: .08em;
+      color: #F2F2F2;
+    }
+
+    /* ─────────────────────────────
+       CONTATO
+    ───────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 48px;
+      margin-top: 28px;
+    }
+
+    .contact-info p {
+      color: var(--dim);
+      font-size: .95rem;
+      margin-bottom: 18px;
+    }
+    .c-item { margin-bottom: 14px; }
+    .c-lbl {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: #961B2B;
+      margin-bottom: 2px;
+    }
+    .c-val {
+      font-size: .95rem;
+      color: #F2F2F2;
+    }
+
+    .form-field {
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .form-field label {
+      font-size: .74rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(242,242,242,0.5);
+    }
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid rgba(150,27,43,0.4);
+      border-radius: 3px;
+      background: rgba(255,255,255,0.03);
+      color: #F2F2F2;
+      padding: 10px 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .9rem;
+      transition: border-color .2s;
+    }
+    input::placeholder, textarea::placeholder {
+      color: rgba(242,242,242,0.28);
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: rgba(150,27,43,0.7);
+      outline: none;
+    }
+    textarea   { min-height: 110px; resize: vertical; }
+    select option { background: #231123; color: #F2F2F2; }
+
+    /* ─────────────────────────────
        FOOTER
-    =============================== */
+    ───────────────────────────── */
     footer {
-      padding:22px 6%;
-      border-top:1px solid var(--border);
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      justify-content:space-between;
-      align-items:center;
-      font-size:.8rem;
-      color:rgba(242,242,242,0.5);
+      padding: 22px 6%;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: .8rem;
+      color: rgba(242,242,242,0.45);
     }
 
-    /* ==============================
+    /* ─────────────────────────────
        RESPONSIVO
-    =============================== */
-    @media (max-width:900px) {
-      .about-grid    { grid-template-columns:1fr; gap:30px; }
-      .contact-grid  { grid-template-columns:1fr; gap:36px; }
-      .projects-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    ───────────────────────────── */
+    @media (max-width: 900px) {
+      .about-grid   { grid-template-columns: 1fr; gap: 30px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+      .projects     { grid-template-columns: repeat(2, minmax(0,1fr)); }
     }
-    @media (max-width:680px) {
-      .nav-links  { display:none; }
-      .nav-toggle { display:flex; }
-      .projects-grid { grid-template-columns:1fr; }
-      .hero-actions  { flex-direction:column; }
-      .btn-primary, .btn-glass { width:100%; }
-      .cta-strip { flex-direction:column; align-items:flex-start; }
-      .cta-strip-actions { flex-direction:column; width:100%; }
-      .cta-strip-actions .btn-primary,
-      .cta-strip-actions .btn-glass { width:100%; }
+    @media (max-width: 680px) {
+      .nav-links  { display: none; }
+      .hamburger  { display: flex; }
+      .projects   { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; }
+      .cta-strip  { flex-direction: column; align-items: flex-start; }
+      .cta-strip-btns { flex-direction: column; width: 100%; }
+      .cta-strip-btns .btn-red,
+      .cta-strip-btns .btn-glass { width: 100%; }
     }
+
   </style>
 </head>
 <body>
 
 <!-- CURSOR -->
-<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div id="cur" aria-hidden="true"></div>
 
 <!-- NAVBAR -->
-<nav role="navigation" aria-label="Menu principal">
-  <a href="#hero" class="logo">FAEU<span>X</span></a>
+<nav id="navbar" role="navigation" aria-label="Menu principal">
+  <a href="#hero" class="logo">FAEU<em>X</em></a>
 
-  <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+  <button class="hamburger" id="hambBtn" aria-label="Abrir menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 
@@ -677,73 +777,255 @@
 </nav>
 
 <!-- MENU MOBILE -->
-<div class="nav-mobile" id="navMobile" role="navigation" aria-label="Menu mobile">
-  <a href="#sobre"     onclick="closeMobile()">Quem sou</a>
-  <a href="#servicos"  onclick="closeMobile()">Serviços</a>
-  <a href="#trabalhos" onclick="closeMobile()">Trabalhos</a>
-  <a href="#redes"     onclick="closeMobile()">Redes</a>
-  <a href="#contato"   onclick="closeMobile()">Solicite orçamento</a>
+<div id="mobileMenu" role="navigation" aria-label="Menu mobile">
+  <a href="#sobre"     onclick="closeMob()">Quem sou</a>
+  <a href="#servicos"  onclick="closeMob()">Serviços</a>
+  <a href="#trabalhos" onclick="closeMob()">Trabalhos</a>
+  <a href="#redes"     onclick="closeMob()">Redes</a>
+  <a href="#contato"   onclick="closeMob()">Solicite orçamento</a>
 </div>
 
 <main>
 
-  <!-- ══ HERO ══ -->
-  <section class="hero" id="hero" aria-label="Apresentação">
-    <p class="hero-label">Portfólio · Street Clean · 2025</p>
+  <!-- ══════════ HERO ══════════ -->
+  <section id="hero">
+    <p class="hero-eyebrow">Portfólio · Street Clean · 2025</p>
     <h1 class="hero-title">
-      Rafael<br>
-      <span>Faeux</span><br>
-      Social Media & Design
+      RAFAEL<br>
+      <span class="accent">FAEUX</span><br>
+      <span class="outline">SOCIAL MEDIA</span><br>
+      & DESIGN
     </h1>
-    <p class="hero-sub">
+    <p class="hero-desc">
       Social media, redator e gestor de tráfego. Crio e organizo a presença digital de empresas com design estratégico, conteúdo e anúncios que convertem.
     </p>
     <div class="hero-actions">
-      <!-- vidro fosco: navega para seção interna -->
       <a href="#trabalhos" class="btn-glass">Ver trabalhos</a>
-      <!-- vermelho: ação de contato -->
-      <a href="#contato"   class="btn-primary">Solicite seu orçamento</a>
+      <a href="#contato"   class="btn-red">Solicite seu orçamento</a>
     </div>
   </section>
 
-  <!-- ══ QUEM SOU ══ -->
-  <section id="sobre" aria-labelledby="sobre-h2">
-    <p class="section-label">Quem sou</p>
-    <h2 class="section-title" id="sobre-h2">Rafael · Faeux</h2>
+  <!-- ══════════ TICKER ══════════
+       Posicionado logo acima de "Quem sou"
+       Velocidade lenta (90s) para leitura fácil
+  ════════════════════════════════ -->
+  <div class="ticker-wrap" aria-label="Ferramentas que utilizo" role="region">
+    <div class="ticker-track">
+
+      <!-- ── BLOCO A ── -->
+
+      <!-- Photoshop -->
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#001e36"/>
+            <text x="16" y="21" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="11" fill="#31A8FF">Ps</text>
+          </svg>
+        </span>
+        <span class="tk-name">Photoshop</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <!-- Illustrator -->
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#261300"/>
+            <text x="16" y="21" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="11" fill="#FF9A00">Ai</text>
+          </svg>
+        </span>
+        <span class="tk-name">Illustrator</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <!-- Figma -->
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#1e1e1e"/>
+            <!-- F shape simplificado com as 5 cores do Figma -->
+            <rect x="9"  y="4"  width="7" height="7" rx="3.5" fill="#F24E1E"/>
+            <rect x="16" y="4"  width="7" height="7" rx="3.5" fill="#FF7262"/>
+            <rect x="9"  y="11" width="7" height="7" rx="3.5" fill="#A259FF"/>
+            <rect x="9"  y="18" width="7" height="7" rx="3.5" fill="#0ACF83"/>
+            <rect x="16" y="11" width="7" height="7" rx="3.5" fill="#1ABCFE"/>
+          </svg>
+        </span>
+        <span class="tk-name">Figma</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <!-- Canva -->
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#7d2ae8"/>
+            <text x="16" y="21" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="11" fill="#ffffff">Ca</text>
+          </svg>
+        </span>
+        <span class="tk-name">Canva</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <!-- CapCut -->
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#000000"/>
+            <polygon points="12,9 24,16 12,23" fill="#ffffff"/>
+            <rect x="8" y="9" width="3" height="14" rx="1.5" fill="#ffffff"/>
+          </svg>
+        </span>
+        <span class="tk-name">CapCut</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <!-- DaVinci Resolve -->
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#1a1a1a"/>
+            <circle cx="16" cy="16" r="9"  fill="none" stroke="#e63946" stroke-width="2"/>
+            <circle cx="16" cy="16" r="4"  fill="#e63946"/>
+            <circle cx="16" cy="16" r="1.5" fill="#1a1a1a"/>
+          </svg>
+        </span>
+        <span class="tk-name">DaVinci Resolve</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <!-- ClickUp -->
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#7B68EE"/>
+            <polyline points="8,19 13,14 16,17 19,14 24,19" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="tk-name">ClickUp</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <!-- Meta Ads -->
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#0866FF"/>
+            <path d="M7 18.5 C7 14 9.5 11 12 11 C13.5 11 14.5 12 16 14 C17.5 12 18.5 11 20 11 C22.5 11 25 14 25 18.5 C25 20.5 24 21.5 22.5 21.5 C21 21.5 20 20.5 18.5 18 L16 14 L13.5 18 C12 20.5 11 21.5 9.5 21.5 C8 21.5 7 20.5 7 18.5Z" fill="#fff"/>
+          </svg>
+        </span>
+        <span class="tk-name">Meta Ads</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <!-- Copywriting -->
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#961B2B"/>
+            <line x1="8"  y1="10" x2="24" y2="10" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/>
+            <line x1="8"  y1="15" x2="24" y2="15" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/>
+            <line x1="8"  y1="20" x2="18" y2="20" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="24" cy="22" r="3" fill="#F2F2F2"/>
+            <line x1="26.5" y1="24.5" x2="29" y2="27" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="tk-name">Copywriting</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <!-- IA de Texto -->
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#10a37f"/>
+            <circle cx="16" cy="14" r="4" fill="#fff"/>
+            <path d="M10 23 C10 19.5 12.7 17 16 17 C19.3 17 22 19.5 22 23" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            <line x1="22" y1="10" x2="26" y2="6"  stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="22" y1="10" x2="26" y2="12" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="22" y1="10" x2="24" y2="15" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="tk-name">IA de Texto</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <!-- ── BLOCO B — espelho exato do A para loop sem salto ── -->
+
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#001e36"/><text x="16" y="21" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="11" fill="#31A8FF">Ps</text></svg></span>
+        <span class="tk-name">Photoshop</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#261300"/><text x="16" y="21" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="11" fill="#FF9A00">Ai</text></svg></span>
+        <span class="tk-name">Illustrator</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#1e1e1e"/><rect x="9" y="4" width="7" height="7" rx="3.5" fill="#F24E1E"/><rect x="16" y="4" width="7" height="7" rx="3.5" fill="#FF7262"/><rect x="9" y="11" width="7" height="7" rx="3.5" fill="#A259FF"/><rect x="9" y="18" width="7" height="7" rx="3.5" fill="#0ACF83"/><rect x="16" y="11" width="7" height="7" rx="3.5" fill="#1ABCFE"/></svg></span>
+        <span class="tk-name">Figma</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#7d2ae8"/><text x="16" y="21" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="11" fill="#ffffff">Ca</text></svg></span>
+        <span class="tk-name">Canva</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#000000"/><polygon points="12,9 24,16 12,23" fill="#ffffff"/><rect x="8" y="9" width="3" height="14" rx="1.5" fill="#ffffff"/></svg></span>
+        <span class="tk-name">CapCut</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#1a1a1a"/><circle cx="16" cy="16" r="9" fill="none" stroke="#e63946" stroke-width="2"/><circle cx="16" cy="16" r="4" fill="#e63946"/><circle cx="16" cy="16" r="1.5" fill="#1a1a1a"/></svg></span>
+        <span class="tk-name">DaVinci Resolve</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#7B68EE"/><polyline points="8,19 13,14 16,17 19,14 24,19" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="tk-name">ClickUp</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#0866FF"/><path d="M7 18.5 C7 14 9.5 11 12 11 C13.5 11 14.5 12 16 14 C17.5 12 18.5 11 20 11 C22.5 11 25 14 25 18.5 C25 20.5 24 21.5 22.5 21.5 C21 21.5 20 20.5 18.5 18 L16 14 L13.5 18 C12 20.5 11 21.5 9.5 21.5 C8 21.5 7 20.5 7 18.5Z" fill="#fff"/></svg></span>
+        <span class="tk-name">Meta Ads</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#961B2B"/><line x1="8" y1="10" x2="24" y2="10" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="15" x2="24" y2="15" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="20" x2="18" y2="20" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/><circle cx="24" cy="22" r="3" fill="#F2F2F2"/><line x1="26.5" y1="24.5" x2="29" y2="27" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/></svg></span>
+        <span class="tk-name">Copywriting</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#10a37f"/><circle cx="16" cy="14" r="4" fill="#fff"/><path d="M10 23 C10 19.5 12.7 17 16 17 C19.3 17 22 19.5 22 23" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="22" y1="10" x2="26" y2="6" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><line x1="22" y1="10" x2="26" y2="12" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><line x1="22" y1="10" x2="24" y2="15" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        <span class="tk-name">IA de Texto</span><span class="tk-sep"></span>
+      </span>
+
+    </div><!-- /ticker-track -->
+  </div><!-- /ticker-wrap -->
+
+  <!-- ══════════ QUEM SOU ══════════ -->
+  <section id="sobre" class="section" aria-labelledby="sobre-h2">
+    <span class="sec-label">Quem sou</span>
+    <h2 class="sec-title" id="sobre-h2">Rafael · Faeux</h2>
 
     <div class="about-grid">
-      <div>
-        <p class="section-text" style="margin-bottom:14px;">
-          Tenho 23 anos e atuo como <strong>Social Media, Redator e Gestor de Tráfego</strong>, desenvolvendo estratégias digitais completas para empresas que querem presença profissional nas redes.
-        </p>
-        <p class="section-text" style="margin-bottom:14px;">
-          Estou construindo meu próprio estilo visual, o <strong>Street Clean</strong>, que mistura referências urbanas com design limpo, cores fortes e foco em legibilidade.
-        </p>
-        <p class="section-text">
-          Meu objetivo é transformar a comunicação das marcas em algo claro, consistente e estratégico: conteúdo bem pensado, identidade visual marcante e anúncios otimizados trabalhando juntos.
-        </p>
+      <div class="about-text">
+        <p>Tenho 23 anos e atuo como <strong>Social Media, Redator e Gestor de Tráfego</strong>, desenvolvendo estratégias digitais completas para empresas que querem presença profissional nas redes.</p>
+        <p>Estou construindo meu próprio estilo visual, o <em>Street Clean</em>, que mistura referências urbanas com design limpo, cores fortes e foco em legibilidade.</p>
+        <p>Meu objetivo é transformar a comunicação das marcas em algo claro, consistente e estratégico: conteúdo bem pensado, identidade visual marcante e anúncios otimizados trabalhando juntos.</p>
+        <a href="#servicos" class="btn-glass" style="margin-top:20px;display:inline-flex;">Ver o que faço</a>
 
-        <!-- vidro fosco: navega para seção interna -->
-        <a href="#servicos" class="btn-glass" style="margin-top:22px;">Ver o que faço</a>
-
-        <div class="about-stats" aria-label="Destaques">
+        <div class="about-stats" aria-label="Números">
           <div>
-            <div class="stat-number">3<span>+</span></div>
-            <div class="stat-label">Áreas de atuação</div>
+            <div class="stat-num">3<em>+</em></div>
+            <div class="stat-lbl">Áreas de atuação</div>
           </div>
           <div>
-            <div class="stat-number">3<span>+</span></div>
-            <div class="stat-label">Projetos autorais</div>
+            <div class="stat-num">3<em>+</em></div>
+            <div class="stat-lbl">Projetos autorais</div>
           </div>
           <div>
-            <div class="stat-number">100<span>%</span></div>
-            <div class="stat-label">Foco em estratégia</div>
+            <div class="stat-num">100<em>%</em></div>
+            <div class="stat-lbl">Foco em estratégia</div>
           </div>
         </div>
       </div>
 
-      <div class="photo-placeholder" role="img" aria-label="Foto de Rafael em breve">
-        <span style="font-size:2.4rem;" aria-hidden="true">📷</span>
+      <div class="photo-box" role="img" aria-label="Foto de Rafael em breve">
+        <span style="font-size:2.5rem;" aria-hidden="true">📷</span>
         <span>Foto em breve</span>
       </div>
     </div>
@@ -752,100 +1034,95 @@
   <!-- CTA STRIP 1 -->
   <div class="cta-strip" aria-label="Chamada para ação">
     <div>
-      <div class="cta-strip-label">Pronto para começar?</div>
+      <div class="cta-strip-lbl">Pronto para começar?</div>
       <div class="cta-strip-title">Vamos construir sua presença digital.</div>
     </div>
-    <div class="cta-strip-actions">
-      <!-- vermelho: ação de contato -->
-      <a href="#contato"   class="btn-primary">Fale comigo</a>
-      <!-- vidro: navega para seção interna -->
-      <a href="#servicos"  class="btn-glass">Ver serviços</a>
+    <div class="cta-strip-btns">
+      <a href="#contato"  class="btn-red">Fale comigo</a>
+      <a href="#servicos" class="btn-glass">Ver serviços</a>
     </div>
   </div>
 
-  <!-- ══ SERVIÇOS ══ -->
-  <section id="servicos" aria-labelledby="servicos-h2">
-    <p class="section-label">Serviços</p>
-    <h2 class="section-title" id="servicos-h2">O que eu faço</h2>
-    <p class="section-text">
-      Clique em cada serviço para entender, em linguagem simples, o que ele inclui e como pode ajudar sua empresa.
-    </p>
+  <!-- ══════════ SERVIÇOS ══════════ -->
+  <section id="servicos" class="section" aria-labelledby="servicos-h2">
+    <span class="sec-label">Serviços</span>
+    <h2 class="sec-title" id="servicos-h2">O que eu faço</h2>
+    <p class="sec-text">Clique em cada serviço para entender, em linguagem simples, o que ele inclui e como pode ajudar sua empresa.</p>
 
-    <div class="services-list" role="list">
+    <div class="services" role="list">
 
-      <article class="service" role="listitem">
-        <button class="service-header" type="button" aria-expanded="false">
+      <article class="svc" role="listitem">
+        <button class="svc-btn" aria-expanded="false">
           <div>
-            <div class="service-title">Gestão de Redes Sociais</div>
-            <div class="service-badge">Planejamento · Conteúdo · Métricas</div>
+            <div class="svc-title">Gestão de Redes Sociais</div>
+            <div class="svc-badge">Planejamento · Conteúdo · Métricas</div>
           </div>
-          <span class="service-toggle" aria-hidden="true">+</span>
+          <span class="svc-icon" aria-hidden="true">+</span>
         </button>
-        <div class="service-body" aria-live="polite">
+        <div class="svc-body">
           <p>Planejo e organizo todo o conteúdo das redes sociais da sua empresa: linha editorial, calendário de postagens, tipos de conteúdo e formatos ideais.</p>
-          <p>Acompanho os resultados (alcance, engajamento, crescimento) e faço ajustes constantes para garantir que o perfil cresça com identidade e estratégia.</p>
-          <!-- vermelho: CTA de contato direto -->
-          <a href="#contato" class="btn-primary">Solicitar orçamento</a>
+          <p>Acompanho alcance, engajamento e crescimento, fazendo ajustes constantes para que o perfil evolua com consistência.</p>
+          <a href="#contato" class="btn-red">Solicitar orçamento</a>
         </div>
       </article>
 
-      <article class="service" role="listitem">
-        <button class="service-header" type="button" aria-expanded="false">
+      <article class="svc" role="listitem">
+        <button class="svc-btn" aria-expanded="false">
           <div>
-            <div class="service-title">Design de Marketing</div>
-            <div class="service-badge">Peças visuais · Identidade · Layout</div>
+            <div class="svc-title">Design de Marketing</div>
+            <div class="svc-badge">Peças visuais · Identidade · Layout</div>
           </div>
-          <span class="service-toggle" aria-hidden="true">+</span>
+          <span class="svc-icon" aria-hidden="true">+</span>
         </button>
-        <div class="service-body" aria-live="polite">
-          <p>Crio artes para feeds, stories, anúncios e materiais digitais seguindo um padrão visual pensado para sua marca, usando a estética Street Clean.</p>
+        <div class="svc-body">
+          <p>Crio artes para feeds, stories, anúncios e materiais digitais seguindo um padrão visual pensado para a sua marca, usando a estética Street Clean.</p>
           <p>Layouts que chamam atenção e principalmente comunicam o que sua empresa faz.</p>
-          <a href="#contato" class="btn-primary">Solicitar orçamento</a>
+          <a href="#contato" class="btn-red">Solicitar orçamento</a>
         </div>
       </article>
 
-      <article class="service" role="listitem">
-        <button class="service-header" type="button" aria-expanded="false">
+      <article class="svc" role="listitem">
+        <button class="svc-btn" aria-expanded="false">
           <div>
-            <div class="service-title">Redação & Copywriting</div>
-            <div class="service-badge">Posts · Anúncios · Roteiros</div>
+            <div class="svc-title">Redação & Copywriting</div>
+            <div class="svc-badge">Posts · Anúncios · Roteiros</div>
           </div>
-          <span class="service-toggle" aria-hidden="true">+</span>
+          <span class="svc-icon" aria-hidden="true">+</span>
         </button>
-        <div class="service-body" aria-live="polite">
-          <p>Escrevo legendas, textos para anúncios, roteiros de vídeo e materiais de comunicação com linguagem clara, direta e adaptada ao seu público.</p>
+        <div class="svc-body">
+          <p>Escrevo legendas, textos para anúncios, roteiros de vídeo e materiais com linguagem clara, direta e adaptada ao seu público.</p>
           <p>O objetivo é fazer as pessoas entenderem a proposta da sua marca e darem o próximo passo.</p>
-          <a href="#contato" class="btn-primary">Solicitar orçamento</a>
+          <a href="#contato" class="btn-red">Solicitar orçamento</a>
         </div>
       </article>
 
-      <article class="service" role="listitem">
-        <button class="service-header" type="button" aria-expanded="false">
+      <article class="svc" role="listitem">
+        <button class="svc-btn" aria-expanded="false">
           <div>
-            <div class="service-title">Gestão de Tráfego</div>
-            <div class="service-badge">Meta Ads · CPC · Leads</div>
+            <div class="svc-title">Gestão de Tráfego</div>
+            <div class="svc-badge">Meta Ads · CPC · Leads</div>
           </div>
-          <span class="service-toggle" aria-hidden="true">+</span>
+          <span class="svc-icon" aria-hidden="true">+</span>
         </button>
-        <div class="service-body" aria-live="polite">
-          <p>Crio, configuro e otimizo campanhas de anúncios no Meta Ads (Instagram e Facebook) para alcançar pessoas certas com a mensagem certa.</p>
-          <p>Acompanho métricas como CPC, CTR e CPA para reduzir desperdício de verba e aumentar resultados em leads e vendas.</p>
-          <a href="#contato" class="btn-primary">Solicitar orçamento</a>
+        <div class="svc-body">
+          <p>Configuro e otimizo campanhas no Meta Ads (Instagram e Facebook) para alcançar as pessoas certas com a mensagem certa.</p>
+          <p>Acompanho CPC, CTR e CPA para reduzir desperdício de verba e aumentar leads e vendas.</p>
+          <a href="#contato" class="btn-red">Solicitar orçamento</a>
         </div>
       </article>
 
-      <article class="service" role="listitem">
-        <button class="service-header" type="button" aria-expanded="false">
+      <article class="svc" role="listitem">
+        <button class="svc-btn" aria-expanded="false">
           <div>
-            <div class="service-title">Captação & Roteiros de Vídeo</div>
-            <div class="service-badge">Reels · Institucional · Edição</div>
+            <div class="svc-title">Captação & Roteiros de Vídeo</div>
+            <div class="svc-badge">Reels · Institucional · Edição</div>
           </div>
-          <span class="service-toggle" aria-hidden="true">+</span>
+          <span class="svc-icon" aria-hidden="true">+</span>
         </button>
-        <div class="service-body" aria-live="polite">
-          <p>Desenvolvo roteiros para vídeos e participo da captação, pensando em enquadramento, ritmo e narrativa para cada conteúdo.</p>
+        <div class="svc-body">
+          <p>Desenvolvo roteiros e participo da captação, pensando em narrativa, enquadramento e ritmo para cada conteúdo.</p>
           <p>Vídeos que fazem sentido dentro da estratégia da marca e geram conexão real com o público.</p>
-          <a href="#contato" class="btn-primary">Solicitar orçamento</a>
+          <a href="#contato" class="btn-red">Solicitar orçamento</a>
         </div>
       </article>
 
@@ -855,60 +1132,57 @@
   <!-- CTA STRIP 2 -->
   <div class="cta-strip" aria-label="Chamada para ação">
     <div>
-      <div class="cta-strip-label">Vamos trabalhar juntos?</div>
+      <div class="cta-strip-lbl">Vamos trabalhar juntos?</div>
       <div class="cta-strip-title">Sua marca merece uma presença que converte.</div>
     </div>
-    <div class="cta-strip-actions">
-      <a href="#contato" class="btn-primary">Solicite seu orçamento</a>
+    <div class="cta-strip-btns">
+      <a href="#contato" class="btn-red">Solicite seu orçamento</a>
     </div>
   </div>
 
-  <!-- ══ TRABALHOS ══ -->
-  <section id="trabalhos" aria-labelledby="trabalhos-h2">
-    <p class="section-label">Portfólio</p>
-    <h2 class="section-title" id="trabalhos-h2">Meus trabalhos</h2>
-    <p class="section-text">
-      Projetos criados do zero. Enquanto finalizo cada um, você já consegue ter uma ideia do tipo de entrega que faço.
-    </p>
+  <!-- ══════════ TRABALHOS ══════════ -->
+  <section id="trabalhos" class="section" aria-labelledby="trabalhos-h2">
+    <span class="sec-label">Portfólio</span>
+    <h2 class="sec-title" id="trabalhos-h2">Meus trabalhos</h2>
+    <p class="sec-text">Projetos criados do zero. Em breve disponíveis para visualização completa.</p>
 
-    <div class="projects-grid">
+    <div class="projects">
 
-      <article class="project-card" aria-label="Projeto 01">
-        <div class="project-thumb">
+      <article class="proj-card" aria-label="Projeto 01">
+        <div class="proj-thumb">
           <span aria-hidden="true">🖼</span>
           <span>Em breve</span>
         </div>
-        <div class="project-body">
-          <div class="project-title">Projeto 01</div>
-          <div class="project-meta">Social media · Design</div>
-          <p class="project-desc">Identidade visual e presença estratégica em redes sociais.</p>
-          <!-- vidro: navega para contato, mas de forma secundária -->
+        <div class="proj-body">
+          <div class="proj-title">Projeto 01</div>
+          <div class="proj-meta">Social media · Design</div>
+          <p class="proj-desc">Identidade visual e presença estratégica em redes sociais.</p>
           <a href="#contato" class="btn-glass">Quero algo assim</a>
         </div>
       </article>
 
-      <article class="project-card" aria-label="Projeto 02">
-        <div class="project-thumb">
+      <article class="proj-card" aria-label="Projeto 02">
+        <div class="proj-thumb">
           <span aria-hidden="true">🖼</span>
           <span>Em breve</span>
         </div>
-        <div class="project-body">
-          <div class="project-title">Projeto 02</div>
-          <div class="project-meta">Tráfego · Conteúdo</div>
-          <p class="project-desc">Campanhas pagas e conteúdo estratégico para captação de leads.</p>
+        <div class="proj-body">
+          <div class="proj-title">Projeto 02</div>
+          <div class="proj-meta">Tráfego · Conteúdo</div>
+          <p class="proj-desc">Campanhas pagas e conteúdo para captação de leads.</p>
           <a href="#contato" class="btn-glass">Quero algo assim</a>
         </div>
       </article>
 
-      <article class="project-card" aria-label="Projeto 03">
-        <div class="project-thumb">
+      <article class="proj-card" aria-label="Projeto 03">
+        <div class="proj-thumb">
           <span aria-hidden="true">🖼</span>
           <span>Em breve</span>
         </div>
-        <div class="project-body">
-          <div class="project-title">Projeto 03</div>
-          <div class="project-meta">Vídeo · Roteiro</div>
-          <p class="project-desc">Conteúdo em vídeo para humanizar e aproximar a marca do público.</p>
+        <div class="proj-body">
+          <div class="proj-title">Projeto 03</div>
+          <div class="proj-meta">Vídeo · Roteiro</div>
+          <p class="proj-desc">Conteúdo em vídeo para humanizar e aproximar a marca.</p>
           <a href="#contato" class="btn-glass">Quero algo assim</a>
         </div>
       </article>
@@ -916,187 +1190,57 @@
     </div>
   </section>
 
-  <!-- ══ REDES ══ -->
-  <section id="redes" aria-labelledby="redes-h2">
-    <p class="section-label">Redes sociais</p>
-    <h2 class="section-title" id="redes-h2">Onde me encontrar</h2>
-    <p class="section-text">
-      Acompanhe meu trabalho, bastidores e testes de conteúdo nas redes onde estou mais ativo.
-    </p>
+  <!-- ══════════ REDES ══════════ -->
+  <section id="redes" class="section" aria-labelledby="redes-h2">
+    <span class="sec-label">Redes sociais</span>
+    <h2 class="sec-title" id="redes-h2">Onde me encontrar</h2>
+    <p class="sec-text">Acompanhe meu trabalho, bastidores e testes de conteúdo.</p>
 
-    <div class="socials-grid">
+    <div class="socials">
       <a class="social-card" href="https://www.instagram.com/faeuxdsg_" target="_blank" rel="noopener noreferrer" aria-label="Instagram @faeuxdsg_">
-        <div class="social-label">Instagram</div>
+        <div class="social-lbl">Instagram</div>
         <div class="social-handle">@faeuxdsg_</div>
       </a>
       <a class="social-card" href="https://www.facebook.com/faeux" target="_blank" rel="noopener noreferrer" aria-label="Facebook Faeux">
-        <div class="social-label">Facebook</div>
+        <div class="social-lbl">Facebook</div>
         <div class="social-handle">Faeux</div>
       </a>
       <a class="social-card" href="https://www.tiktok.com/@faeuxdsg_" target="_blank" rel="noopener noreferrer" aria-label="TikTok @faeuxdsg_">
-        <div class="social-label">TikTok</div>
+        <div class="social-lbl">TikTok</div>
         <div class="social-handle">@faeuxdsg_</div>
       </a>
     </div>
 
-    <div style="margin-top:26px;">
-      <!-- vidro: explorar mais -->
+    <div style="margin-top:24px;">
       <a href="#trabalhos" class="btn-glass">Ver meus trabalhos</a>
     </div>
   </section>
 
-  <!-- ══ CONTATO ══ -->
-  <section id="contato" aria-labelledby="contato-h2">
-    <p class="section-label">Contato</p>
-    <h2 class="section-title" id="contato-h2">Solicite seu orçamento</h2>
-    <p class="section-text">
-      Me conte um pouco sobre a sua empresa ou ideia. Vou analisar com calma e responder com uma proposta alinhada ao seu momento.
-    </p>
+  <!-- ══════════ CONTATO ══════════ -->
+  <section id="contato" class="section" aria-labelledby="contato-h2">
+    <span class="sec-label">Contato</span>
+    <h2 class="sec-title" id="contato-h2">Solicite seu orçamento</h2>
+    <p class="sec-text">Me conte sobre sua empresa ou ideia. Vou analisar com calma e responder com uma proposta alinhada ao seu momento.</p>
 
     <div class="contact-grid">
       <div class="contact-info">
-        <div class="contact-item">
-          <div class="contact-label">WhatsApp</div>
-          <div class="contact-value">+55 (34) 99795-1522</div>
+        <div class="c-item">
+          <div class="c-lbl">WhatsApp</div>
+          <div class="c-val">+55 (34) 99795-1522</div>
         </div>
-        <div class="contact-item">
-          <div class="contact-label">E-mail</div>
-          <div class="contact-value">faeuxdesigner@gmail.com</div>
+        <div class="c-item">
+          <div class="c-lbl">E-mail</div>
+          <div class="c-val">faeuxdesigner@gmail.com</div>
         </div>
-        <div class="contact-item">
-          <div class="contact-label">Instagram</div>
-          <div class="contact-value">@faeuxdsg_</div>
+        <div class="c-item">
+          <div class="c-lbl">Instagram</div>
+          <div class="c-val">@faeuxdsg_</div>
         </div>
-        <p>Se preferir algo mais rápido, pode me chamar diretamente no WhatsApp.</p>
-        <!-- vermelho: ação de contato direto -->
-        <a href="https://wa.me/5534997951522" class="btn-primary" target="_blank" rel="noopener noreferrer">
+        <p>Se preferir algo rápido, me chame direto no WhatsApp.</p>
+        <a href="https://wa.me/5534997951522" class="btn-red" target="_blank" rel="noopener noreferrer">
           Chamar no WhatsApp
         </a>
       </div>
 
-      <form onsubmit="handleForm(event)" novalidate>
-        <div class="field">
-          <label for="nome">Nome</label>
-          <input type="text" id="nome" name="nome" placeholder="Como posso te chamar?" required />
-        </div>
-        <div class="field">
-          <label for="email">E-mail</label>
-          <input type="email" id="email" name="email" placeholder="seu@email.com" required />
-        </div>
-        <div class="field">
-          <label for="servico">Serviço de interesse</label>
-          <select id="servico" name="servico" required>
-            <option value="" disabled selected>Selecione uma opção</option>
-            <option value="social">Gestão de redes sociais</option>
-            <option value="design">Design de marketing</option>
-            <option value="trafego">Gestão de tráfego</option>
-            <option value="copy">Redação & copywriting</option>
-            <option value="video">Captação e roteiros de vídeo</option>
-            <option value="outro">Outro</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="mensagem">Mensagem</label>
-          <textarea id="mensagem" name="mensagem" placeholder="Conte um pouco sobre o seu projeto ou empresa..." required></textarea>
-        </div>
-        <!-- vermelho: envio de contato direto -->
-        <button type="submit" class="btn-primary" style="width:100%;margin-top:4px;">
-          Enviar mensagem
-        </button>
-      </form>
-    </div>
-  </section>
+      <form onsubm
 
-</main>
-
-<footer role="contentinfo">
-  <div>© 2025 Faeux · Rafael</div>
-  <div>Street Clean · Social Media & Design</div>
-</footer>
-
-<script>
-  /* ── CURSOR ── */
-  (function () {
-    const cur = document.getElementById('cursor');
-    if (!cur) return;
-
-    let mx = window.innerWidth  / 2;
-    let my = window.innerHeight / 2;
-
-    cur.style.left = mx + 'px';
-    cur.style.top  = my + 'px';
-
-    document.addEventListener('mousemove', e => {
-      mx = e.clientX;
-      my = e.clientY;
-      cur.style.left = mx + 'px';
-      cur.style.top  = my + 'px';
-    });
-
-    document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => cur.classList.add('big'));
-      el.addEventListener('mouseleave', () => cur.classList.remove('big'));
-    });
-  })();
-
-  /* ── NAVBAR: scroll + mobile ── */
-  const nav       = document.querySelector('nav');
-  const navToggle = document.getElementById('navToggle');
-  const navMobile = document.getElementById('navMobile');
-
-  window.addEventListener('scroll', () => {
-    nav.style.background = window.scrollY > 40
-      ? 'rgba(35,17,35,0.97)'
-      : 'rgba(35,17,35,0.96)';
-  });
-
-  navToggle.addEventListener('click', () => {
-    const open = navMobile.style.display === 'flex';
-    navMobile.style.display = open ? 'none' : 'flex';
-    navToggle.setAttribute('aria-expanded', String(!open));
-  });
-
-  function closeMobile () {
-    navMobile.style.display = 'none';
-    navToggle.setAttribute('aria-expanded', 'false');
-  }
-
-  /* ── ACCORDION DE SERVIÇOS ── */
-  document.querySelectorAll('.service').forEach(service => {
-    const btn  = service.querySelector('.service-header');
-    const body = service.querySelector('.service-body');
-    const icon = service.querySelector('.service-toggle');
-
-    btn.addEventListener('click', () => {
-      const isOpen = body.classList.contains('open');
-
-      /* fecha todos */
-      document.querySelectorAll('.service-body').forEach(b => b.classList.remove('open'));
-      document.querySelectorAll('.service-toggle').forEach(i => i.textContent = '+');
-      document.querySelectorAll('.service-header').forEach(b => b.setAttribute('aria-expanded','false'));
-
-      /* abre o clicado, se estava fechado */
-      if (!isOpen) {
-        body.classList.add('open');
-        icon.textContent = '–';
-        btn.setAttribute('aria-expanded', 'true');
-      }
-    });
-  });
-
-  /* ── FORMULÁRIO (feedback visual) ── */
-  function handleForm(e) {
-    e.preventDefault();
-    const btn      = e.target.querySelector('button[type="submit"]');
-    const original = btn.textContent;
-    btn.textContent = 'Mensagem enviada ✓';
-    btn.disabled    = true;
-    setTimeout(() => {
-      btn.textContent = original;
-      btn.disabled    = false;
-      e.target.reset();
-    }, 2800);
-  }
-</script>
-</body>
-</html>
