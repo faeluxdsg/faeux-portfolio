@@ -44,38 +44,62 @@
       border-radius: 3px;
     }
 
-    /* ══════════════════════════
-       CURSOR — Frost Smoke
-    ══════════════════════════ */
-    .cursor {
-      width: 12px;
-      height: 12px;
-      background: var(--smoke);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      box-shadow: 0 0 12px rgba(242,242,242,0.6);
-      transform: translate(-50%, -50%);
-      transition: width .25s var(--ease), height .25s var(--ease);
-    }
-    .cursor-ring {
-      width: 38px;
-      height: 38px;
-      border: 1.5px solid rgba(242,242,242,0.45);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-    }
-    .cursor.big   { width: 20px; height: 20px; }
-    .cursor-ring.big { width: 56px; height: 56px; }
+    <script>
+  // ========== CURSOR CORRIGIDO ==========
+  (function () {
+    const cursor = document.getElementById('cur');
+    const ring   = document.getElementById('ring');
 
-    @media (hover: none) {
-      .cursor, .cursor-ring { display: none; }
-    }
+    // Se não existir (por algum motivo), não faz nada
+    if (!cursor || !ring) return;
 
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX  = mouseX;
+    let ringY  = mouseY;
+
+    // Posição inicial (centro da tela)
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top  = mouseY + 'px';
+    ring.style.left   = ringX + 'px';
+    ring.style.top    = ringY + 'px';
+
+    // Atualiza posição com o movimento do mouse
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      cursor.style.left = mouseX + 'px';
+      cursor.style.top  = mouseY + 'px';
+    });
+
+    // Anima o anel com um pequeno atraso (efeito "seguindo")
+    function animateRing() {
+      const lerp = 0.18; // suavidade
+      ringX += (mouseX - ringX) * lerp;
+      ringY += (mouseY - ringY) * lerp;
+      ring.style.left = ringX + 'px';
+      ring.style.top  = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    requestAnimationFrame(animateRing);
+
+    // Aumenta o cursor em elementos clicáveis
+    const interactiveSelectors = 'a, button, .btn-red, .btn-outline, .nav-btn, .svc-item, .trab-card, .rede-card, .contact-link, .btn-form';
+    const interactiveEls = document.querySelectorAll(interactiveSelectors);
+
+    interactiveEls.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.classList.add('big');
+        ring.classList.add('big');
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('big');
+        ring.classList.remove('big');
+      });
+    });
+  })();
+</script>
     /* ══════════════════════════
        NAVBAR
     ══════════════════════════ */
