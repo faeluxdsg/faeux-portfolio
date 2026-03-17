@@ -1,165 +1,156 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Faeux – Social Media & Design de Marketing para Empresas. Portfólio de Rafael, especialista em gestão estratégica de redes sociais e design de marketing." />
+  <meta name="description" content="Faeux – Social Media & Design de Marketing para Empresas. Gestão estratégica de redes sociais, design e conteúdo."/>
   <title>Faeux | Social Media & Design de Marketing</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet"/>
   <style>
+
     /* ========================
-       VARIÁVEIS E RESET
+       VARIÁVEIS
     ======================== */
     :root {
-      --dark-purple: #231123;
-      --acid-berry: #961B2B;
-      --frost-smoke: #F2F2F2;
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-body: 'Space Grotesk', sans-serif;
-      --transition: 0.3s ease;
+      --dark:       #231123;
+      --berry:      #961B2B;
+      --smoke:      #F2F2F2;
+      --smoke-dim:  rgba(242,242,242,0.55);
+      --smoke-faint:rgba(242,242,242,0.07);
+      --border:     rgba(150,27,43,0.18);
+      --display:    'Bebas Neue', sans-serif;
+      --body:       'Space Grotesk', sans-serif;
+      --ease:       cubic-bezier(.25,.46,.45,.94);
     }
 
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
-
+    /* ========================
+       RESET
+    ======================== */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; font-size:16px; }
     body {
-      background-color: var(--dark-purple);
-      color: var(--frost-smoke);
-      font-family: var(--font-body);
+      background: var(--dark);
+      color: var(--smoke);
+      font-family: var(--body);
       line-height: 1.7;
       overflow-x: hidden;
     }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
 
-    /* ========================
-       ACESSIBILIDADE
-    ======================== */
     :focus-visible {
-      outline: 3px solid var(--acid-berry);
+      outline: 2px solid var(--berry);
       outline-offset: 4px;
-      border-radius: 4px;
-    }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0,0,0,0);
-      white-space: nowrap;
-      border: 0;
+      border-radius: 3px;
     }
 
     /* ========================
-       ELEMENTOS URBANOS / DECORATIVOS
+       CURSOR PERSONALIZADO
     ======================== */
-    .tag {
-      display: inline-block;
-      background: var(--acid-berry);
-      color: var(--frost-smoke);
-      font-family: var(--font-display);
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
-      padding: 4px 12px;
-      border-radius: 2px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-
-    .spray-dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
+    .cursor {
+      width: 12px; height: 12px;
+      background: var(--berry);
       border-radius: 50%;
-      background: var(--acid-berry);
-      margin-right: 8px;
-      vertical-align: middle;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: transform .1s, width .3s var(--ease), height .3s var(--ease), background .3s;
+      mix-blend-mode: normal;
     }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid rgba(150,27,43,0.5);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: transform .18s var(--ease), width .35s var(--ease), height .35s var(--ease);
+    }
+    body:hover .cursor { opacity: 1; }
 
-    .section-line {
-      width: 60px;
-      height: 4px;
-      background: var(--acid-berry);
-      border-radius: 2px;
-      margin: 16px 0 32px 0;
+    /* ========================
+       BARRA DE RUÍDO (GRAIN OVERLAY)
+    ======================== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: .4;
     }
 
     /* ========================
        NAVBAR
     ======================== */
     nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
+      position: fixed; top: 0; left: 0; width: 100%;
       z-index: 1000;
-      background: rgba(35, 17, 35, 0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 2px solid var(--acid-berry);
-      padding: 16px 5%;
+      padding: 24px 6%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: background .4s, padding .4s;
+    }
+    nav.scrolled {
+      background: rgba(35,17,35,0.92);
+      backdrop-filter: blur(16px);
+      padding: 16px 6%;
+      border-bottom: 1px solid var(--border);
     }
 
     .nav-logo {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      color: var(--frost-smoke);
-      letter-spacing: 0.1em;
-      text-decoration: none;
+      font-family: var(--display);
+      font-size: 1.9rem;
+      letter-spacing: .12em;
+      color: var(--smoke);
     }
+    .nav-logo em { color: var(--berry); font-style: normal; }
 
-    .nav-logo span {
-      color: var(--acid-berry);
-    }
-
-    .nav-links {
-      list-style: none;
+    .nav-center {
       display: flex;
-      gap: 32px;
+      gap: 40px;
     }
-
-    .nav-links a {
-      color: var(--frost-smoke);
-      text-decoration: none;
-      font-size: 0.9rem;
+    .nav-center a {
+      font-size: .82rem;
       font-weight: 500;
-      letter-spacing: 0.08em;
+      letter-spacing: .12em;
       text-transform: uppercase;
-      transition: color var(--transition);
+      color: var(--smoke-dim);
+      transition: color .25s;
       position: relative;
     }
-
-    .nav-links a::after {
+    .nav-center a::after {
       content: '';
       position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--acid-berry);
-      transition: width var(--transition);
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--berry);
+      transition: width .3s var(--ease);
     }
+    .nav-center a:hover { color: var(--smoke); }
+    .nav-center a:hover::after { width: 100%; }
 
-    .nav-links a:hover {
-      color: var(--acid-berry);
+    .nav-cta {
+      background: var(--berry);
+      color: var(--smoke) !important;
+      padding: 10px 24px;
+      border-radius: 3px;
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: background .25s, transform .2s !important;
     }
+    .nav-cta:hover { background: #7a1522 !important; transform: translateY(-1px) !important; }
+    .nav-cta::after { display: none !important; }
 
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    /* MENU HAMBURGUER */
     .menu-toggle {
       display: none;
       flex-direction: column;
@@ -167,16 +158,46 @@
       cursor: pointer;
       background: none;
       border: none;
-      padding: 4px;
+    }
+    .menu-toggle span {
+      display: block; width: 24px; height: 1.5px;
+      background: var(--smoke);
+      border-radius: 2px;
+      transition: .3s;
     }
 
-    .menu-toggle span {
-      display: block;
-      width: 26px;
-      height: 2px;
-      background: var(--frost-smoke);
-      border-radius: 2px;
-      transition: var(--transition);
+    /* ========================
+       TICKER (FAIXA DESLIZANTE)
+    ======================== */
+    .ticker-wrap {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      margin-top: 0;
+      background: rgba(150,27,43,0.06);
+    }
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker 28s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item {
+      white-space: nowrap;
+      padding: 0 48px;
+      font-family: var(--display);
+      font-size: 1rem;
+      letter-spacing: .2em;
+      color: var(--smoke-dim);
+      text-transform: uppercase;
+    }
+    .ticker-item span { color: var(--berry); margin: 0 16px; }
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     /* ========================
@@ -185,419 +206,492 @@
     #hero {
       min-height: 100vh;
       display: flex;
-      align-items: center;
-      padding: 120px 5% 80px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-bg-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: var(--font-display);
-      font-size: clamp(120px, 22vw, 280px);
-      color: rgba(150, 27, 43, 0.06);
-      letter-spacing: 0.05em;
-      white-space: nowrap;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .hero-content {
+      flex-direction: column;
+      justify-content: center;
+      padding: 140px 6% 80px;
       position: relative;
       z-index: 1;
-      max-width: 750px;
     }
 
-    .hero-tag {
-      display: inline-block;
-      border: 2px solid var(--acid-berry);
-      color: var(--acid-berry);
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      letter-spacing: 0.2em;
-      padding: 6px 16px;
-      border-radius: 2px;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(3.5rem, 10vw, 8rem);
-      line-height: 0.95;
-      letter-spacing: 0.02em;
-      color: var(--frost-smoke);
-      margin-bottom: 24px;
-    }
-
-    .hero-title span {
-      color: var(--acid-berry);
-      display: block;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      color: rgba(242, 242, 242, 0.75);
-      max-width: 520px;
-      margin-bottom: 40px;
-      line-height: 1.8;
-    }
-
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--acid-berry);
-      color: var(--frost-smoke);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1rem;
-      padding: 16px 32px;
-      border-radius: 4px;
-      transition: background var(--transition), transform var(--transition);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .hero-cta:hover {
-      background: #7a1522;
-      transform: translateY(-2px);
-    }
-
-    .hero-cta-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      border: 2px solid var(--frost-smoke);
-      color: var(--frost-smoke);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 1rem;
-      padding: 14px 32px;
-      border-radius: 4px;
-      transition: border-color var(--transition), color var(--transition), transform var(--transition);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-left: 16px;
-    }
-
-    .hero-cta-secondary:hover {
-      border-color: var(--acid-berry);
-      color: var(--acid-berry);
-      transform: translateY(-2px);
-    }
-
-    .hero-scroll {
-      position: absolute;
-      bottom: 40px;
-      left: 5%;
+    .hero-eyebrow {
       display: flex;
       align-items: center;
       gap: 12px;
-      color: rgba(242, 242, 242, 0.4);
-      font-size: 0.8rem;
-      letter-spacing: 0.15em;
+      margin-bottom: 32px;
+    }
+    .hero-eyebrow-line {
+      width: 40px; height: 1px;
+      background: var(--berry);
+    }
+    .hero-eyebrow-text {
+      font-size: .78rem;
+      letter-spacing: .2em;
       text-transform: uppercase;
+      color: var(--berry);
+      font-weight: 600;
     }
 
-    .hero-scroll::before {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 1px;
-      background: rgba(242, 242, 242, 0.4);
+    .hero-title {
+      font-family: var(--display);
+      font-size: clamp(4rem, 12vw, 10.5rem);
+      line-height: .92;
+      letter-spacing: .01em;
+      color: var(--smoke);
+      margin-bottom: 40px;
+      max-width: 900px;
+    }
+    .hero-title .outline {
+      -webkit-text-stroke: 1.5px var(--smoke);
+      color: transparent;
+    }
+    .hero-title .berry { color: var(--berry); }
+
+    .hero-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .hero-desc {
+      font-size: clamp(.95rem, 1.5vw, 1.1rem);
+      color: var(--smoke-dim);
+      max-width: 440px;
+      line-height: 1.85;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--berry);
+      color: var(--smoke);
+      padding: 16px 36px;
+      border-radius: 3px;
+      font-weight: 700;
+      font-size: .9rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: background .25s, transform .2s;
+    }
+    .btn-primary:hover { background: #7a1522; transform: translateY(-2px); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(242,242,242,0.25);
+      color: var(--smoke);
+      padding: 16px 36px;
+      border-radius: 3px;
+      font-weight: 500;
+      font-size: .9rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: border-color .25s, color .25s, transform .2s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--berry);
+      color: var(--berry);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 40px; left: 6%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: .72rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(242,242,242,0.28);
+    }
+    .scroll-line {
+      width: 48px; height: 1px;
+      background: rgba(242,242,242,0.2);
+    }
+
+    /* ========================
+       MARQUEE GRANDE (Entre Hero e Quem sou)
+    ======================== */
+    .marquee-section {
+      overflow: hidden;
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 20s linear infinite;
+    }
+    .marquee-item {
+      font-family: var(--display);
+      font-size: clamp(3rem, 7vw, 6rem);
+      letter-spacing: .04em;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(242,242,242,0.12);
+      padding: 0 40px;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+    .marquee-item.filled {
+      color: var(--smoke);
+      -webkit-text-stroke: 0;
+    }
+    .marquee-item.berry-stroke {
+      -webkit-text-stroke: 1px rgba(150,27,43,0.35);
+    }
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     /* ========================
        SEÇÕES GERAIS
     ======================== */
     section {
-      padding: 100px 5%;
+      padding: 120px 6%;
+      position: relative;
+      z-index: 1;
     }
 
-    .section-header {
-      margin-bottom: 60px;
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .72rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--berry);
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .label::before {
+      content: '';
+      display: block;
+      width: 20px; height: 1px;
+      background: var(--berry);
     }
 
     .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      line-height: 1;
-      letter-spacing: 0.03em;
-      color: var(--frost-smoke);
+      font-family: var(--display);
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      line-height: .95;
+      letter-spacing: .02em;
+      color: var(--smoke);
+      margin-bottom: 24px;
+    }
+    .section-title .outline {
+      -webkit-text-stroke: 1px var(--smoke);
+      color: transparent;
+    }
+
+    /* DIVISOR */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      position: relative;
+      z-index: 1;
     }
 
     /* ========================
        QUEM SOU
     ======================== */
     #quem-sou {
-      background: rgba(255, 255, 255, 0.02);
-      border-top: 1px solid rgba(150, 27, 43, 0.2);
-      border-bottom: 1px solid rgba(150, 27, 43, 0.2);
-    }
-
-    .quem-sou-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 80px;
+      gap: 100px;
       align-items: center;
     }
 
-    .quem-sou-foto {
+    .quem-sou-left .big-name {
+      font-family: var(--display);
+      font-size: clamp(5rem, 12vw, 11rem);
+      line-height: .88;
+      letter-spacing: .01em;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(242,242,242,0.08);
+      pointer-events: none;
+      user-select: none;
+      margin-bottom: -20px;
+    }
+
+    .photo-frame {
       aspect-ratio: 3/4;
-      background: rgba(150, 27, 43, 0.08);
-      border: 2px dashed rgba(150, 27, 43, 0.3);
+      background: rgba(150,27,43,0.06);
+      border: 1px solid var(--border);
       border-radius: 4px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      color: rgba(242, 242, 242, 0.3);
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
+      gap: 14px;
+      color: rgba(242,242,242,0.2);
+      font-size: .75rem;
+      letter-spacing: .12em;
       text-transform: uppercase;
       position: relative;
       overflow: hidden;
+      transition: border-color .3s;
     }
-
-    .quem-sou-foto::before {
+    .photo-frame:hover { border-color: rgba(150,27,43,0.4); }
+    .photo-frame::after {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--acid-berry);
+      bottom: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--berry), transparent);
     }
+    .photo-icon { font-size: 3.5rem; opacity: .18; }
 
-    .foto-icon {
-      font-size: 3rem;
-      opacity: 0.3;
-    }
+    .quem-sou-right .label { margin-bottom: 32px; }
 
-    .quem-sou-text p {
-      color: rgba(242, 242, 242, 0.8);
+    .quem-sou-right p {
       font-size: 1.05rem;
+      color: var(--smoke-dim);
+      line-height: 1.9;
       margin-bottom: 20px;
-      line-height: 1.8;
     }
+    .quem-sou-right p strong { color: var(--smoke); font-weight: 600; }
+    .quem-sou-right p em { color: var(--berry); font-style: normal; font-weight: 600; }
 
-    .quem-sou-text p strong {
-      color: var(--frost-smoke);
-      font-weight: 700;
+    .quem-sou-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 48px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
     }
-
-    .quem-sou-text p em {
-      color: var(--acid-berry);
-      font-style: normal;
-      font-weight: 600;
+    .stat-item {}
+    .stat-num {
+      font-family: var(--display);
+      font-size: 3rem;
+      color: var(--smoke);
+      line-height: 1;
+      letter-spacing: .02em;
+    }
+    .stat-num span { color: var(--berry); }
+    .stat-label {
+      font-size: .78rem;
+      color: var(--smoke-dim);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-top: 6px;
     }
 
     /* ========================
-       EXPERIÊNCIA
+       SERVIÇOS / EXPERIÊNCIA
     ======================== */
-    #experiencia {
-      position: relative;
-    }
-
-    .experiencia-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(150, 27, 43, 0.2);
-      border-left: 4px solid var(--acid-berry);
-      border-radius: 4px;
-      padding: 40px;
-      margin-bottom: 32px;
-    }
+    #experiencia { padding-top: 0; }
 
     .exp-header {
-      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 80px;
+      flex-wrap: wrap;
+      gap: 24px;
     }
-
-    .exp-title {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      letter-spacing: 0.05em;
-      color: var(--frost-smoke);
-      margin-bottom: 8px;
-    }
-
-    .exp-meta {
-      color: var(--acid-berry);
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .exp-body p {
-      color: rgba(242, 242, 242, 0.75);
-      margin-bottom: 16px;
-      font-size: 0.95rem;
+    .exp-header-right {
+      font-size: .92rem;
+      color: var(--smoke-dim);
+      max-width: 360px;
       line-height: 1.8;
     }
 
-    .exp-list {
-      list-style: none;
+    .services-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+    }
+    .service-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: center;
+      gap: 40px;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--border);
+      transition: background .3s;
+      cursor: default;
+    }
+    .service-item:first-child { border-top: 1px solid var(--border); }
+    .service-item:hover .service-name { color: var(--berry); }
+    .service-item:hover .service-arrow { transform: translateX(6px); color: var(--berry); }
+
+    .service-num {
+      font-family: var(--display);
+      font-size: 1rem;
+      color: rgba(150,27,43,0.4);
+      letter-spacing: .1em;
+    }
+    .service-name {
+      font-family: var(--display);
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      letter-spacing: .03em;
+      transition: color .3s;
+    }
+    .service-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .service-tag {
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--smoke-dim);
+      background: var(--smoke-faint);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 2px;
+    }
+    .service-arrow {
+      font-size: 1.4rem;
+      color: rgba(242,242,242,0.2);
+      transition: transform .3s, color .3s;
     }
 
-    .exp-list li {
-      color: rgba(242, 242, 242, 0.75);
-      font-size: 0.95rem;
-      line-height: 1.7;
-      padding-left: 20px;
-      position: relative;
+    /* SKILLS */
+    .skills-wrap {
+      margin-top: 80px;
+      padding-top: 80px;
+      border-top: 1px solid var(--border);
     }
-
-    .exp-list li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 11px;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--acid-berry);
-    }
-
-    .exp-list li strong {
-      color: var(--frost-smoke);
-      font-weight: 600;
-    }
-
-    /* HABILIDADES */
-    .skills-section {
-      margin-top: 60px;
-    }
-
-    .skills-title {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      letter-spacing: 0.05em;
-      color: var(--frost-smoke);
-      margin-bottom: 28px;
-    }
-
+    .skills-label { margin-bottom: 40px; }
     .skills-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
     }
-
-    .skill-tag {
-      background: rgba(150, 27, 43, 0.12);
-      border: 1px solid rgba(150, 27, 43, 0.35);
-      color: var(--frost-smoke);
-      padding: 8px 18px;
-      border-radius: 2px;
-      font-size: 0.85rem;
+    .s-tag {
+      font-size: .78rem;
       font-weight: 500;
-      letter-spacing: 0.08em;
+      letter-spacing: .1em;
       text-transform: uppercase;
-      transition: background var(--transition), border-color var(--transition);
+      color: var(--smoke-dim);
+      background: var(--smoke-faint);
+      border: 1px solid var(--border);
+      padding: 9px 18px;
+      border-radius: 2px;
+      transition: background .25s, border-color .25s, color .25s;
     }
-
-    .skill-tag:hover {
-      background: rgba(150, 27, 43, 0.25);
-      border-color: var(--acid-berry);
+    .s-tag:hover {
+      background: rgba(150,27,43,0.12);
+      border-color: rgba(150,27,43,0.4);
+      color: var(--smoke);
     }
 
     /* ========================
        TRABALHOS
     ======================== */
     #trabalhos {
-      background: rgba(255, 255, 255, 0.02);
-      border-top: 1px solid rgba(150, 27, 43, 0.2);
-      border-bottom: 1px solid rgba(150, 27, 43, 0.2);
+      background: rgba(255,255,255,0.015);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .trabalhos-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 72px;
+      flex-wrap: wrap;
+      gap: 24px;
     }
 
     .trabalhos-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      gap: 20px;
     }
 
     .trabalho-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(150, 27, 43, 0.2);
+      border: 1px solid var(--border);
       border-radius: 4px;
       overflow: hidden;
-      transition: transform var(--transition), border-color var(--transition);
+      background: rgba(255,255,255,0.02);
+      transition: border-color .3s, transform .3s var(--ease);
       cursor: pointer;
+      position: relative;
     }
-
     .trabalho-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--acid-berry);
+      border-color: rgba(150,27,43,0.45);
+      transform: translateY(-8px);
     }
 
     .trabalho-thumb {
-      aspect-ratio: 16/10;
-      background: rgba(150, 27, 43, 0.08);
-      border-bottom: 1px solid rgba(150, 27, 43, 0.2);
+      aspect-ratio: 4/3;
+      background: rgba(150,27,43,0.06);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      color: rgba(242, 242, 242, 0.25);
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
+      color: rgba(242,242,242,0.18);
+      font-size: .72rem;
+      letter-spacing: .12em;
       text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
       position: relative;
+      overflow: hidden;
     }
-
-    .trabalho-thumb-icon {
-      font-size: 2.5rem;
-      opacity: 0.25;
+    .trabalho-thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(150,27,43,0.08) 0%, transparent 60%);
     }
+    .thumb-icon { font-size: 2.8rem; opacity: .18; }
 
-    .trabalho-info {
-      padding: 24px;
-    }
+    .trabalho-body { padding: 28px; }
 
-    .trabalho-num {
-      font-family: var(--font-display);
-      font-size: 3rem;
-      color: rgba(150, 27, 43, 0.2);
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .trabalho-nome {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      letter-spacing: 0.05em;
-      color: var(--frost-smoke);
-      margin-bottom: 8px;
-    }
-
-    .trabalho-desc {
-      font-size: 0.85rem;
-      color: rgba(242, 242, 242, 0.45);
-      letter-spacing: 0.05em;
+    .trabalho-meta {
+      font-size: .7rem;
+      letter-spacing: .15em;
       text-transform: uppercase;
+      color: var(--berry);
+      margin-bottom: 10px;
+    }
+    .trabalho-nome {
+      font-family: var(--display);
+      font-size: 1.6rem;
+      letter-spacing: .04em;
+      color: var(--smoke);
+      margin-bottom: 8px;
+    }
+    .trabalho-desc {
+      font-size: .82rem;
+      color: rgba(242,242,242,0.38);
+      letter-spacing: .06em;
     }
 
     /* ========================
        REDES SOCIAIS
     ======================== */
-    #redes {
-      text-align: center;
+    #redes { text-align: center; }
+
+    .redes-subtitle {
+      font-size: 1rem;
+      color: var(--smoke-dim);
+      max-width: 460px;
+      margin: 16px auto 64px;
+      line-height: 1.8;
     }
 
     .redes-grid {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 24px;
-      margin-top: 48px;
+      gap: 16px;
     }
 
     .rede-card {
@@ -605,44 +699,64 @@
       flex-direction: column;
       align-items: center;
       gap: 14px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(150, 27, 43, 0.2);
+      background: var(--smoke-faint);
+      border: 1px solid var(--border);
       border-radius: 4px;
-      padding: 36px 48px;
-      text-decoration: none;
-      color: var(--frost-smoke);
-      transition: background var(--transition), border-color var(--transition), transform var(--transition);
-      min-width: 180px;
+      padding: 44px 56px;
+      transition: background .3s, border-color .3s, transform .3s var(--ease);
+      min-width: 200px;
+      position: relative;
+      overflow: hidden;
     }
-
+    .rede-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--berry);
+      transition: width .4s var(--ease);
+    }
     .rede-card:hover {
-      background: rgba(150, 27, 43, 0.1);
-      border-color: var(--acid-berry);
-      transform: translateY(-4px);
+      background: rgba(150,27,43,0.08);
+      border-color: rgba(150,27,43,0.35);
+      transform: translateY(-5px);
     }
+    .rede-card:hover::before { width: 100%; }
 
-    .rede-icon {
-      font-size: 2.2rem;
-    }
-
+    .rede-icon { font-size: 2.4rem; }
     .rede-nome {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      letter-spacing: 0.08em;
+      font-family: var(--display);
+      font-size: 1.5rem;
+      letter-spacing: .08em;
+      color: var(--smoke);
     }
-
     .rede-handle {
-      font-size: 0.8rem;
-      color: rgba(242, 242, 242, 0.45);
-      letter-spacing: 0.08em;
+      font-size: .75rem;
+      color: rgba(242,242,242,0.38);
+      letter-spacing: .08em;
     }
 
     /* ========================
        CONTATO
     ======================== */
     #contato {
-      background: rgba(255, 255, 255, 0.02);
-      border-top: 1px solid rgba(150, 27, 43, 0.2);
+      background: rgba(255,255,255,0.015);
+      border-top: 1px solid var(--border);
+    }
+
+    .contato-top {
+      margin-bottom: 80px;
+    }
+    .contato-big {
+      font-family: var(--display);
+      font-size: clamp(3rem, 8vw, 7.5rem);
+      line-height: .95;
+      letter-spacing: .02em;
+      margin-top: 16px;
+    }
+    .contato-big .outline {
+      -webkit-text-stroke: 1px var(--smoke);
+      color: transparent;
     }
 
     .contato-grid {
@@ -653,469 +767,538 @@
     }
 
     .contato-info p {
-      color: rgba(242, 242, 242, 0.7);
       font-size: 1rem;
-      line-height: 1.8;
-      margin-bottom: 36px;
+      color: var(--smoke-dim);
+      line-height: 1.85;
+      margin-bottom: 40px;
     }
+    .contato-links { display: flex; flex-direction: column; gap: 12px; }
 
-    .contato-links {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .contato-link {
+    .c-link {
       display: flex;
       align-items: center;
-      gap: 14px;
-      color: var(--frost-smoke);
-      text-decoration: none;
-      font-size: 0.95rem;
-      padding: 14px 18px;
-      border: 1px solid rgba(150, 27, 43, 0.2);
-      border-radius: 4px;
-      transition: border-color var(--transition), background var(--transition);
+      gap: 16px;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      transition: border-color .25s, background .25s;
+      font-size: .92rem;
     }
-
-    .contato-link:hover {
-      border-color: var(--acid-berry);
-      background: rgba(150, 27, 43, 0.08);
+    .c-link:hover {
+      border-color: rgba(150,27,43,0.4);
+      background: rgba(150,27,43,0.06);
     }
-
-    .contato-link-icon {
-      font-size: 1.3rem;
-      flex-shrink: 0;
+    .c-link-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .c-link-label {
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--berry);
+      margin-bottom: 2px;
     }
+    .c-link-value { color: var(--smoke); font-size: .9rem; }
 
-    /* FORMULÁRIO */
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 20px;
-    }
-
+    /* FORM */
+    .form-group { margin-bottom: 20px; }
     label {
-      font-size: 0.8rem;
+      display: block;
+      font-size: .7rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(242,242,242,0.45);
+      margin-bottom: 8px;
       font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(242, 242, 242, 0.6);
     }
-
     input, textarea, select {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(150, 27, 43, 0.25);
-      border-radius: 4px;
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 3px;
       padding: 14px 16px;
-      color: var(--frost-smoke);
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      transition: border-color var(--transition);
-      width: 100%;
+      color: var(--smoke);
+      font-family: var(--body);
+      font-size: .95rem;
+      transition: border-color .25s, background .25s;
     }
-
-    input::placeholder, textarea::placeholder {
-      color: rgba(242, 242, 242, 0.25);
-    }
-
+    input::placeholder, textarea::placeholder { color: rgba(242,242,242,0.2); }
     input:focus, textarea:focus, select:focus {
-      border-color: var(--acid-berry);
+      border-color: rgba(150,27,43,0.5);
+      background: rgba(255,255,255,0.05);
       outline: none;
-      background: rgba(255, 255, 255, 0.06);
     }
+    textarea { resize: vertical; min-height: 130px; }
+    select option { background: var(--dark); }
 
-    textarea {
-      resize: vertical;
-      min-height: 130px;
-    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-    select option {
-      background: var(--dark-purple);
-      color: var(--frost-smoke);
-    }
-
-    .form-submit {
-      background: var(--acid-berry);
-      color: var(--frost-smoke);
-      border: none;
-      padding: 16px 32px;
-      font-family: var(--font-body);
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      cursor: pointer;
+    .btn-form {
       width: 100%;
-      transition: background var(--transition), transform var(--transition);
+      background: var(--berry);
+      color: var(--smoke);
+      border: none;
+      padding: 17px;
+      font-family: var(--body);
+      font-size: .9rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background .25s, transform .2s;
     }
-
-    .form-submit:hover {
-      background: #7a1522;
-      transform: translateY(-2px);
-    }
-
-    .form-submit:active {
-      transform: translateY(0);
-    }
+    .btn-form:hover { background: #7a1522; transform: translateY(-2px); }
+    .btn-form:active { transform: translateY(0); }
 
     /* ========================
        FOOTER
     ======================== */
     footer {
-      border-top: 2px solid var(--acid-berry);
-      padding: 32px 5%;
+      border-top: 1px solid var(--border);
+      padding: 40px 6%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 20px;
+      position: relative;
+      z-index: 1;
     }
-
     .footer-logo {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      color: var(--frost-smoke);
-      letter-spacing: 0.1em;
+      font-family: var(--display);
+      font-size: 1.7rem;
+      letter-spacing: .1em;
     }
-
-    .footer-logo span {
-      color: var(--acid-berry);
+    .footer-logo em { color: var(--berry); font-style: normal; }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a {
+      font-size: .75rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--smoke-dim);
+      transition: color .25s;
     }
-
+    .footer-links a:hover { color: var(--smoke); }
     .footer-copy {
-      font-size: 0.8rem;
-      color: rgba(242, 242, 242, 0.35);
-      letter-spacing: 0.05em;
+      font-size: .75rem;
+      color: rgba(242,242,242,0.25);
+      letter-spacing: .05em;
     }
 
     /* ========================
        RESPONSIVO
     ======================== */
-    @media (max-width: 900px) {
-      .quem-sou-grid,
-      .contato-grid {
-        grid-template-columns: 1fr;
-        gap: 48px;
-      }
-
-      .trabalhos-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .hero-cta-secondary {
-        margin-left: 0;
-        margin-top: 12px;
-      }
-
-      .hero-btns {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-      }
+    @media (max-width: 1024px) {
+      #quem-sou { grid-template-columns: 1fr; gap: 60px; }
+      .quem-sou-left .big-name { font-size: 6rem; }
+      .trabalhos-grid { grid-template-columns: 1fr 1fr; }
+      .contato-grid { grid-template-columns: 1fr; gap: 60px; }
     }
 
-    @media (max-width: 640px) {
-      nav {
-        padding: 14px 5%;
-      }
-
-      .nav-links {
-        display: none;
+    @media (max-width: 768px) {
+      .nav-center { display: none; flex-direction: column; }
+      .nav-center.open {
+        display: flex;
         position: fixed;
-        top: 64px;
-        left: 0;
+        top: 65px; left: 0;
         width: 100%;
-        background: rgba(35, 17, 35, 0.98);
-        flex-direction: column;
-        padding: 24px 5%;
-        gap: 20px;
-        border-bottom: 2px solid var(--acid-berry);
+        background: rgba(35,17,35,0.98);
+        padding: 32px 6%;
+        gap: 24px;
+        border-bottom: 1px solid var(--border);
       }
-
-      .nav-links.open {
-        display: flex;
-      }
-
-      .nav-links a {
-        font-size: 1.1rem;
-      }
-
-      .menu-toggle {
-        display: flex;
-      }
-
-      .trabalhos-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .redes-grid {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .rede-card {
-        width: 100%;
-        max-width: 320px;
-      }
-
-      section {
-        padding: 72px 5%;
-      }
-
-      .experiencia-card {
-        padding: 28px 20px;
-      }
-
-      footer {
-        flex-direction: column;
-        text-align: center;
-      }
+      .nav-center.open a { font-size: 1.1rem; }
+      .menu-toggle { display: flex; }
+      .nav-cta { display: none; }
+      .service-item { grid-template-columns: 60px 1fr; }
+      .service-tags { display: none; }
+      .service-arrow { display: none; }
+      .trabalhos-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-links { display: none; }
+      .cursor, .cursor-ring { display: none; }
+      .exp-header { flex-direction: column; align-items: flex-start; }
     }
+
+    @media (max-width: 480px) {
+      section { padding: 80px 5%; }
+      nav { padding: 18px 5%; }
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+      .quem-sou-stats { flex-direction: column; gap: 24px; }
+      footer { flex-direction: column; text-align: center; }
+    }
+
+    /* ========================
+       ANIMAÇÕES DE ENTRADA
+    ======================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+
   </style>
 </head>
 <body>
 
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
   <!-- NAVBAR -->
-  <nav role="navigation" aria-label="Menu principal">
-    <a href="#hero" class="nav-logo" aria-label="Faeux - Voltar ao início">FAEU<span>X</span></a>
-    <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu" onclick="toggleMenu(this)">
-      <span></span>
-      <span></span>
-      <span></span>
+  <nav id="navbar" role="navigation" aria-label="Menu principal">
+    <a href="#hero" class="nav-logo" aria-label="Faeux – Início">FAEU<em>X</em></a>
+    <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" onclick="toggleMenu(this)">
+      <span></span><span></span><span></span>
     </button>
-    <ul class="nav-links" id="nav-menu" role="list">
+    <ul class="nav-center" id="nav-menu" role="list">
       <li><a href="#quem-sou">Quem sou</a></li>
       <li><a href="#experiencia">Experiência</a></li>
       <li><a href="#trabalhos">Trabalhos</a></li>
       <li><a href="#redes">Redes</a></li>
-      <li><a href="#contato">Contato</a></li>
+      <li><a href="#contato" class="nav-cta">Fale comigo</a></li>
     </ul>
   </nav>
 
+  <!-- TICKER -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">Social Media <span>✦</span></span>
+      <span class="ticker-item">Design de Marketing <span>✦</span></span>
+      <span class="ticker-item">Gestão Estratégica <span>✦</span></span>
+      <span class="ticker-item">Conteúdo Visual <span>✦</span></span>
+      <span class="ticker-item">Tráfego Pago <span>✦</span></span>
+      <span class="ticker-item">Branding <span>✦</span></span>
+      <span class="ticker-item">Roteiros <span>✦</span></span>
+      <span class="ticker-item">Captação de Vídeo <span>✦</span></span>
+      <span class="ticker-item">Social Media <span>✦</span></span>
+      <span class="ticker-item">Design de Marketing <span>✦</span></span>
+      <span class="ticker-item">Gestão Estratégica <span>✦</span></span>
+      <span class="ticker-item">Conteúdo Visual <span>✦</span></span>
+      <span class="ticker-item">Tráfego Pago <span>✦</span></span>
+      <span class="ticker-item">Branding <span>✦</span></span>
+      <span class="ticker-item">Roteiros <span>✦</span></span>
+      <span class="ticker-item">Captação de Vídeo <span>✦</span></span>
+    </div>
+  </div>
+
   <!-- HERO -->
   <section id="hero" aria-label="Apresentação">
-    <div class="hero-bg-text" aria-hidden="true">FAEUX</div>
-    <div class="hero-content">
-      <div class="hero-tag" aria-hidden="true">// Street Clean Portfolio</div>
-      <h1 class="hero-title">
-        FAEUX
-        <span>SOCIAL MEDIA<br>& DESIGN</span>
-      </h1>
-      <p class="hero-subtitle">
-        Gestão estratégica de redes sociais e design de marketing para empresas que querem presença digital profissional.
+    <div class="hero-eyebrow" aria-hidden="true">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">Portfólio · 2025 · Street Clean</span>
+    </div>
+    <h1 class="hero-title">
+      CRAFTING<br>
+      <span class="outline">DIGITAL</span><br>
+      <span class="berry">IDENTITY</span>
+    </h1>
+    <div class="hero-bottom">
+      <p class="hero-desc">
+        Gestão estratégica de redes sociais e design de marketing para empresas que querem presença digital profissional e resultados consistentes.
       </p>
-      <div class="hero-btns">
-        <a href="#trabalhos" class="hero-cta">Ver trabalhos</a>
-        <a href="#contato" class="hero-cta-secondary">Fale comigo</a>
+      <div class="hero-actions">
+        <a href="#trabalhos" class="btn-primary">Ver trabalhos</a>
+        <a href="#contato" class="btn-ghost">Fale comigo</a>
       </div>
     </div>
-    <div class="hero-scroll" aria-hidden="true">Scroll para explorar</div>
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span class="scroll-line"></span>
+      Scroll para explorar
+    </div>
   </section>
+
+  <!-- MARQUEE GRANDE -->
+  <div class="marquee-section" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Faeux</span>
+      <span class="marquee-item berry-stroke">Social Media</span>
+      <span class="marquee-item filled">Design</span>
+      <span class="marquee-item">Marketing</span>
+      <span class="marquee-item berry-stroke">Estratégia</span>
+      <span class="marquee-item filled">Conteúdo</span>
+      <span class="marquee-item">Faeux</span>
+      <span class="marquee-item berry-stroke">Social Media</span>
+      <span class="marquee-item filled">Design</span>
+      <span class="marquee-item">Marketing</span>
+      <span class="marquee-item berry-stroke">Estratégia</span>
+      <span class="marquee-item filled">Conteúdo</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
 
   <!-- QUEM SOU -->
-  <section id="quem-sou" aria-labelledby="quem-sou-titulo">
-    <div class="section-header">
-      <span class="tag" aria-hidden="true">// 01</span>
-      <h2 class="section-title" id="quem-sou-titulo">QUEM SOU</h2>
-      <div class="section-line" aria-hidden="true"></div>
-    </div>
-    <div class="quem-sou-grid">
-      <div class="quem-sou-foto" role="img" aria-label="Foto de perfil em breve">
-        <span class="foto-icon" aria-hidden="true">📷</span>
+  <section id="quem-sou" aria-labelledby="qs-titulo">
+    <div class="quem-sou-left reveal">
+      <div class="big-name" aria-hidden="true">RAF<br>AEL</div>
+      <div class="photo-frame" role="img" aria-label="Foto de perfil em breve">
+        <span class="photo-icon" aria-hidden="true">📷</span>
         <span>Foto em breve</span>
       </div>
-      <div class="quem-sou-text">
-        <p>
-          Olá, sou <strong>Rafael</strong>, tenho 23 anos e atuo como <em>Social Media & Designer de Marketing</em> com foco em empresas que buscam uma presença digital estratégica, profissional e com identidade.
-        </p>
-        <p>
-          Estou em constante desenvolvimento, construindo meu próprio estilo de comunicação e aprimorando habilidades que unem <strong>estratégia de marketing, design e criação de conteúdo</strong> em um fluxo integrado.
-        </p>
-        <p>
-          Minha abordagem vai além do operacional: busco entender o posicionamento de cada empresa para entregar soluções visuais e de conteúdo que realmente comuniquem, gerem conexão e tragam resultados.
-        </p>
-        <p>
-          Acredito que boas marcas se constroem com consistência, identidade clara e comunicação estratégica — e é isso que entrego em cada projeto.
-        </p>
+    </div>
+    <div class="quem-sou-right reveal reveal-delay-1">
+      <div class="label" aria-hidden="true">Quem sou</div>
+      <h2 class="section-title" id="qs-titulo">
+        RAFAEL,<br><span class="outline">SOCIAL MEDIA</span><br>& DESIGNER
+      </h2>
+      <p>
+        Tenho 23 anos e atuo como <em>Social Media & Designer de Marketing</em>, com foco em empresas que buscam uma presença digital estratégica, profissional e com identidade própria.
+      </p>
+      <p>
+        Estou em constante desenvolvimento, construindo meu próprio estilo de comunicação — o <strong>Street Clean</strong> — e aprimorando habilidades que unem estratégia de marketing, design e criação de conteúdo em um fluxo integrado.
+      </p>
+      <p>
+        Acredito que boas marcas se constroem com consistência, identidade clara e comunicação estratégica. É isso que entrego em cada projeto.
+      </p>
+      <div class="quem-sou-stats" aria-label="Números">
+        <div class="stat-item">
+          <div class="stat-num">3<span>+</span></div>
+          <div class="stat-label">Anos de experiência</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3<span>+</span></div>
+          <div class="stat-label">Projetos entregues</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">1<span>%</span></div>
+          <div class="stat-label">Identidade própria</div>
+        </div>
       </div>
     </div>
   </section>
+
+  <div class="divider"></div>
 
   <!-- EXPERIÊNCIA -->
-  <section id="experiencia" aria-labelledby="experiencia-titulo">
-    <div class="section-header">
-      <span class="tag" aria-hidden="true">// 02</span>
-      <h2 class="section-title" id="experiencia-titulo">EXPERIÊNCIA</h2>
-      <div class="section-line" aria-hidden="true"></div>
+  <section id="experiencia" aria-labelledby="exp-titulo">
+    <div class="exp-header">
+      <div>
+        <div class="label" aria-hidden="true">O que faço</div>
+        <h2 class="section-title" id="exp-titulo">
+          EXPERIÊNCIA<br><span class="outline">& SERVIÇOS</span>
+        </h2>
+      </div>
+      <p class="exp-header-right">
+        Atuo com planejamento, execução e otimização de estratégias digitais integradas para fortalecer o posicionamento da marca e apoiar os objetivos de negócio.
+      </p>
     </div>
 
-    <div class="experiencia-card">
-      <div class="exp-header">
-        <h3 class="exp-title">Social Media · Redator · Gestor de Tráfego</h3>
-        <p class="exp-meta">Cargo atual &nbsp;·&nbsp; 2024 – Presente</p>
+    <div class="services-list" role="list">
+      <div class="service-item reveal" role="listitem">
+        <span class="service-num">01</span>
+        <span class="service-name">Gestão de Redes Sociais</span>
+        <div class="service-tags">
+          <span class="service-tag">Planejamento</span>
+          <span class="service-tag">Calendário</span>
+          <span class="service-tag">Métricas</span>
+        </div>
       </div>
-      <div class="exp-body">
-        <p>
-          Atuo com foco em planejamento, execução e otimização de estratégias digitais integradas para fortalecer o posicionamento da marca e apoiar os objetivos de negócio.
-        </p>
-        <ul class="exp-list" aria-label="Responsabilidades">
-          <li>
-            <strong>Gestão estratégica de redes sociais:</strong> Planejamento de conteúdo alinhado aos objetivos da empresa, definição de linhas editoriais, calendário de postagens, análise de público e acompanhamento de métricas.
-          </li>
-          <li>
-            <strong>Produção de conteúdo e redação:</strong> Criação de textos para posts, anúncios, roteiros e materiais institucionais com foco em clareza, relevância e conversão.
-          </li>
-          <li>
-            <strong>Gestão de tráfego pago:</strong> Planejamento e otimização de campanhas em mídia paga com acompanhamento de CPC, CTR e CPA para maximizar resultados.
-          </li>
-          <li>
-            <strong>Captação de vídeos e criação de roteiros:</strong> Desenvolvimento de roteiros e participação na captação de vídeos institucionais e para redes sociais.
-          </li>
-          <li>
-            <strong>Análise e alinhamento estratégico:</strong> Análise de desempenho das ações, identificação de oportunidades de melhoria e alinhamento com as áreas envolvidas.
-          </li>
-        </ul>
+      <div class="service-item reveal reveal-delay-1" role="listitem">
+        <span class="service-num">02</span>
+        <span class="service-name">Design de Marketing</span>
+        <div class="service-tags">
+          <span class="service-tag">Identidade Visual</span>
+          <span class="service-tag">Peças</span>
+          <span class="service-tag">Branding</span>
+        </div>
+      </div>
+      <div class="service-item reveal reveal-delay-2" role="listitem">
+        <span class="service-num">03</span>
+        <span class="service-name">Redação & Copywriting</span>
+        <div class="service-tags">
+          <span class="service-tag">Posts</span>
+          <span class="service-tag">Anúncios</span>
+          <span class="service-tag">Roteiros</span>
+        </div>
+      </div>
+      <div class="service-item reveal reveal-delay-3" role="listitem">
+        <span class="service-num">04</span>
+        <span class="service-name">Gestão de Tráfego</span>
+        <div class="service-tags">
+          <span class="service-tag">Meta Ads</span>
+          <span class="service-tag">CPC · CPA</span>
+          <span class="service-tag">Leads</span>
+        </div>
+      </div>
+      <div class="service-item reveal" role="listitem">
+        <span class="service-num">05</span>
+        <span class="service-name">Captação & Roteiros de Vídeo</span>
+        <div class="service-tags">
+          <span class="service-tag">Institucional</span>
+          <span class="service-tag">Reels</span>
+          <span class="service-tag">Edição</span>
+        </div>
       </div>
     </div>
 
-    <!-- HABILIDADES -->
-    <div class="skills-section" aria-labelledby="skills-titulo">
-      <h3 class="skills-title" id="skills-titulo">FERRAMENTAS & HABILIDADES</h3>
-      <div class="skills-grid" role="list" aria-label="Lista de ferramentas e habilidades">
-        <span class="skill-tag" role="listitem">Photoshop</span>
-        <span class="skill-tag" role="listitem">Illustrator</span>
-        <span class="skill-tag" role="listitem">Figma</span>
-        <span class="skill-tag" role="listitem">Canva</span>
-        <span class="skill-tag" role="listitem">CapCut</span>
-        <span class="skill-tag" role="listitem">DaVinci Resolve</span>
-        <span class="skill-tag" role="listitem">ClickUp</span>
-        <span class="skill-tag" role="listitem">Copywriting</span>
-        <span class="skill-tag" role="listitem">IAs de Criação de Texto</span>
-        <span class="skill-tag" role="listitem">Gestão de Tráfego</span>
-        <span class="skill-tag" role="listitem">Social Media</span>
-        <span class="skill-tag" role="listitem">Design de Marketing</span>
+    <div class="skills-wrap">
+      <div class="label skills-label" aria-hidden="true">Ferramentas</div>
+      <div class="skills-grid" role="list" aria-label="Ferramentas e habilidades">
+        <span class="s-tag" role="listitem">Photoshop</span>
+        <span class="s-tag" role="listitem">Illustrator</span>
+        <span class="s-tag" role="listitem">Figma</span>
+        <span class="s-tag" role="listitem">Canva</span>
+        <span class="s-tag" role="listitem">CapCut</span>
+        <span class="s-tag" role="listitem">DaVinci Resolve</span>
+        <span class="s-tag" role="listitem">ClickUp</span>
+        <span class="s-tag" role="listitem">Copywriting</span>
+        <span class="s-tag" role="listitem">IAs de Criação de Texto</span>
+        <span class="s-tag" role="listitem">Gestão de Tráfego</span>
+        <span class="s-tag" role="listitem">Social Media</span>
+        <span class="s-tag" role="listitem">Design de Marketing</span>
       </div>
     </div>
   </section>
 
-  <!-- TRABALHOS -->
-  <section id="trabalhos" aria-labelledby="trabalhos-titulo">
-    <div class="section-header">
-      <span class="tag" aria-hidden="true">// 03</span>
-      <h2 class="section-title" id="trabalhos-titulo">MEUS TRABALHOS</h2>
-      <div class="section-line" aria-hidden="true"></div>
-    </div>
-    <div class="trabalhos-grid">
+  <div class="divider"></div>
 
-      <article class="trabalho-card" aria-label="Projeto 01 - Em breve">
+  <!-- TRABALHOS -->
+  <section id="trabalhos" aria-labelledby="trab-titulo">
+    <div class="trabalhos-header">
+      <div>
+        <div class="label" aria-hidden="true">Portfólio</div>
+        <h2 class="section-title" id="trab-titulo">
+          MEUS<br><span class="outline">TRABALHOS</span>
+        </h2>
+      </div>
+      <p style="font-size:.92rem; color:var(--smoke-dim); max-width:300px; line-height:1.8;">
+        Projetos criados do zero. Em breve disponíveis para visualização completa.
+      </p>
+    </div>
+
+    <div class="trabalhos-grid">
+      <article class="trabalho-card reveal" aria-label="Projeto 01 – Em desenvolvimento">
         <div class="trabalho-thumb" role="img" aria-label="Imagem do projeto em breve">
-          <span class="trabalho-thumb-icon" aria-hidden="true">🖼</span>
+          <span class="thumb-icon" aria-hidden="true">🖼</span>
           <span>Em breve</span>
         </div>
-        <div class="trabalho-info">
-          <div class="trabalho-num" aria-hidden="true">01</div>
+        <div class="trabalho-body">
+          <p class="trabalho-meta">Social Media · Design</p>
           <h3 class="trabalho-nome">Projeto 01</h3>
           <p class="trabalho-desc">Em desenvolvimento</p>
         </div>
       </article>
 
-      <article class="trabalho-card" aria-label="Projeto 02 - Em breve">
+      <article class="trabalho-card reveal reveal-delay-1" aria-label="Projeto 02 – Em desenvolvimento">
         <div class="trabalho-thumb" role="img" aria-label="Imagem do projeto em breve">
-          <span class="trabalho-thumb-icon" aria-hidden="true">🖼</span>
+          <span class="thumb-icon" aria-hidden="true">🖼</span>
           <span>Em breve</span>
         </div>
-        <div class="trabalho-info">
-          <div class="trabalho-num" aria-hidden="true">02</div>
+        <div class="trabalho-body">
+          <p class="trabalho-meta">Tráfego · Conteúdo</p>
           <h3 class="trabalho-nome">Projeto 02</h3>
           <p class="trabalho-desc">Em desenvolvimento</p>
         </div>
       </article>
 
-      <article class="trabalho-card" aria-label="Projeto 03 - Em breve">
+      <article class="trabalho-card reveal reveal-delay-2" aria-label="Projeto 03 – Em desenvolvimento">
         <div class="trabalho-thumb" role="img" aria-label="Imagem do projeto em breve">
-          <span class="trabalho-thumb-icon" aria-hidden="true">🖼</span>
+          <span class="thumb-icon" aria-hidden="true">🖼</span>
           <span>Em breve</span>
         </div>
-        <div class="trabalho-info">
-          <div class="trabalho-num" aria-hidden="true">03</div>
+        <div class="trabalho-body">
+          <p class="trabalho-meta">Vídeo · Roteiro</p>
           <h3 class="trabalho-nome">Projeto 03</h3>
           <p class="trabalho-desc">Em desenvolvimento</p>
         </div>
       </article>
-
     </div>
   </section>
 
+  <div class="divider"></div>
+
   <!-- REDES SOCIAIS -->
   <section id="redes" aria-labelledby="redes-titulo">
-    <div class="section-header">
-      <span class="tag" aria-hidden="true">// 04</span>
-      <h2 class="section-title" id="redes-titulo">REDES SOCIAIS</h2>
-      <div class="section-line" aria-hidden="true" style="margin-left: auto; margin-right: auto;"></div>
-    </div>
+    <div class="label" style="justify-content:center;" aria-hidden="true">Siga o Faeux</div>
+    <h2 class="section-title" id="redes-titulo" style="text-align:center;">
+      REDES<br><span class="outline">SOCIAIS</span>
+    </h2>
+    <p class="redes-subtitle">
+      Acompanhe o dia a dia, os bastidores e os projetos em andamento nas redes do Faeux.
+    </p>
     <div class="redes-grid">
-
-      <a href="https://www.instagram.com/faeuxdsg_" target="_blank" rel="noopener noreferrer" class="rede-card" aria-label="Instagram do Faeux - @faeuxdsg_">
+      <a href="https://www.instagram.com/faeuxdsg_" target="_blank" rel="noopener noreferrer" class="rede-card" aria-label="Instagram do Faeux @faeuxdsg_">
         <span class="rede-icon" aria-hidden="true">📸</span>
         <span class="rede-nome">Instagram</span>
         <span class="rede-handle">@faeuxdsg_</span>
       </a>
-
       <a href="https://www.facebook.com/faeux" target="_blank" rel="noopener noreferrer" class="rede-card" aria-label="Facebook do Faeux">
         <span class="rede-icon" aria-hidden="true">📘</span>
         <span class="rede-nome">Facebook</span>
         <span class="rede-handle">Faeux</span>
       </a>
-
-      <a href="https://www.tiktok.com/@faeuxdsg_" target="_blank" rel="noopener noreferrer" class="rede-card" aria-label="TikTok do Faeux - @faeuxdsg_">
+      <a href="https://www.tiktok.com/@faeuxdsg_" target="_blank" rel="noopener noreferrer" class="rede-card" aria-label="TikTok do Faeux @faeuxdsg_">
         <span class="rede-icon" aria-hidden="true">🎵</span>
         <span class="rede-nome">TikTok</span>
         <span class="rede-handle">@faeuxdsg_</span>
       </a>
-
     </div>
   </section>
 
+  <div class="divider"></div>
+
   <!-- CONTATO -->
   <section id="contato" aria-labelledby="contato-titulo">
-    <div class="section-header">
-      <span class="tag" aria-hidden="true">// 05</span>
-      <h2 class="section-title" id="contato-titulo">CONTATO</h2>
-      <div class="section-line" aria-hidden="true"></div>
+    <div class="contato-top reveal">
+      <div class="label" aria-hidden="true">Vamos conversar</div>
+      <h2 class="contato-big" id="contato-titulo">
+        GET IN<br><span class="outline">TOUCH</span>
+      </h2>
     </div>
-    <div class="contato-grid">
 
-      <div class="contato-info">
+    <div class="contato-grid">
+      <div class="contato-info reveal">
         <p>
-          Tem um projeto em mente ou precisa de gestão estratégica de redes sociais e design de marketing para sua empresa? Me chama, vamos conversar.
+          Tem um projeto em mente ou precisa de gestão estratégica de redes sociais e design de marketing para sua empresa? Me chama.
         </p>
         <div class="contato-links">
-          <a href="https://wa.me/5534997951522" target="_blank" rel="noopener noreferrer" class="contato-link" aria-label="WhatsApp: +55 34 99795-1522">
-            <span class="contato-link-icon" aria-hidden="true">💬</span>
-            <span>+55 (34) 99795-1522</span>
+          <a href="https://wa.me/5534997951522" target="_blank" rel="noopener noreferrer" class="c-link" aria-label="WhatsApp: +55 34 99795-1522">
+            <span class="c-link-icon" aria-hidden="true">💬</span>
+            <div>
+              <div class="c-link-label">WhatsApp</div>
+              <div class="c-link-value">+55 (34) 99795-1522</div>
+            </div>
           </a>
-          <a href="mailto:faeuxdesigner@gmail.com" class="contato-link" aria-label="E-mail: faeuxdesigner@gmail.com">
-            <span class="contato-link-icon" aria-hidden="true">✉️</span>
-            <span>faeuxdesigner@gmail.com</span>
+          <a href="mailto:faeuxdesigner@gmail.com" class="c-link" aria-label="E-mail: faeuxdesigner@gmail.com">
+            <span class="c-link-icon" aria-hidden="true">✉️</span>
+            <div>
+              <div class="c-link-label">E-mail</div>
+              <div class="c-link-value">faeuxdesigner@gmail.com</div>
+            </div>
           </a>
-          <a href="https://www.instagram.com/faeuxdsg_" target="_blank" rel="noopener noreferrer" class="contato-link" aria-label="Instagram: @faeuxdsg_">
-            <span class="contato-link-icon" aria-hidden="true">📸</span>
-            <span>@faeuxdsg_</span>
+          <a href="https://www.instagram.com/faeuxdsg_" target="_blank" rel="noopener noreferrer" class="c-link" aria-label="Instagram: @faeuxdsg_">
+            <span class="c-link-icon" aria-hidden="true">📸</span>
+            <div>
+              <div class="c-link-label">Instagram</div>
+              <div class="c-link-value">@faeuxdsg_</div>
+            </div>
           </a>
         </div>
       </div>
 
-      <form action="#" method="POST" aria-label="Formulário de contato" onsubmit="handleForm(event)">
-        <div class="form-group">
-          <label for="nome">Seu nome</label>
-          <input type="text" id="nome" name="nome" placeholder="Como posso te chamar?" required autocomplete="name" />
+      <form action="#" method="POST" aria-label="Formulário de contato" onsubmit="handleForm(event)" class="reveal reveal-delay-1">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Seu nome" required autocomplete="name"/>
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="seu@email.com" required autocomplete="email"/>
+          </div>
         </div>
         <div class="form-group">
-          <label for="email">E-mail</label>
-          <input type="email" id="email" name="email" placeholder="seu@email.com" required autocomplete="email" />
+          <label for="empresa">Empresa</label>
+          <input type="text" id="empresa" name="empresa" placeholder="Nome da sua empresa"/>
         </div>
         <div class="form-group">
           <label for="servico">Serviço de interesse</label>
@@ -1125,59 +1308,117 @@
             <option value="design">Design de Marketing</option>
             <option value="trafego">Gestão de Tráfego</option>
             <option value="conteudo">Criação de Conteúdo</option>
+            <option value="video">Captação e Roteiro de Vídeo</option>
             <option value="outro">Outro</option>
           </select>
         </div>
         <div class="form-group">
           <label for="mensagem">Mensagem</label>
-          <textarea id="mensagem" name="mensagem" placeholder="Conte um pouco sobre o seu projeto ou empresa..." required></textarea>
+          <textarea id="mensagem" name="mensagem" placeholder="Conte sobre seu projeto ou empresa..." required></textarea>
         </div>
-        <button type="submit" class="form-submit">Enviar mensagem</button>
+        <button type="submit" class="btn-form">Enviar mensagem</button>
       </form>
-
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer role="contentinfo">
-    <div class="footer-logo" aria-label="Faeux">FAEU<span>X</span></div>
+    <div class="footer-logo">FAEU<em>X</em></div>
+    <nav class="footer-links" aria-label="Links do rodapé">
+      <a href="#quem-sou">Quem sou</a>
+      <a href="#experiencia">Experiência</a>
+      <a href="#trabalhos">Trabalhos</a>
+      <a href="#contato">Contato</a>
+    </nav>
     <p class="footer-copy">© 2025 Faeux. Todos os direitos reservados.</p>
   </footer>
 
   <!-- SCRIPTS -->
   <script>
-    // Menu hamburguer
+    // ── CURSOR PERSONALIZADO
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top  = my + 'px';
+    });
+
+    function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button, .service-item, .trabalho-card, .rede-card').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width  = '20px';
+        cursor.style.height = '20px';
+        ring.style.width    = '56px';
+        ring.style.height   = '56px';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width  = '12px';
+        cursor.style.height = '12px';
+        ring.style.width    = '36px';
+        ring.style.height   = '36px';
+      });
+    });
+
+    // ── NAVBAR SCROLL
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ── MENU MOBILE
     function toggleMenu(btn) {
       const menu = document.getElementById('nav-menu');
-      const isOpen = menu.classList.toggle('open');
-      btn.setAttribute('aria-expanded', isOpen);
-      btn.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+      const open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+      btn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
     }
-
-    // Fechar menu ao clicar em link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
+    document.querySelectorAll('#nav-menu a').forEach(a => {
+      a.addEventListener('click', () => {
         const menu = document.getElementById('nav-menu');
-        const btn = document.querySelector('.menu-toggle');
+        const btn  = document.querySelector('.menu-toggle');
         menu.classList.remove('open');
         btn.setAttribute('aria-expanded', 'false');
         btn.setAttribute('aria-label', 'Abrir menu');
       });
     });
 
-    // Formulário (placeholder - conectar a backend ou Formspree)
+    // ── REVEAL AO SCROLL
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // ── FORMULÁRIO
     function handleForm(e) {
       e.preventDefault();
-      const btn = e.target.querySelector('.form-submit');
-      btn.textContent = 'Mensagem enviada!';
-      btn.style.background = '#2d6a4f';
+      const btn = e.target.querySelector('.btn-form');
+      const original = btn.textContent;
+      btn.textContent = 'Mensagem enviada ✓';
+      btn.style.background = '#1a5c3a';
       btn.disabled = true;
       setTimeout(() => {
-        btn.textContent = 'Enviar mensagem';
+        btn.textContent = original;
         btn.style.background = '';
         btn.disabled = false;
         e.target.reset();
-      }, 3000);
+      }, 3500);
     }
   </script>
 
