@@ -1,994 +1,1038 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Faeux – Social Media & Design de Marketing para Empresas."/>
-  <title>Faeux | Social Media & Design de Marketing</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfólio Faeux — Rafael, Social Media, Designer de Marketing e Gestor de Tráfego." />
+  <title>Faeux | Portfólio</title>
+
+  <!-- FONTES -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+
   <style>
-
+    /* ==============================
+       VARIÁVEIS
+    =============================== */
     :root {
-      --dark:  #231123;
-      --berry: #961B2B;
-      --smoke: #F2F2F2;
-      --dim:   rgba(242,242,242,0.6);
-      --faint: rgba(242,242,242,0.05);
-      --border:rgba(150,27,43,0.2);
-      --ease:  cubic-bezier(.25,.46,.45,.94);
+      --bg: #231123;
+      --accent: #961B2B;
+      --text: #F2F2F2;
+      --text-dim: rgba(242,242,242,0.7);
+      --border: rgba(150,27,43,0.35);
+      --soft: rgba(242,242,242,0.06);
+      --font-body: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-display: 'Bebas Neue', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body {
-      background: var(--dark);
-      color: var(--smoke);
-      font-family: 'Space Grotesk', sans-serif;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-    a { color:inherit; text-decoration:none; }
-    ul { list-style:none; }
-    :focus-visible { outline:2px solid var(--berry); outline-offset:4px; border-radius:3px; }
-
-    /* ── CURSOR ── */
-    .cursor {
-      position: fixed;
-      left: 0; top: 0;
-      width: 12px; height: 12px;
-      border-radius: 50%;
-      background: var(--smoke);
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width .2s var(--ease), height .2s var(--ease);
-      box-shadow: 0 0 10px rgba(242,242,242,0.55);
-    }
-    .cursor-ring {
-      position: fixed;
-      left: 0; top: 0;
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(242,242,242,0.45);
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: width .25s var(--ease), height .25s var(--ease);
-    }
-    .cursor.big      { width:20px; height:20px; }
-    .cursor-ring.big { width:54px; height:54px; }
-    @media (hover:none) { .cursor, .cursor-ring { display:none; } }
-
-    /* ── NAVBAR ── */
-    #navbar {
-      position: fixed; top:0; left:0; width:100%;
-      z-index: 1000;
-      padding: 24px 6%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background .4s, padding .4s, border-color .4s;
-      border-bottom: 1px solid transparent;
-    }
-    #navbar.scrolled {
-      background: rgba(35,17,35,0.95);
-      backdrop-filter: blur(14px);
-      padding: 16px 6%;
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem; letter-spacing: .12em;
-    }
-    .nav-logo span { color: var(--berry); }
-    .nav-links { display:flex; align-items:center; gap:36px; }
-    .nav-links a {
-      font-size: .8rem; font-weight:500;
-      letter-spacing: .12em; text-transform:uppercase;
-      color: var(--dim); position:relative; transition:color .25s;
-    }
-    .nav-links a::after {
-      content:''; position:absolute; bottom:-3px; left:0;
-      width:0; height:1px; background:var(--berry);
-      transition:width .3s var(--ease);
-    }
-    .nav-links a:hover { color:var(--smoke); }
-    .nav-links a:hover::after { width:100%; }
-    .nav-btn {
-      background: var(--berry); color:var(--smoke) !important;
-      padding:10px 22px; border-radius:3px;
-      font-size:.8rem; font-weight:600;
-      letter-spacing:.1em; text-transform:uppercase;
-      transition:background .25s, transform .2s;
-    }
-    .nav-btn:hover { background:#7a1522; transform:translateY(-1px); }
-    .nav-btn::after { display:none !important; }
-
-    .hamburger {
-      display:none; flex-direction:column; gap:5px;
-      background:none; border:none; cursor:pointer; padding:4px;
-    }
-    .hamburger span {
-      display:block; width:24px; height:1.5px;
-      background:var(--smoke); border-radius:2px; transition:.3s;
-    }
-    .mobile-menu {
-      display:none; position:fixed;
-      top:65px; left:0; width:100%;
-      background:rgba(35,17,35,0.98);
-      backdrop-filter:blur(14px);
-      border-bottom:1px solid var(--border);
-      flex-direction:column;
-      padding:28px 6%; gap:20px; z-index:999;
-    }
-    .mobile-menu.open { display:flex; }
-    .mobile-menu a {
-      font-size:1rem; font-weight:500;
-      letter-spacing:.1em; text-transform:uppercase;
-      color:var(--dim); transition:color .25s;
-    }
-    .mobile-menu a:hover { color:var(--smoke); }
-
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: flex; flex-direction:column; justify-content:center;
-      padding: 160px 6% 100px;
-      position: relative;
-    }
-    .hero-eyebrow {
-      display:flex; align-items:center; gap:12px; margin-bottom:28px;
-    }
-    .hero-eyebrow-line { width:36px; height:1px; background:var(--berry); }
-    .hero-eyebrow-text {
-      font-size:.75rem; font-weight:600;
-      letter-spacing:.2em; text-transform:uppercase; color:var(--berry);
-    }
-    .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(4rem,11vw,10rem);
-      line-height: .95; letter-spacing:.02em;
-      color: var(--smoke); margin-bottom:48px;
-    }
-    .hero-title .outline {
-      -webkit-text-stroke: 2px var(--smoke); color:transparent;
-    }
-    .hero-title .berry { color:var(--berry); }
-    .hero-bottom {
-      display:flex; align-items:flex-end;
-      justify-content:space-between; gap:40px; flex-wrap:wrap;
-    }
-    .hero-desc {
-      font-size:clamp(.95rem,1.5vw,1.1rem);
-      color:var(--dim); max-width:460px; line-height:1.85;
-    }
-    .hero-actions { display:flex; gap:14px; flex-wrap:wrap; }
-    .scroll-hint {
-      position:absolute; bottom:36px; left:6%;
-      display:flex; align-items:center; gap:12px;
-      font-size:.7rem; letter-spacing:.18em;
-      text-transform:uppercase; color:rgba(242,242,242,0.25);
-    }
-    .scroll-hint::before {
-      content:''; display:block;
-      width:44px; height:1px; background:rgba(242,242,242,0.18);
+    /* ==============================
+       RESET BÁSICO
+    =============================== */
+    *,*::before,*::after{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
     }
 
-    /* ── TICKER ── */
-    .ticker-section {
-      overflow:hidden;
-      border-top:1px solid var(--border);
-      border-bottom:1px solid var(--border);
-      padding:20px 0;
-      background:rgba(255,255,255,0.02);
-    }
-    .ticker-track {
-      display:flex; align-items:center;
-      width:max-content;
-      animation:tickerMove 60s linear infinite;
-    }
-    .ticker-track:hover { animation-play-state:paused; }
-    @keyframes tickerMove {
-      from { transform:translateX(0); }
-      to   { transform:translateX(-50%); }
-    }
-    .ticker-tool {
-      display:inline-flex; align-items:center;
-      gap:10px; padding:0 38px; white-space:nowrap;
-    }
-    .ticker-tool svg { width:26px; height:26px; flex-shrink:0; }
-    .ticker-tool-name {
-      font-size:.88rem; font-weight:600;
-      letter-spacing:.1em; text-transform:uppercase; color:var(--smoke);
-    }
-    .ticker-sep {
-      display:inline-block; width:5px; height:5px;
-      border-radius:50%; background:var(--berry); margin-left:38px;
+    html{
+      scroll-behavior:smooth;
     }
 
-    /* ── MARQUEE DECORATIVO ── */
-    .marquee-section {
-      overflow:hidden;
-      border-bottom:1px solid var(--border);
-      padding:36px 0;
-    }
-    .marquee-track {
-      display:flex; width:max-content;
-      animation:marqueeMove 24s linear infinite;
-    }
-    @keyframes marqueeMove {
-      from { transform:translateX(0); }
-      to   { transform:translateX(-50%); }
-    }
-    .marquee-word {
-      font-family:'Bebas Neue', sans-serif;
-      font-size:clamp(3rem,7vw,6rem);
-      letter-spacing:.04em; padding:0 36px;
-      white-space:nowrap; text-transform:uppercase;
-      color:transparent;
-      -webkit-text-stroke:1px rgba(242,242,242,0.1);
-    }
-    .marquee-word.filled { color:var(--smoke); -webkit-text-stroke:0; }
-    .marquee-word.berry  { -webkit-text-stroke:1px rgba(150,27,43,0.3); }
-
-    /* ── UTILITÁRIOS ── */
-    .divider { width:100%; height:1px; background:var(--border); }
-
-    .section-label {
-      display:inline-flex; align-items:center; gap:10px;
-      font-size:.72rem; font-weight:600;
-      letter-spacing:.2em; text-transform:uppercase;
-      color:var(--berry); margin-bottom:20px;
-    }
-    .section-label::before {
-      content:''; display:block; width:18px; height:1px; background:var(--berry);
-    }
-    .section-title {
-      font-family:'Bebas Neue', sans-serif;
-      font-size:clamp(2.6rem,6vw,5.5rem);
-      line-height:.95; letter-spacing:.02em;
-      color:var(--smoke); margin-bottom:20px;
-    }
-    .section-title .outline {
-      -webkit-text-stroke:1.5px var(--smoke); color:transparent;
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:var(--font-body);
+      line-height:1.7;
+      overflow-x:hidden;
     }
 
-    /* BOTÕES */
-    .btn-red {
-      display:inline-flex; align-items:center; gap:8px;
-      background:var(--berry); color:var(--smoke);
-      padding:15px 34px; border-radius:3px;
-      font-size:.88rem; font-weight:700;
-      letter-spacing:.1em; text-transform:uppercase;
-      transition:background .25s, transform .2s;
-      border:none; cursor:pointer;
-      font-family:'Space Grotesk', sans-serif;
-    }
-    .btn-red:hover { background:#7a1522; transform:translateY(-2px); }
+    img{max-width:100%;display:block;}
+    a{text-decoration:none;color:inherit;}
+    ul{list-style:none;}
 
-    .btn-outline {
-      display:inline-flex; align-items:center; gap:8px;
-      border:1px solid rgba(242,242,242,0.28); color:var(--smoke);
-      padding:15px 34px; border-radius:3px;
-      font-size:.88rem; font-weight:500;
-      letter-spacing:.1em; text-transform:uppercase;
-      transition:border-color .25s, color .25s, transform .2s;
+    :focus-visible{
+      outline:2px solid var(--accent);
+      outline-offset:4px;
+      border-radius:3px;
     }
-    .btn-outline:hover { border-color:var(--berry); color:var(--berry); transform:translateY(-2px); }
 
-    /* CTA BANNER */
-    .cta-banner {
-      padding:52px 6%;
-      background:rgba(150,27,43,0.07);
-      border-top:1px solid var(--border);
-      border-bottom:1px solid var(--border);
-      display:flex; align-items:center;
+    /* ==============================
+       CURSOR SIMPLES (NÃO QUEBRA NADA)
+    =============================== */
+    .cursor{
+      position:fixed;
+      inset:auto auto 0 0;
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:var(--text);
+      pointer-events:none;
+      transform:translate(-50%,-50%);
+      z-index:9999;
+      transition:width .15s,height .15s;
+      box-shadow:0 0 8px rgba(242,242,242,0.6);
+    }
+    .cursor.big{
+      width:18px;
+      height:18px;
+    }
+    @media(hover:none){
+      .cursor{display:none;}
+    }
+
+    /* ==============================
+       NAVBAR
+    =============================== */
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      padding:18px 6%;
+      display:flex;
       justify-content:space-between;
-      gap:28px; flex-wrap:wrap;
-    }
-    .cta-banner-label {
-      font-size:.72rem; font-weight:600;
-      letter-spacing:.2em; text-transform:uppercase;
-      color:var(--berry); margin-bottom:8px;
-    }
-    .cta-banner-title {
-      font-family:'Bebas Neue', sans-serif;
-      font-size:clamp(1.8rem,4vw,3.2rem);
-      letter-spacing:.03em; color:var(--smoke);
-    }
-    .cta-banner-actions { display:flex; gap:14px; flex-wrap:wrap; }
-
-    /* ── QUEM SOU ── */
-    #quem-sou {
-      padding:120px 6%;
-      display:grid; grid-template-columns:1fr 1fr;
-      gap:80px; align-items:center;
-    }
-    .photo-frame {
-      aspect-ratio:3/4;
-      background:rgba(150,27,43,0.06);
-      border:1px solid var(--border); border-radius:4px;
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      gap:14px; color:rgba(242,242,242,0.22);
-      font-size:.78rem; letter-spacing:.1em; text-transform:uppercase;
-      position:relative; overflow:hidden; transition:border-color .3s;
-    }
-    .photo-frame:hover { border-color:rgba(150,27,43,0.4); }
-    .photo-frame::after {
-      content:''; position:absolute; bottom:0; left:0;
-      width:100%; height:3px;
-      background:linear-gradient(90deg,var(--berry),transparent);
-    }
-    .photo-frame-icon { font-size:3rem; opacity:.15; }
-    .qs-text p {
-      font-size:1.05rem; color:var(--dim); line-height:1.9; margin-bottom:20px;
-    }
-    .qs-text p strong { color:var(--smoke); font-weight:600; }
-    .qs-text p em     { color:var(--berry); font-style:normal; font-weight:600; }
-    .qs-text .btn-red { margin-top:16px; }
-    .qs-stats {
-      display:flex; gap:36px;
-      margin-top:44px; padding-top:36px;
-      border-top:1px solid var(--border); flex-wrap:wrap;
-    }
-    .stat-num {
-      font-family:'Bebas Neue', sans-serif;
-      font-size:3rem; line-height:1; letter-spacing:.02em; color:var(--smoke);
-    }
-    .stat-num span { color:var(--berry); }
-    .stat-lbl {
-      font-size:.75rem; color:var(--dim);
-      letter-spacing:.1em; text-transform:uppercase; margin-top:4px;
+      align-items:center;
+      z-index:1000;
+      background:rgba(35,17,35,0.96);
+      border-bottom:1px solid rgba(150,27,43,0.35);
+      backdrop-filter:blur(10px);
     }
 
-    /* ── SERVIÇOS ── */
-    #experiencia { padding:120px 6%; }
-    .exp-top {
-      display:flex; justify-content:space-between;
-      align-items:flex-end; gap:28px; margin-bottom:72px; flex-wrap:wrap;
+    .logo{
+      font-family:var(--font-display);
+      font-size:2rem;
+      letter-spacing:.14em;
     }
-    .exp-top-right {
-      font-size:.95rem; color:var(--dim); max-width:380px; line-height:1.8;
+    .logo span{color:var(--accent);}
+
+    .nav-links{
+      display:flex;
+      gap:28px;
+      align-items:center;
     }
-    .services { display:flex; flex-direction:column; }
-    .svc-item {
-      border-bottom:1px solid var(--border);
+    .nav-links a{
+      font-size:.8rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--text-dim);
+      position:relative;
+    }
+    .nav-links a::after{
+      content:'';
+      position:absolute;
+      bottom:-3px;
+      left:0;
+      width:0;
+      height:1px;
+      background:var(--accent);
+      transition:width .25s;
+    }
+    .nav-links a:hover{
+      color:var(--text);
+    }
+    .nav-links a:hover::after{
+      width:100%;
+    }
+
+    .nav-cta{
+      padding:9px 20px;
+      border-radius:3px;
+      background:var(--accent);
+      color:var(--text);
+      font-size:.8rem;
+      font-weight:600;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .nav-cta:hover{
+      background:#7a1522;
+    }
+
+    .nav-toggle{
+      display:none;
+      flex-direction:column;
+      gap:4px;
+      border:none;
+      background:none;
       cursor:pointer;
     }
-    .svc-item:first-child { border-top:1px solid var(--border); }
-    .svc-row {
-      display:grid;
-      grid-template-columns:72px 1fr auto 30px;
-      align-items:center; gap:32px; padding:28px 0;
-    }
-    .svc-num {
-      font-family:'Bebas Neue', sans-serif;
-      font-size:.95rem; color:rgba(150,27,43,0.4); letter-spacing:.1em;
-    }
-    .svc-name {
-      font-family:'Bebas Neue', sans-serif;
-      font-size:clamp(1.7rem,3.2vw,2.8rem);
-      letter-spacing:.03em; color:var(--smoke); transition:color .3s;
-    }
-    .svc-tags { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
-    .svc-tag {
-      font-size:.7rem; letter-spacing:.1em; text-transform:uppercase;
-      color:var(--dim); background:var(--faint);
-      border:1px solid var(--border); padding:5px 11px; border-radius:2px;
-    }
-    .svc-arrow {
-      font-size:1.5rem; color:rgba(242,242,242,0.22);
-      transition:transform .35s var(--ease), color .3s;
-      user-select:none; line-height:1;
-    }
-    .svc-item:hover .svc-name  { color:var(--berry); }
-    .svc-item:hover .svc-arrow { color:var(--berry); }
-    .svc-item.open  .svc-name  { color:var(--berry); }
-    .svc-item.open  .svc-arrow { color:var(--berry); transform:rotate(90deg); }
-    .svc-body {
-      overflow:hidden; max-height:0;
-      transition:max-height .45s var(--ease), padding .35s;
-      padding:0 0 0 104px;
-    }
-    .svc-body.open { max-height:320px; padding:4px 0 32px 104px; }
-    .svc-body p {
-      font-size:.97rem; color:var(--dim);
-      line-height:1.85; max-width:640px; margin-bottom:20px;
+    .nav-toggle span{
+      width:22px;
+      height:2px;
+      background:var(--text);
+      border-radius:2px;
     }
 
-    /* SKILLS */
-    .skills-section {
-      margin-top:72px; padding-top:72px; border-top:1px solid var(--border);
-    }
-    .skills-grid { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
-    .skill-tag {
-      font-size:.78rem; font-weight:500; letter-spacing:.1em;
-      text-transform:uppercase; color:var(--dim);
-      background:var(--faint); border:1px solid var(--border);
-      padding:9px 17px; border-radius:2px;
-      transition:background .25s, border-color .25s, color .25s;
-    }
-    .skill-tag:hover {
-      background:rgba(150,27,43,0.12);
-      border-color:rgba(150,27,43,0.4); color:var(--smoke);
-    }
-
-    /* ── TRABALHOS ── */
-    #trabalhos {
-      padding:120px 6%;
-      background:rgba(255,255,255,0.015);
-      border-top:1px solid var(--border);
-    }
-    .trab-top {
-      display:flex; justify-content:space-between;
-      align-items:flex-end; gap:28px; margin-bottom:64px; flex-wrap:wrap;
-    }
-    .trab-top-right { font-size:.92rem; color:var(--dim); max-width:300px; line-height:1.8; }
-    .trab-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-    .trab-card {
-      border:1px solid var(--border); border-radius:4px;
-      overflow:hidden; background:rgba(255,255,255,0.02);
-      transition:border-color .3s, transform .3s var(--ease);
-    }
-    .trab-card:hover { border-color:rgba(150,27,43,0.45); transform:translateY(-7px); }
-    .trab-thumb {
-      aspect-ratio:4/3; background:rgba(150,27,43,0.06);
+    .nav-mobile{
+      display:none;
+      position:fixed;
+      top:60px;
+      left:0;
+      width:100%;
+      background:rgba(35,17,35,0.98);
+      padding:24px 6%;
       border-bottom:1px solid var(--border);
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      gap:10px; color:rgba(242,242,242,0.2);
-      font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
+      flex-direction:column;
+      gap:18px;
+      z-index:999;
     }
-    .trab-thumb-icon { font-size:2.5rem; opacity:.18; }
-    .trab-body { padding:24px; }
-    .trab-meta {
-      font-size:.7rem; letter-spacing:.14em;
-      text-transform:uppercase; color:var(--berry); margin-bottom:8px;
+    .nav-mobile a{
+      font-size:.9rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--text-dim);
     }
-    .trab-name {
-      font-family:'Bebas Neue', sans-serif;
-      font-size:1.5rem; letter-spacing:.04em;
-      color:var(--smoke); margin-bottom:6px;
+    .nav-mobile a:hover{
+      color:var(--text);
     }
-    .trab-desc { font-size:.82rem; color:rgba(242,242,242,0.38); margin-bottom:20px; }
 
-    /* ── REDES ── */
-    #redes {
-      padding:120px 6%; text-align:center;
+    /* ==============================
+       HERO
+    =============================== */
+    main{
+      padding-top:80px; /* para não ficar atrás da nav */
+    }
+
+    section{
+      padding:80px 6%;
+    }
+
+    .hero{
+      min-height:calc(100vh - 80px);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:32px;
+    }
+
+    .hero-label{
+      font-size:.78rem;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      color:var(--accent);
+      font-weight:600;
+    }
+
+    .hero-title{
+      font-family:var(--font-display);
+      font-size:clamp(3.4rem,8vw,5.6rem);
+      line-height:.95;
+      letter-spacing:.05em;
+    }
+    .hero-title span{
+      color:var(--accent);
+    }
+
+    .hero-sub{
+      max-width:520px;
+      color:var(--text-dim);
+      font-size:1rem;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:10px;
+    }
+
+    .btn-primary{
+      padding:14px 26px;
+      border-radius:3px;
+      background:var(--accent);
+      color:var(--text);
+      font-size:.85rem;
+      font-weight:600;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      border:none;
+      cursor:pointer;
+    }
+    .btn-primary:hover{
+      background:#7a1522;
+    }
+
+    .btn-ghost{
+      padding:13px 26px;
+      border-radius:3px;
+      border:1px solid rgba(242,242,242,0.28);
+      background:transparent;
+      color:var(--text);
+      font-size:.85rem;
+      font-weight:500;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      cursor:pointer;
+    }
+    .btn-ghost:hover{
+      border-color:var(--accent);
+      color:var(--accent);
+    }
+
+    /* ==============================
+       TÍTULOS DE SEÇÃO
+    =============================== */
+    .section-label{
+      font-size:.8rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--accent);
+      margin-bottom:10px;
+    }
+
+    .section-title{
+      font-family:var(--font-display);
+      font-size:clamp(2.4rem,4.5vw,3.4rem);
+      letter-spacing:.06em;
+      margin-bottom:20px;
+    }
+
+    .section-text{
+      color:var(--text-dim);
+      max-width:620px;
+      font-size:.98rem;
+    }
+
+    /* ==============================
+       QUEM SOU
+    =============================== */
+    .about-grid{
+      display:grid;
+      grid-template-columns:1.2fr 1fr;
+      gap:50px;
+      align-items:flex-start;
+    }
+
+    .photo-placeholder{
+      aspect-ratio:3/4;
+      border-radius:4px;
+      border:1px dashed var(--border);
+      background:rgba(150,27,43,0.12);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      color:rgba(242,242,242,0.5);
+      font-size:.8rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .about-stats{
+      display:flex;
+      flex-wrap:wrap;
+      gap:24px;
+      margin-top:30px;
+      padding-top:18px;
       border-top:1px solid var(--border);
     }
-    .redes-sub {
-      font-size:1rem; color:var(--dim);
-      max-width:440px; margin:12px auto 56px; line-height:1.8;
+    .stat-number{
+      font-family:var(--font-display);
+      font-size:2.4rem;
+      letter-spacing:.06em;
     }
-    .redes-grid {
-      display:flex; justify-content:center;
-      flex-wrap:wrap; gap:16px; margin-bottom:44px;
+    .stat-number span{
+      color:var(--accent);
     }
-    .rede-card {
-      display:flex; flex-direction:column;
-      align-items:center; gap:12px;
-      background:var(--faint); border:1px solid var(--border);
-      border-radius:4px; padding:40px 52px; min-width:190px;
-      position:relative; overflow:hidden;
-      transition:background .3s, border-color .3s, transform .3s var(--ease);
+    .stat-label{
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:var(--text-dim);
     }
-    .rede-card::after {
-      content:''; position:absolute; bottom:0; left:0;
-      width:0; height:2px; background:var(--berry);
-      transition:width .4s var(--ease);
-    }
-    .rede-card:hover {
-      background:rgba(150,27,43,0.08);
-      border-color:rgba(150,27,43,0.35); transform:translateY(-5px);
-    }
-    .rede-card:hover::after { width:100%; }
-    .rede-icon { font-size:2.2rem; }
-    .rede-name {
-      font-family:'Bebas Neue', sans-serif;
-      font-size:1.4rem; letter-spacing:.08em;
-    }
-    .rede-handle { font-size:.75rem; color:rgba(242,242,242,0.38); letter-spacing:.08em; }
 
-    /* ── CONTATO ── */
-    #contato {
-      padding:120px 6%;
+    /* ==============================
+       SERVIÇOS (ACCORDION SIMPLES)
+    =============================== */
+    .services-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:24px;
+    }
+
+    .service{
+      border:1px solid var(--border);
+      border-radius:4px;
+      background:rgba(242,242,242,0.02);
+      overflow:hidden;
+    }
+
+    .service-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:16px 18px;
+      cursor:pointer;
+    }
+
+    .service-title{
+      font-family:var(--font-display);
+      font-size:1.5rem;
+      letter-spacing:.06em;
+    }
+
+    .service-badge{
+      font-size:.72rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:var(--text-dim);
+    }
+
+    .service-toggle{
+      font-size:1.3rem;
+      color:var(--text-dim);
+    }
+
+    .service-body{
+      max-height:0;
+      overflow:hidden;
+      padding:0 18px;
+      border-top:1px solid transparent;
+      transition:max-height .25s ease-out, padding .25s ease-out, border-color .25s;
+    }
+
+    .service-body.open{
+      border-color:var(--border);
+      padding:10px 18px 16px;
+      max-height:400px;
+    }
+
+    .service-body p{
+      font-size:.95rem;
+      color:var(--text-dim);
+      margin-bottom:12px;
+    }
+
+    .service-body .btn-primary{
+      padding:10px 18px;
+      font-size:.78rem;
+    }
+
+    /* ==============================
+       TRABALHOS
+    =============================== */
+    .projects-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+      margin-top:28px;
+    }
+
+    .project-card{
+      border-radius:4px;
+      border:1px solid var(--border);
+      background:rgba(242,242,242,0.02);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height:220px;
+    }
+
+    .project-thumb{
+      aspect-ratio:4/3;
+      background:rgba(150,27,43,0.15);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:8px;
+      color:rgba(242,242,242,0.7);
+      font-size:.8rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .project-thumb span:first-child{
+      font-size:2rem;
+    }
+
+    .project-body{
+      padding:16px 16px 18px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .project-title{
+      font-family:var(--font-display);
+      font-size:1.4rem;
+      letter-spacing:.06em;
+    }
+
+    .project-meta{
+      font-size:.8rem;
+      color:var(--text-dim);
+      letter-spacing:.1em;
+      text-transform:uppercase;
+    }
+
+    .project-body .btn-ghost{
+      margin-top:8px;
+      padding:9px 14px;
+      font-size:.75rem;
+    }
+
+    /* ==============================
+       REDES
+    =============================== */
+    .socials-grid{
+      display:flex;
+      flex-wrap:wrap;
+      gap:16px;
+      margin-top:28px;
+    }
+
+    .social-card{
+      border-radius:4px;
+      border:1px solid var(--border);
+      background:rgba(242,242,242,0.02);
+      padding:20px 24px;
+      min-width:190px;
+      text-align:left;
+    }
+
+    .social-label{
+      font-size:.8rem;
+      color:var(--text-dim);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+
+    .social-handle{
+      font-family:var(--font-display);
+      font-size:1.3rem;
+      letter-spacing:.08em;
+    }
+
+    /* ==============================
+       CONTATO
+    =============================== */
+    .contact-grid{
+      display:grid;
+      grid-template-columns:1.2fr 1fr;
+      gap:40px;
+      margin-top:24px;
+    }
+
+    .contact-info p{
+      color:var(--text-dim);
+      margin-bottom:18px;
+    }
+
+    .contact-item{
+      margin-bottom:14px;
+      font-size:.95rem;
+    }
+    .contact-label{
+      font-size:.75rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--accent);
+    }
+
+    form .field{
+      margin-bottom:14px;
+      display:flex;
+      flex-direction:column;
+      gap:5px;
+    }
+    form label{
+      font-size:.8rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--text-dim);
+    }
+
+    input,textarea,select{
+      border-radius:3px;
+      border:1px solid rgba(150,27,43,0.4);
+      background:rgba(255,255,255,0.03);
+      color:var(--text);
+      padding:10px 11px;
+      font-family:var(--font-body);
+      font-size:.9rem;
+    }
+    input::placeholder,textarea::placeholder{
+      color:rgba(242,242,242,0.35);
+    }
+
+    textarea{
+      min-height:110px;
+      resize:vertical;
+    }
+
+    .contact-submit{
+      margin-top:6px;
+    }
+
+    /* ==============================
+       FOOTER
+    =============================== */
+    footer{
+      padding:22px 6% 26px;
       border-top:1px solid var(--border);
-      background:rgba(255,255,255,0.015);
-    }
-    .contato-head { margin-bottom:72px; }
-    .contato-big {
-      font-family:'Bebas Neue', sans-serif;
-      font-size:clamp(3rem,8vw,7rem);
-      line-height:.95; letter-spacing:.02em; margin-top:14px;
-    }
-    .contato-big .outline { -webkit-text-stroke:1.5px var(--smoke); color:transparent; }
-    .contato-grid {
-      display:grid; grid-template-columns:1fr 1fr;
-      gap:72px; align-items:start;
-    }
-    .contato-info p { font-size:1rem; color:var(--dim); line-height:1.85; margin-bottom:36px; }
-    .contact-links { display:flex; flex-direction:column; gap:12px; margin-bottom:32px; }
-    .contact-link {
-      display:flex; align-items:center; gap:14px;
-      padding:15px 18px; border:1px solid var(--border); border-radius:3px;
-      transition:border-color .25s, background .25s;
-    }
-    .contact-link:hover { border-color:rgba(150,27,43,0.4); background:rgba(150,27,43,0.06); }
-    .contact-link-icon { font-size:1.2rem; flex-shrink:0; }
-    .contact-link-lbl {
-      font-size:.68rem; letter-spacing:.12em;
-      text-transform:uppercase; color:var(--berry); margin-bottom:2px;
-    }
-    .contact-link-val { font-size:.9rem; color:var(--smoke); }
-
-    .form-group { margin-bottom:18px; }
-    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-    label {
-      display:block; font-size:.68rem; font-weight:600;
-      letter-spacing:.15em; text-transform:uppercase;
-      color:rgba(242,242,242,0.42); margin-bottom:7px;
-    }
-    input, textarea, select {
-      width:100%; background:rgba(255,255,255,0.03);
-      border:1px solid var(--border); border-radius:3px;
-      padding:13px 15px; color:var(--smoke);
-      font-family:'Space Grotesk', sans-serif; font-size:.93rem;
-      transition:border-color .25s, background .25s;
-    }
-    input::placeholder, textarea::placeholder { color:rgba(242,242,242,0.2); }
-    input:focus, textarea:focus, select:focus {
-      border-color:rgba(150,27,43,0.5);
-      background:rgba(255,255,255,0.05); outline:none;
-    }
-    textarea { resize:vertical; min-height:120px; }
-    select option { background:var(--dark); }
-    .btn-form {
-      width:100%; background:var(--berry); color:var(--smoke);
-      border:none; padding:16px;
-      font-family:'Space Grotesk', sans-serif;
-      font-size:.9rem; font-weight:700;
-      letter-spacing:.1em; text-transform:uppercase;
-      border-radius:3px; cursor:pointer; margin-top:6px;
-      transition:background .25s, transform .2s;
-    }
-    .btn-form:hover { background:#7a1522; transform:translateY(-2px); }
-    .btn-form:active { transform:translateY(0); }
-
-    /* ── FOOTER ── */
-    footer {
-      padding:36px 6%; border-top:1px solid var(--border);
-      display:flex; justify-content:space-between;
-      align-items:center; flex-wrap:wrap; gap:16px;
-    }
-    .footer-logo { font-family:'Bebas Neue', sans-serif; font-size:1.7rem; letter-spacing:.1em; }
-    .footer-logo span { color:var(--berry); }
-    .footer-nav { display:flex; gap:24px; }
-    .footer-nav a {
-      font-size:.75rem; letter-spacing:.1em;
-      text-transform:uppercase; color:var(--dim); transition:color .25s;
-    }
-    .footer-nav a:hover { color:var(--smoke); }
-    .footer-copy { font-size:.75rem; color:rgba(242,242,242,0.22); }
-
-    /* ── REVEAL ── */
-    .reveal {
-      opacity:0; transform:translateY(28px);
-      transition:opacity .65s var(--ease), transform .65s var(--ease);
-    }
-    .reveal.visible { opacity:1; transform:translateY(0); }
-    .reveal-d1 { transition-delay:.12s; }
-    .reveal-d2 { transition-delay:.22s; }
-    .reveal-d3 { transition-delay:.32s; }
-
-    /* ── RESPONSIVO ── */
-    @media (max-width:1024px) {
-      #quem-sou { grid-template-columns:1fr; gap:56px; }
-      .trab-grid { grid-template-columns:1fr 1fr; }
-      .contato-grid { grid-template-columns:1fr; gap:56px; }
-      .svc-body.open { padding:4px 0 28px 72px; }
-    }
-    @media (max-width:768px) {
-      .nav-links { display:none; }
-      .hamburger  { display:flex; }
-      .svc-row { grid-template-columns:52px 1fr 28px; gap:16px; }
-      .svc-tags { display:none; }
-      .svc-body.open { padding:4px 0 24px 68px; }
-      .trab-grid { grid-template-columns:1fr; }
-      .form-row  { grid-template-columns:1fr; }
-      .footer-nav { display:none; }
-      .exp-top  { flex-direction:column; align-items:flex-start; }
-      .trab-top { flex-direction:column; align-items:flex-start; }
-      .cta-banner { flex-direction:column; }
-    }
-    @media (max-width:480px) {
-      #hero, #quem-sou, #experiencia, #trabalhos, #redes, #contato { padding-left:5%; padding-right:5%; }
-      .hero-actions { flex-direction:column; }
-      .btn-red, .btn-outline { width:100%; justify-content:center; }
-      .qs-stats { flex-direction:column; gap:20px; }
-      footer { flex-direction:column; text-align:center; }
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      justify-content:space-between;
+      align-items:center;
+      font-size:.8rem;
+      color:rgba(242,242,242,0.6);
     }
 
+    /* ==============================
+       RESPONSIVO
+    =============================== */
+    @media(max-width:900px){
+      .about-grid{grid-template-columns:1fr;gap:30px;}
+      .contact-grid{grid-template-columns:1fr;}
+      .projects-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    }
+
+    @media(max-width:720px){
+      .nav-links{display:none;}
+      .nav-toggle{display:flex;}
+
+      .projects-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero-actions{
+        flex-direction:column;
+      }
+
+      .btn-primary,.btn-ghost{
+        width:100%;
+        text-align:center;
+        justify-content:center;
+      }
+    }
   </style>
 </head>
 <body>
 
-<!-- CURSOR -->
-<div class="cursor"      id="cur"  aria-hidden="true"></div>
-<div class="cursor-ring" id="ring" aria-hidden="true"></div>
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
 
-<!-- NAVBAR -->
-<nav id="navbar" role="navigation" aria-label="Menu principal">
-  <a href="#hero" class="nav-logo">FAEU<span>X</span></a>
-  <button class="hamburger" id="hambBtn" aria-label="Abrir menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-  <ul class="nav-links" role="list">
-    <li><a href="#quem-sou">Quem sou</a></li>
-    <li><a href="#experiencia">Serviços</a></li>
-    <li><a href="#trabalhos">Trabalhos</a></li>
-    <li><a href="#redes">Redes</a></li>
-    <li><a href="#contato" class="nav-btn">Solicite um orçamento</a></li>
-  </ul>
-</nav>
+  <!-- NAVBAR -->
+  <nav>
+    <a href="#hero" class="logo">FAEU<span>X</span></a>
 
-<!-- MENU MOBILE -->
-<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Menu mobile">
-  <a href="#quem-sou"    onclick="closeMobile()">Quem sou</a>
-  <a href="#experiencia" onclick="closeMobile()">Serviços</a>
-  <a href="#trabalhos"   onclick="closeMobile()">Trabalhos</a>
-  <a href="#redes"       onclick="closeMobile()">Redes</a>
-  <a href="#contato"     onclick="closeMobile()">Solicite um orçamento</a>
-</div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
 
-<!-- HERO -->
-<section id="hero" aria-label="Apresentação">
-  <div class="hero-eyebrow" aria-hidden="true">
-    <div class="hero-eyebrow-line"></div>
-    <span class="hero-eyebrow-text">Portfólio · 2025 · Street Clean</span>
-  </div>
-  <h1 class="hero-title">
-    RAFAEL<br>
-    <span class="outline">SOCIAL MEDIA</span><br>
-    <span class="berry">& DESIGN</span>
-  </h1>
-  <div class="hero-bottom">
-    <p class="hero-desc">
-      Gestão estratégica de redes sociais e design de marketing para empresas que querem presença digital profissional e resultados consistentes.
-    </p>
-    <div class="hero-actions">
-      <a href="#trabalhos" class="btn-red">Ver trabalhos</a>
-      <a href="#contato"   class="btn-outline">Solicite um orçamento</a>
-    </div>
-  </div>
-  <div class="scroll-hint" aria-hidden="true">Scroll para explorar</div>
-</section>
+    <ul class="nav-links">
+      <li><a href="#sobre">Quem sou</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#trabalhos">Trabalhos</a></li>
+      <li><a href="#redes">Redes</a></li>
+      <li><a href="#contato" class="nav-cta">Solicite orçamento</a></li>
+    </ul>
+  </nav>
 
-<!-- TICKER -->
-<div class="ticker-section" aria-label="Ferramentas que utilizo">
-  <div class="ticker-track" aria-hidden="true">
-
-    <!-- BLOCO A -->
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#001e36"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="14" fill="#31A8FF">Ps</text></svg>
-      <span class="ticker-tool-name">Photoshop</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#261300"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="14" fill="#FF9A00">Ai</text></svg>
-      <span class="ticker-tool-name">Illustrator</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#1e1e1e"/><circle cx="24" cy="24" r="6" fill="#1ABCFE"/><path d="M12 12h12v12H12z" fill="#FF7262"/><path d="M12 24h12v12H12z" fill="#0ACF83"/><path d="M24 12h12v12H24z" fill="#A259FF"/><path d="M30 24a6 6 0 1 1 0 12V24z" fill="#F24E1E"/></svg>
-      <span class="ticker-tool-name">Figma</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#7d2ae8"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="14" fill="#fff">Ca</text></svg>
-      <span class="ticker-tool-name">Canva</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#111"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="13" fill="#fff">CC</text></svg>
-      <span class="ticker-tool-name">CapCut</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#1a1a1a"/><circle cx="24" cy="24" r="10" fill="none" stroke="#e63946" stroke-width="2.5"/><circle cx="24" cy="24" r="4" fill="#e63946"/></svg>
-      <span class="ticker-tool-name">DaVinci Resolve</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#7B68EE"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="12" fill="#fff">CU</text></svg>
-      <span class="ticker-tool-name">ClickUp</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#0866FF"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="11" fill="#fff">Meta</text></svg>
-      <span class="ticker-tool-name">Meta Ads</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#961B2B"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="11" fill="#F2F2F2">COPY</text></svg>
-      <span class="ticker-tool-name">Copywriting</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#10a37f"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="13" fill="#fff">AI</text></svg>
-      <span class="ticker-tool-name">IA de Texto</span><span class="ticker-sep"></span>
-    </span>
-
-    <!-- BLOCO B (espelho para loop infinito) -->
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#001e36"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="14" fill="#31A8FF">Ps</text></svg>
-      <span class="ticker-tool-name">Photoshop</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#261300"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="14" fill="#FF9A00">Ai</text></svg>
-      <span class="ticker-tool-name">Illustrator</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#1e1e1e"/><circle cx="24" cy="24" r="6" fill="#1ABCFE"/><path d="M12 12h12v12H12z" fill="#FF7262"/><path d="M12 24h12v12H12z" fill="#0ACF83"/><path d="M24 12h12v12H24z" fill="#A259FF"/><path d="M30 24a6 6 0 1 1 0 12V24z" fill="#F24E1E"/></svg>
-      <span class="ticker-tool-name">Figma</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#7d2ae8"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="14" fill="#fff">Ca</text></svg>
-      <span class="ticker-tool-name">Canva</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#111"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="13" fill="#fff">CC</text></svg>
-      <span class="ticker-tool-name">CapCut</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#1a1a1a"/><circle cx="24" cy="24" r="10" fill="none" stroke="#e63946" stroke-width="2.5"/><circle cx="24" cy="24" r="4" fill="#e63946"/></svg>
-      <span class="ticker-tool-name">DaVinci Resolve</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#7B68EE"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="12" fill="#fff">CU</text></svg>
-      <span class="ticker-tool-name">ClickUp</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#0866FF"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="11" fill="#fff">Meta</text></svg>
-      <span class="ticker-tool-name">Meta Ads</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#961B2B"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="11" fill="#F2F2F2">COPY</text></svg>
-      <span class="ticker-tool-name">Copywriting</span><span class="ticker-sep"></span>
-    </span>
-    <span class="ticker-tool">
-      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="6" fill="#10a37f"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="13" fill="#fff">AI</text></svg>
-      <span class="ticker-tool-name">IA de Texto</span><span class="ticker-sep"></span>
-    </span>
-
-  </div>
-</div>
-
-<!-- MARQUEE DECORATIVO -->
-<div class="marquee-section" aria-hidden="true">
-  <div class="marquee-track">
-    <span class="marquee-word">Faeux</span>
-    <span class="marquee-word berry">Social Media</span>
-    <span class="marquee-word filled">Design</span>
-    <span class="marquee-word">Marketing</span>
-    <span class="marquee-word berry">Estratégia</span>
-    <span class="marquee-word filled">Conteúdo</span>
-    <span class="marquee-word">Faeux</span>
-    <span class="marquee-word berry">Social Media</span>
-    <span class="marquee-word filled">Design</span>
-    <span class="marquee-word">Marketing</span>
-    <span class="marquee-word berry">Estratégia</span>
-    <span class="marquee-word filled">Conteúdo</span>
-  </div>
-</div>
-
-<!-- QUEM SOU -->
-<section id="quem-sou" aria-labelledby="qs-h2">
-  <div class="photo-frame reveal" role="img" aria-label="Foto de Rafael em breve">
-    <span class="photo-frame-icon" aria-hidden="true">📷</span>
-    <span>Foto em breve</span>
-  </div>
-  <div class="qs-text reveal reveal-d1">
-    <div class="section-label" aria-hidden="true">Quem sou</div>
-    <h2 class="section-title" id="qs-h2">
-      RAFAEL,<br>
-      <span class="outline">SOCIAL MEDIA</span><br>
-      & DESIGNER
-    </h2>
-    <p>Tenho 23 anos e atuo como <em>Social Media & Designer de Marketing</em>, com foco em empresas que buscam uma presença digital estratégica, profissional e com identidade própria.</p>
-    <p>Estou em constante evolução, construindo meu próprio estilo de comunicação — o <strong>Street Clean</strong> — e desenvolvendo habilidades que unem estratégia, design e conteúdo num fluxo integrado.</p>
-    <p>Acredito que boas marcas se constroem com consistência e comunicação clara. É isso que entrego em cada projeto.</p>
-    <a href="#contato" class="btn-red">Quero saber mais</a>
-    <div class="qs-stats" aria-label="Destaques">
-      <div><div class="stat-num">3<span>+</span></div><div class="stat-lbl">Anos de experiência</div></div>
-      <div><div class="stat-num">3<span>+</span></div><div class="stat-lbl">Projetos entregues</div></div>
-      <div><div class="stat-num">1<span>%</span></div><div class="stat-lbl">Estilo único</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA BANNER 1 -->
-<div class="cta-banner reveal">
-  <div>
-    <div class="cta-banner-label">Pronto para começar?</div>
-    <div class="cta-banner-title">Vamos construir sua presença digital.</div>
-  </div>
-  <div class="cta-banner-actions">
-    <a href="#contato"     class="btn-red">Fale comigo</a>
-    <a href="#experiencia" class="btn-outline">Ver serviços</a>
-  </div>
-</div>
-
-<!-- SERVIÇOS -->
-<section id="experiencia" aria-labelledby="exp-h2">
-  <div class="exp-top">
-    <div>
-      <div class="section-label" aria-hidden="true">O que faço</div>
-      <h2 class="section-title" id="exp-h2">
-        EXPERIÊNCIA<br><span class="outline">& SERVIÇOS</span>
-      </h2>
-    </div>
-    <p class="exp-top-right">Clique em cada serviço para entender o que ele envolve e como pode ajudar a sua empresa.</p>
+  <!-- MENU MOBILE -->
+  <div class="nav-mobile" id="navMobile">
+    <a href="#sobre">Quem sou</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#trabalhos">Trabalhos</a>
+    <a href="#redes">Redes</a>
+    <a href="#contato">Solicite orçamento</a>
   </div>
 
-  <div class="services" role="list">
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <p class="hero-label">Portfólio · Street Clean · 2025</p>
+      <h1 class="hero-title">
+        Rafael<br>
+        <span>Faeux</span><br>
+        Social Media & Design
+      </h1>
+      <p class="hero-sub">
+        Social media, redator e gestor de tráfego. Crio e organizo a presença digital de empresas com design estratégico, conteúdo e anúncios que convertem.
+      </p>
+      <div class="hero-actions">
+        <a href="#trabalhos" class="btn-primary">Ver trabalhos</a>
+        <a href="#contato" class="btn-ghost">Solicite seu orçamento</a>
+      </div>
+    </section>
 
-    <div class="svc-item reveal" role="listitem" tabindex="0"
-         onclick="toggleSvc(this)" onkeydown="if(event.key==='Enter')toggleSvc(this)" aria-expanded="false">
-      <div class="svc-row">
-        <span class="svc-num">01</span>
-        <span class="svc-name">Gestão de Redes Sociais</span>
-        <div class="svc-tags"><span class="svc-tag">Planejamento</span><span class="svc-tag">Calendário</span><span class="svc-tag">Métricas</span></div>
-        <span class="svc-arrow" aria-hidden="true">›</span>
-      </div>
-      <div class="svc-body">
-        <p>Cuido de tudo que envolve as redes sociais da sua empresa: do planejamento à publicação. Defino a linha editorial, organizo o calendário de conteúdo, monitoro as métricas e ajusto a estratégia para garantir crescimento constante de audiência, engajamento e visibilidade da marca.</p>
-        <a href="#contato" class="btn-red">Solicite um orçamento</a>
-      </div>
-    </div>
+    <!-- QUEM SOU -->
+    <section id="sobre">
+      <p class="section-label">Quem sou</p>
+      <div class="about-grid">
+        <div>
+          <h2 class="section-title">Rafael · Faeux</h2>
+          <p class="section-text" style="margin-bottom:14px;">
+            Tenho 23 anos e atuo como <strong>Social Media, Redator e Gestor de Tráfego</strong>, desenvolvendo estratégias digitais completas para empresas que querem presença profissional nas redes.
+          </p>
+          <p class="section-text" style="margin-bottom:14px;">
+            Estou construindo meu próprio estilo visual, o <strong>Street Clean</strong>, que mistura referências urbanas com design limpo, cores fortes e foco em legibilidade.
+          </p>
+          <p class="section-text">
+            Meu objetivo é transformar a comunicação das marcas em algo claro, consistente e estratégico: conteúdo bem pensado, identidade visual marcante e anúncios otimizados trabalhando juntos.
+          </p>
 
-    <div class="svc-item reveal reveal-d1" role="listitem" tabindex="0"
-         onclick="toggleSvc(this)" onkeydown="if(event.key==='Enter')toggleSvc(this)" aria-expanded="false">
-      <div class="svc-row">
-        <span class="svc-num">02</span>
-        <span class="svc-name">Design de Marketing</span>
-        <div class="svc-tags"><span class="svc-tag">Visual</span><span class="svc-tag">Peças</span><span class="svc-tag">Branding</span></div>
-        <span class="svc-arrow" aria-hidden="true">›</span>
-      </div>
-      <div class="svc-body">
-        <p>Criação de peças visuais estratégicas para redes sociais, campanhas e materiais institucionais. Cada elemento é pensado para comunicar com clareza, reforçar a identidade da marca e criar conexão visual com o público certo — sem abrir mão da estética e do profissionalismo.</p>
-        <a href="#contato" class="btn-red">Solicite um orçamento</a>
-      </div>
-    </div>
+          <div class="about-stats">
+            <div>
+              <div class="stat-number">3<span>+</span></div>
+              <div class="stat-label">Áreas de atuação</div>
+            </div>
+            <div>
+              <div class="stat-number">3<span>+</span></div>
+              <div class="stat-label">Projetos autorais</div>
+            </div>
+            <div>
+              <div class="stat-number">100<span>%</span></div>
+              <div class="stat-label">Foco em estratégia</div>
+            </div>
+          </div>
+        </div>
 
-    <div class="svc-item reveal reveal-d2" role="listitem" tabindex="0"
-         onclick="toggleSvc(this)" onkeydown="if(event.key==='Enter')toggleSvc(this)" aria-expanded="false">
-      <div class="svc-row">
-        <span class="svc-num">03</span>
-        <span class="svc-name">Redação & Copywriting</span>
-        <div class="svc-tags"><span class="svc-tag">Posts</span><span class="svc-tag">Anúncios</span><span class="svc-tag">Roteiros</span></div>
-        <span class="svc-arrow" aria-hidden="true">›</span>
+        <div class="photo-placeholder">
+          <span style="font-size:2.4rem;">📷</span>
+          <span>Foto em breve</span>
+        </div>
       </div>
-      <div class="svc-body">
-        <p>Textos que comunicam com propósito. Escrevo legendas, anúncios, roteiros e materiais de comunicação com linguagem adaptada ao seu público e ao tom da sua marca. Foco em clareza, persuasão e geração de ação — fazer o leitor avançar na jornada de compra.</p>
-        <a href="#contato" class="btn-red">Solicite um orçamento</a>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section id="servicos">
+      <p class="section-label">Serviços</p>
+      <h2 class="section-title">O que eu faço</h2>
+      <p class="section-text">
+        Clique em cada serviço para entender, em linguagem simples, o que ele inclui e como pode ajudar sua empresa.
+      </p>
+
+      <div class="services-list" id="servicesList">
+        <!-- 1 -->
+        <article class="service">
+          <button class="service-header" type="button">
+            <div>
+              <div class="service-title">Gestão de Redes Sociais</div>
+              <div class="service-badge">Planejamento · Conteúdo · Métricas</div>
+            </div>
+            <span class="service-toggle">+</span>
+          </button>
+          <div class="service-body">
+            <p>
+              Planejo e organizo todo o conteúdo das redes sociais da sua empresa: linha editorial, calendário de postagens, tipos de conteúdo, horários e formatos ideais.
+            </p>
+            <p>
+              Acompanho os resultados (alcance, engajamento, crescimento) e faço ajustes constantes para garantir que o perfil cresça com identidade e estratégia.
+            </p>
+            <a href="#contato" class="btn-primary">Solicitar orçamento desse serviço</a>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="service">
+          <button class="service-header" type="button">
+            <div>
+              <div class="service-title">Design de Marketing</div>
+              <div class="service-badge">Peças visuais · Identidade · Layout</div>
+            </div>
+            <span class="service-toggle">+</span>
+          </button>
+          <div class="service-body">
+            <p>
+              Crio artes para feeds, stories, anúncios, capas e materiais digitais seguindo um padrão visual pensado para sua marca, usando a estética Street Clean.
+            </p>
+            <p>
+              O foco é unir beleza e função: layouts que chamam atenção, mas principalmente comunicam e ajudam o público a entender o que sua empresa faz.
+            </p>
+            <a href="#contato" class="btn-primary">Solicitar orçamento desse serviço</a>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="service">
+          <button class="service-header" type="button">
+            <div>
+              <div class="service-title">Redação & Copywriting</div>
+              <div class="service-badge">Textos para posts · anúncios · roteiros</div>
+            </div>
+            <span class="service-toggle">+</span>
+          </button>
+          <div class="service-body">
+            <p>
+              Escrevo legendas, textos para anúncios, roteiros de vídeo e materiais de comunicação com linguagem clara, direta e adaptada ao seu público.
+            </p>
+            <p>
+              O objetivo é fazer as pessoas entenderem rapidamente a proposta da sua marca e darem o próximo passo: seguir, clicar, chamar no WhatsApp ou comprar.
+            </p>
+            <a href="#contato" class="btn-primary">Solicitar orçamento desse serviço</a>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="service">
+          <button class="service-header" type="button">
+            <div>
+              <div class="service-title">Gestão de Tráfego</div>
+              <div class="service-badge">Anúncios · Meta Ads · Resultados</div>
+            </div>
+            <span class="service-toggle">+</span>
+          </button>
+          <div class="service-body">
+            <p>
+              Crio, configuro e otimizo campanhas de anúncios (principalmente em Meta Ads: Instagram e Facebook) para alcançar pessoas certas, com a mensagem certa.
+            </p>
+            <p>
+              Acompanho métricas como CPC, CTR e CPA para reduzir desperdício de verba e aumentar resultados em leads, mensagens ou vendas.
+            </p>
+            <a href="#contato" class="btn-primary">Solicitar orçamento desse serviço</a>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="service">
+          <button class="service-header" type="button">
+            <div>
+              <div class="service-title">Captação & Roteiros de Vídeo</div>
+              <div class="service-badge">Reels · vídeos institucionais · bastidores</div>
+            </div>
+            <span class="service-toggle">+</span>
+          </button>
+          <div class="service-body">
+            <p>
+              Desenvolvo roteiros simples e diretos para vídeos, e também participo da captação, pensando em enquadramento, ritmo e narrativa para cada conteúdo.
+            </p>
+            <p>
+              A ideia é que seus vídeos não sejam só “bonitos”, mas que façam sentido dentro da estratégia da marca e ajudem a gerar conexão real.
+            </p>
+            <a href="#contato" class="btn-primary">Solicitar orçamento desse serviço</a>
+          </div>
+        </article>
       </div>
-    </div>
+    </section>
 
-    <div class="svc-item reveal reveal-d3" role="listitem" tabindex="0"
-         onclick="toggleSvc(this)" onkeydown="if(event.key==='Enter')toggleSvc(this)" aria-expanded="false">
-      <div class="svc-row">
-        <span class="svc-num">04</span>
-        <span class="svc-name">Gestão de Tráfego</span>
-        <div class="svc-tags"><span class="svc-tag">Meta Ads</span><span class="svc-tag">CPC · CPA</span><span class="svc-tag">Leads</span></div>
-        <span class="svc-arrow" aria-hidden="true">›</span>
+    <!-- TRABALHOS -->
+    <section id="trabalhos">
+      <p class="section-label">Portfólio</p>
+      <h2 class="section-title">Meus trabalhos</h2>
+      <p class="section-text">
+        Aqui entrarão projetos criados do zero. Enquanto finalizo cada um, você já consegue ter uma ideia do tipo de entrega que faço.
+      </p>
+
+      <div class="projects-grid">
+        <article class="project-card">
+          <div class="project-thumb">
+            <span>🖼</span>
+            <span>Projeto 01 · Em breve</span>
+          </div>
+          <div class="project-body">
+            <div class="project-title">Projeto 01</div>
+            <div class="project-meta">Social media · Design</div>
+            <p class="section-text" style="max-width:none;margin:0;font-size:.9rem;">
+              Projeto focado em identidade visual e organização da presença em redes sociais.
+            </p>
+            <a href="#contato" class="btn-ghost">Quero algo assim</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-thumb">
+            <span>🖼</span>
+            <span>Projeto 02 · Em breve</span>
+          </div>
+          <div class="project-body">
+            <div class="project-title">Projeto 02</div>
+            <div class="project-meta">Tráfego · Conteúdo</div>
+            <p class="section-text" style="max-width:none;margin:0;font-size:.9rem;">
+              Combinação entre campanhas pagas e conteúdo estratégico para atrair leads.
+            </p>
+            <a href="#contato" class="btn-ghost">Quero algo assim</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-thumb">
+            <span>🖼</span>
+            <span>Projeto 03 · Em breve</span>
+          </div>
+          <div class="project-body">
+            <div class="project-title">Projeto 03</div>
+            <div class="project-meta">Vídeo · Roteiro</div>
+            <p class="section-text" style="max-width:none;margin:0;font-size:.9rem;">
+              Conteúdo em vídeo com roteiro pensado para humanizar e aproximar a marca do público.
+            </p>
+            <a href="#contato" class="btn-ghost">Quero algo assim</a>
+          </div>
+        </article>
       </div>
-      <div class="svc-body">
-        <p>Gerenciamento de campanhas pagas para que o investimento em anúncios traga o maior retorno possível. Configuro, monitoro e otimizo campanhas no Meta Ads, acompanhando indicadores como CPC, CTR e CPA para gerar leads qualificados e conversões reais para o seu negócio.</p>
-        <a href="#contato" class="btn-red">Solicite um orçamento</a>
+    </section>
+
+    <!-- REDES -->
+    <section id="redes">
+      <p class="section-label">Redes sociais</p>
+      <h2 class="section-title">Onde me encontrar</h2>
+      <p class="section-text">
+        Acompanhe meu trabalho, bastidores e testes de conteúdo nas redes onde estou mais ativo.
+      </p>
+
+      <div class="socials-grid">
+        <a class="social-card" href="https://www.instagram.com/faeuxdsg_" target="_blank" rel="noopener noreferrer">
+          <div class="social-label">Instagram</div>
+          <div class="social-handle">@faeuxdsg_</div>
+        </a>
+        <a class="social-card" href="https://www.facebook.com/faeux" target="_blank" rel="noopener noreferrer">
+          <div class="social-label">Facebook</div>
+          <div class="social-handle">Faeux</div>
+        </a>
+        <a class="social-card" href="https://www.tiktok.com/@faeuxdsg_" target="_blank" rel="noopener noreferrer">
+          <div class="social-label">TikTok</div>
+          <div class="social-handle">@faeuxdsg_</div>
+        </a>
       </div>
-    </div>
 
-    <div class="svc-item reveal" role="listitem" tabindex="0"
-         onclick="toggleSvc(this)" onkeydown="if(event.key==='Enter')toggleSvc(this)" aria-expanded="false">
-      <div class="svc-row">
-        <span class="svc-num">05</span>
-        <span class="svc-name">Captação & Roteiros de Vídeo</span>
-        <div class="svc-tags"><span class="svc-tag">Institucional</span><span class="svc-tag">Reels</span><span class="svc-tag">Edição</span></div>
-        <span class="svc-arrow" aria-hidden="true">›</span>
+      <div style="margin-top:26px;">
+        <a href="#contato" class="btn-primary">Fale comigo</a>
       </div>
-      <div class="svc-body">
-        <p>Do roteiro à câmera. Desenvolvo roteiros para vídeos institucionais, reels e campanhas, e participo da captação garantindo que cada cena reforce a mensagem da marca. O resultado são vídeos com narrativa clara, boa estética e alinhados ao objetivo de comunicação.</p>
-        <a href="#contato" class="btn-red">Solicite um orçamento</a>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato">
+      <p class="section-label">Contato</p>
+      <h2 class="section-title">Solicite seu orçamento</h2>
+      <p class="section-text">
+        Me conte um pouco sobre a sua empresa ou ideia. Vou analisar com calma e responder com uma proposta alinhada ao seu momento.
+      </p>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-label">WhatsApp</div>
+            <div>+55 (34) 99795-1522</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">E-mail</div>
+            <div>faeuxdesigner@gmail.com</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Instagram</div>
+            <div>@faeuxdsg_</div>
+          </div>
+
+          <p>
+            Se preferir algo mais rápido, pode me chamar diretamente no WhatsApp. Mas, se quiser detalhar melhor o que precisa, use o formulário ao lado.
+          </p>
+          <a href="https://wa.me/5534997951522" class="btn-primary" target="_blank" rel="noopener noreferrer">Chamar no WhatsApp</a>
+        </div>
+
+        <form onsubmit="handleForm(event)">
+          <div class="field">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Como posso te chamar?" required />
+          </div>
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+          </div>
+          <div class="field">
+            <label for="servico">Serviço de interesse</label>
+            <select id="servico" name="servico" required>
+              <option value="" disabled selected>Selecione uma opção</option>
+              <option value="social">Gestão de redes sociais</option>
+              <option value="design">Design de marketing</option>
+              <option value="trafego">Gestão de tráfego</option>
+              <option value="copy">Redação & copywriting</option>
+              <option value="video">Captação e roteiros de vídeo</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" placeholder="Conte um pouco sobre o seu projeto ou empresa..." required></textarea>
+          </div>
+          <div class="contact-submit">
+            <button type="submit" class="btn-primary">Enviar mensagem</button>
+          </div>
+        </form>
       </div>
-    </div>
+    </section>
+  </main>
 
-  </div>
+  <footer>
+    <div>© 2025 Faeux · Rafael</div>
+    <div>Street Clean · Social Media & Design</div>
+  </footer>
 
-  <!-- SKILLS -->
-  <div class="skills-section reveal">
-    <div class="section-label" aria-hidden="true">Ferramentas</div>
-    <div class="skills-grid" role="list" aria-label="Ferramentas e habilidades">
-      <span class="skill-tag" role="listitem">Photoshop</span>
-      <span class="skill-tag" role="listitem">Illustrator</span>
-      <span class="skill-tag" role="listitem">Figma</span>
-      <span class="skill-tag" role="listitem">Canva</span>
-      <span class="skill-tag" role="listitem">CapCut</span>
-      <span class="skill-tag" role="listitem">DaVinci Resolve</span>
-      <span class="skill-tag" role="listitem">ClickUp</span>
-      <span class="skill-tag" role="listitem">Copywriting</span>
-      <span class="skill-tag" role="listitem">IA de Criação de Texto</span>
-      <span class="skill-tag" role="listitem">Gestão de Tráfego</span>
-      <span class="skill-tag" role="listitem">Social Media</span>
-      <span class="skill-tag" role="listitem">Design de Marketing</span>
-    </div>
-  </div>
-</section>
+  <script>
+    // MENU MOBILE
+    const navToggle = document.getElementById('navToggle');
+    const navMobile = document.getElementById('navMobile');
 
-<!-- CTA BANNER 2 -->
-<div class="cta-banner reveal">
-  <div>
-    <div class="cta-banner-label">Vamos trabalhar juntos?</div>
-    <div class="cta-banner-title">Sua marca merece uma presença que converte.</div>
-  </div>
-  <div class="cta-banner-actions">
-    <a href="#contato" class="btn-red">Solicite seu orçamento</a>
-  </div>
-</div>
+    navToggle.addEventListener('click', () => {
+      const open = navMobile.style.display === 'flex';
+      navMobile.style.display = open ? 'none' : 'flex';
+    });
 
-<!-- TRABALHOS -->
-<section id="trabalhos" aria-labelledby="trab-h2">
-  <div class="trab-top">
-    <div>
-      <div class="section-label" aria-hidden="true">Portfólio</div>
-      <h2 class="section-title" id="trab-h2">MEUS<br><span class="outline">TRABALHOS</span></h2>
-    </div>
-    <p class="trab-top-right">Projetos criados do zero. Em breve disponíveis para visualização completa.</p>
-  </div>
-  <div class="trab-grid">
+    document.querySelectorAll('.nav-mobile a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMobile.style.display = 'none';
+      });
+    });
 
-    <article class="trab-card reveal" aria-label="Projeto 01">
-      <div class="trab-thumb">
-        <span class="trab-thumb-icon" aria-hidden="true">🖼</span>
-        <span>Em breve</span>
-      </div>
-      <div class="trab-body">
-        <p class="trab-meta">Social Media · Design</p>
-        <h3 class="trab-name">Projeto 01</h3>
-        <p class="trab-desc">Em desenvolvimento</p>
-        <a href="#contato" class="btn-outline" style="font-size:.78rem;padding:10px 20px;">Quero algo assim</a>
-      </div>
-    </article>
+    // CURSOR SIMPLES
+    const cursor = document.getElementById('cursor');
+    if (cursor) {
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
 
-    <article class="trab-card reveal reveal-d1" aria-label="Projeto 02">
-      <div class="trab-thumb">
-        <span class="trab-thumb-icon" aria-hidden="true">🖼</span>
-        <span>Em breve</span>
-      </div>
-      <div class="trab-body">
-        <p class="trab-meta">Tráfego · Conteúdo</p>
-        <h3 class="trab-name">Projeto 02</h3>
-        <p class="trab-desc">Em desenvolvimento</p>
-        <a href="#contato" class="btn-outline" style="font-size:.78rem;padding:10px 20px;">Quero algo assim</a>
-      </div>
-    </article>
+      cursor.style.left = mouseX + 'px';
+      cursor.style.top  = mouseY + 'px';
 
-    <article class="trab-card reveal reveal-d2" aria-label="Projeto 03">
-      <div class="trab-thumb">
-        <span class="trab-thumb-icon" aria-hidden="true">🖼</span>
-        <span>Em breve</span>
-      </div>
-      <div class="trab-body">
-        <p class="trab-meta">Vídeo · Roteiro</p>
-        <h3 class="trab-name">Projeto 03</h3>
-        <p class="trab-desc">Em desenvolvimento</p>
-        <a href="#contato" class="btn-outline" style="font-size:.78rem;padding:10px 20px;">Quero algo assim</a>
-      </div>
-    </article>
+      document.addEventListener('mousemove', e => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursor.style.left = mouseX + 'px';
+        cursor.style.top  = mouseY + 'px';
+      });
 
-  </div>
-</section>
+      const interactive = document.querySelectorAll('a, button');
+      interactive.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+      });
+    }
 
-<!-- REDES SOCIAIS -->
-<section id="redes" aria-labelledby="redes-h2">
-  <div class="section-label" style="justify-content:center;" aria-hidden="true">Siga o Faeux</div>
-  <h2 class="section-title" id="redes-h2" style="text-align:center;">REDES<br><span class="outline">SOCIAIS</span></h2>
-  <p class="redes-sub">Acompanhe o dia a dia, os bastidores e os projetos em andamento nas redes do Faeux.</p>
-  <div class="redes-grid">
-    <a href="https://www.instagram.com/faeuxdsg_" target="_blank" rel="noopener noreferrer" class="rede-card" aria-label="Instagram @faeuxdsg_">
-      <span class="rede-icon" aria-hidden="true">📸</span>
-      <span class="rede-name">Instagram</span>
-      <span class="rede-handle">@
+    // ACCORDION DE SERVIÇOS
+    document.querySelectorAll('.service').forEach(service => {
+      const header = service.querySelector('.service-header');
+      const body   = service.querySelector('.service-body');
+      const icon   = service.querySelector('.service-toggle');
 
+      header.addEventListener('click', () => {
+        const open = body.classList.contains('open');
+        // fecha todos
+        document.querySelectorAll('.service-body').forEach(b => b.classList.remove('open'));
+        document.querySelectorAll('.service-toggle').forEach(i => i.textContent = '+');
+
+        if (!open) {
+          body.classList.add('open');
+          icon.textContent = '–';
+        }
+      });
+    });
+
+    // FORM (apenas feedback visual)
+    function handleForm(e){
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      const original = btn.textContent;
+      btn.textContent = 'Mensagem enviada!';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.disabled = false;
+        e.target.reset();
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
