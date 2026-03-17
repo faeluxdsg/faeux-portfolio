@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Faeux – Social Media & Design de Marketing para Empresas. Portfólio de Rafael, especialista em gestão estratégica de redes sociais e design de marketing." />
+  <title>Faeux | Social Media & Design de Marketing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+  <style>
+    /* ========================
+       VARIÁVEIS E RESET
+    ======================== */
+    :root {
+      --dark-purple: #231123;
+      --acid-berry: #961B2B;
+      --frost-smoke: #F2F2F2;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'Space Grotesk', sans-serif;
+      --transition: 0.3s ease;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--dark-purple);
+      color: var(--frost-smoke);
+      font-family: var(--font-body);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ========================
+       ACESSIBILIDADE
+    ======================== */
+    :focus-visible {
+      outline: 3px solid var(--acid-berry);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ========================
+       ELEMENTOS URBANOS / DECORATIVOS
+    ======================== */
+    .tag {
+      display: inline-block;
+      background: var(--acid-berry);
+      color: var(--frost-smoke);
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      padding: 4px 12px;
+      border-radius: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .spray-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--acid-berry);
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    .section-line {
+      width: 60px;
+      height: 4px;
+      background: var(--acid-berry);
+      border-radius: 2px;
+      margin: 16px 0 32px 0;
+    }
+
+    /* ========================
+       NAVBAR
+    ======================== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(35, 17, 35, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--acid-berry);
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--frost-smoke);
+      letter-spacing: 0.1em;
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--acid-berry);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      color: var(--frost-smoke);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color var(--transition);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--acid-berry);
+      transition: width var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--acid-berry);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* MENU HAMBURGUER */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--frost-smoke);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* ========================
+       HERO
+    ======================== */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 5% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: clamp(120px, 22vw, 280px);
+      color: rgba(150, 27, 43, 0.06);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 750px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      border: 2px solid var(--acid-berry);
+      color: var(--acid-berry);
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      padding: 6px 16px;
+      border-radius: 2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--frost-smoke);
+      margin-bottom: 24px;
+    }
+
+    .hero-title span {
+      color: var(--acid-berry);
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(242, 242, 242, 0.75);
+      max-width: 520px;
+      margin-bottom: 40px;
+      line-height: 1.8;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--acid-berry);
+      color: var(--frost-smoke);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 16px 32px;
+      border-radius: 4px;
+      transition: background var(--transition), transform var(--transition);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .hero-cta:hover {
+      background: #7a1522;
+      transform: translateY(-2px);
+    }
+
+    .hero-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 2px solid var(--frost-smoke);
+      color: var(--frost-smoke);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 14px 32px;
+      border-radius: 4px;
+      transition: border-color var(--transition), color var(--transition), transform var(--transition);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-left: 16px;
+    }
+
+    .hero-cta-secondary:hover {
+      border-color: var(--acid-berry);
+      color: var(--acid-berry);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 5%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(242, 242, 242, 0.4);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .hero-scroll::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: rgba(242, 242, 242, 0.4);
+    }
+
+    /* ========================
+       SEÇÕES GERAIS
+    ======================== */
+    section {
+      padding: 100px 5%;
+    }
+
+    .section-header {
+      margin-bottom: 60px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 1;
+      letter-spacing: 0.03em;
+      color: var(--frost-smoke);
+    }
+
+    /* ========================
+       QUEM SOU
+    ======================== */
+    #quem-sou {
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid rgba(150, 27, 43, 0.2);
+      border-bottom: 1px solid rgba(150, 27, 43, 0.2);
+    }
+
+    .quem-sou-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .quem-sou-foto {
+      aspect-ratio: 3/4;
+      background: rgba(150, 27, 43, 0.08);
+      border: 2px dashed rgba(150, 27, 43, 0.3);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: rgba(242, 242, 242, 0.3);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quem-sou-foto::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--acid-berry);
+    }
+
+    .foto-icon {
+      font-size: 3rem;
+      opacity: 0.3;
+    }
+
+    .quem-sou-text p {
+      color: rgba(242, 242, 242, 0.8);
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    .quem-sou-text p strong {
+      color: var(--frost-smoke);
+      font-weight: 700;
+    }
+
+    .quem-sou-text p em {
+      color: var(--acid-berry);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* ========================
+       EXPERIÊNCIA
+    ======================== */
+    #experiencia {
+      position: relative;
+    }
+
+    .experiencia-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(150, 27, 43, 0.2);
+      border-left: 4px solid var(--acid-berry);
+      border-radius: 4px;
+      padding: 40px;
+      margin-bottom: 32px;
+    }
+
+    .exp-header {
+      margin-bottom: 24px;
+    }
+
+    .exp-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      color: var(--frost-smoke);
+      margin-bottom: 8px;
+    }
+
+    .exp-meta {
+      color: var(--acid-berry);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .exp-body p {
+      color: rgba(242, 242, 242, 0.75);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .exp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .exp-list li {
+      color: rgba(242, 242, 242, 0.75);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .exp-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--acid-berry);
+    }
+
+    .exp-list li strong {
+      color: var(--frost-smoke);
+      font-weight: 600;
+    }
+
+    /* HABILIDADES */
+    .skills-section {
+      margin-top: 60px;
+    }
+
+    .skills-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 0.05em;
+      color: var(--frost-smoke);
+      margin-bottom: 28px;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .skill-tag {
+      background: rgba(150, 27, 43, 0.12);
+      border: 1px solid rgba(150, 27, 43, 0.35);
+      color: var(--frost-smoke);
+      padding: 8px 18px;
+      border-radius: 2px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    .skill-tag:hover {
+      background: rgba(150, 27, 43, 0.25);
+      border-color: var(--acid-berry);
+    }
+
+    /* ========================
+       TRABALHOS
+    ======================== */
+    #trabalhos {
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid rgba(150, 27, 43, 0.2);
+      border-bottom: 1px solid rgba(150, 27, 43, 0.2);
+    }
+
+    .trabalhos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .trabalho-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(150, 27, 43, 0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: transform var(--transition), border-color var(--transition);
+      cursor: pointer;
+    }
+
+    .trabalho-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--acid-berry);
+    }
+
+    .trabalho-thumb {
+      aspect-ratio: 16/10;
+      background: rgba(150, 27, 43, 0.08);
+      border-bottom: 1px solid rgba(150, 27, 43, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: rgba(242, 242, 242, 0.25);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    .trabalho-thumb-icon {
+      font-size: 2.5rem;
+      opacity: 0.25;
+    }
+
+    .trabalho-info {
+      padding: 24px;
+    }
+
+    .trabalho-num {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      color: rgba(150, 27, 43, 0.2);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .trabalho-nome {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 0.05em;
+      color: var(--frost-smoke);
+      margin-bottom: 8px;
+    }
+
+    .trabalho-desc {
+      font-size: 0.85rem;
+      color: rgba(242, 242, 242, 0.45);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ========================
+       REDES SOCIAIS
+    ======================== */
+    #redes {
+      text-align: center;
+    }
+
+    .redes-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .rede-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(150, 27, 43, 0.2);
+      border-radius: 4px;
+      padding: 36px 48px;
+      text-decoration: none;
+      color: var(--frost-smoke);
+      transition: background var(--transition), border-color var(--transition), transform var(--transition);
+      min-width: 180px;
+    }
+
+    .rede-card:hover {
+      background: rgba(150, 27, 43, 0.1);
+      border-color: var(--acid-berry);
+      transform: translateY(-4px);
+    }
+
+    .rede-icon {
+      font-size: 2.2rem;
+    }
+
+    .rede-nome {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+    }
+
+    .rede-handle {
+      font-size: 0.8rem;
+      color: rgba(242, 242, 242, 0.45);
+      letter-spacing: 0.08em;
+    }
+
+    /* ========================
+       CONTATO
+    ======================== */
+    #contato {
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid rgba(150, 27, 43, 0.2);
+    }
+
+    .contato-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contato-info p {
+      color: rgba(242, 242, 242, 0.7);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+
+    .contato-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contato-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--frost-smoke);
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding: 14px 18px;
+      border: 1px solid rgba(150, 27, 43, 0.2);
+      border-radius: 4px;
+      transition: border-color var(--transition), background var(--transition);
+    }
+
+    .contato-link:hover {
+      border-color: var(--acid-berry);
+      background: rgba(150, 27, 43, 0.08);
+    }
+
+    .contato-link-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    /* FORMULÁRIO */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(242, 242, 242, 0.6);
+    }
+
+    input, textarea, select {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(150, 27, 43, 0.25);
+      border-radius: 4px;
+      padding: 14px 16px;
+      color: var(--frost-smoke);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: border-color var(--transition);
+      width: 100%;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: rgba(242, 242, 242, 0.25);
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--acid-berry);
+      outline: none;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    select option {
+      background: var(--dark-purple);
+      color: var(--frost-smoke);
+    }
+
+    .form-submit {
+      background: var(--acid-berry);
+      color: var(--frost-smoke);
+      border: none;
+      padding: 16px 32px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .form-submit:hover {
+      background: #7a1522;
+      transform: translateY(-2px);
+    }
+
+    .form-submit:active {
+      transform: translateY(0);
+    }
+
+    /* ========================
+       FOOTER
+    ======================== */
+    footer {
+      border-top: 2px solid var(--acid-berry);
+      padding: 32px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--frost-smoke);
+      letter-spacing: 0.1em;
+    }
+
+    .footer-logo span {
+      color: var(--acid-berry);
+    }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: rgba(242, 242, 242, 0.35);
+      letter-spacing: 0.05em;
+    }
+
+    /* ========================
+       RESPONSIVO
+    ======================== */
+    @media (max-width: 900px) {
+      .quem-sou-grid,
+      .contato-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .trabalhos-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-cta-secondary {
+        margin-left: 0;
+        margin-top: 12px;
+      }
+
+      .hero-btns {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      nav {
+        padding: 14px 5%;
+      }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 64px;
+        left: 0;
+        width: 100%;
+        background: rgba(35, 17, 35, 0.98);
+        flex-direction: column;
+        padding: 24px 5%;
+        gap: 20px;
+        border-bottom: 2px solid var(--acid-berry);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        font-size: 1.1rem;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .trabalhos-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .redes-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .rede-card {
+        width: 100%;
+        max-width: 320px;
+      }
+
+      section {
+        padding: 72px 5%;
+      }
+
+      .experiencia-card {
+        padding: 28px 20px;
+      }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav role="navigation" aria-label="Menu principal">
+    <a href="#hero" class="nav-logo" aria-label="Faeux - Voltar ao início">FAEU<span>X</span></a>
+    <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu" onclick="toggleMenu(this)">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-links" id="nav-menu" role="list">
+      <li><a href="#quem-sou">Quem sou</a></li>
+      <li><a href="#experiencia">Experiência</a></li>
+      <li><a href="#trabalhos">Trabalhos</a></li>
+      <li><a href="#redes">Redes</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" aria-label="Apresentação">
+    <div class="hero-bg-text" aria-hidden="true">FAEUX</div>
+    <div class="hero-content">
+      <div class="hero-tag" aria-hidden="true">// Street Clean Portfolio</div>
+      <h1 class="hero-title">
+        FAEUX
+        <span>SOCIAL MEDIA<br>& DESIGN</span>
+      </h1>
+      <p class="hero-subtitle">
+        Gestão estratégica de redes sociais e design de marketing para empresas que querem presença digital profissional.
+      </p>
+      <div class="hero-btns">
+        <a href="#trabalhos" class="hero-cta">Ver trabalhos</a>
+        <a href="#contato" class="hero-cta-secondary">Fale comigo</a>
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">Scroll para explorar</div>
+  </section>
+
+  <!-- QUEM SOU -->
+  <section id="quem-sou" aria-labelledby="quem-sou-titulo">
+    <div class="section-header">
+      <span class="tag" aria-hidden="true">// 01</span>
+      <h2 class="section-title" id="quem-sou-titulo">QUEM SOU</h2>
+      <div class="section-line" aria-hidden="true"></div>
+    </div>
+    <div class="quem-sou-grid">
+      <div class="quem-sou-foto" role="img" aria-label="Foto de perfil em breve">
+        <span class="foto-icon" aria-hidden="true">📷</span>
+        <span>Foto em breve</span>
+      </div>
+      <div class="quem-sou-text">
+        <p>
+          Olá, sou <strong>Rafael</strong>, tenho 23 anos e atuo como <em>Social Media & Designer de Marketing</em> com foco em empresas que buscam uma presença digital estratégica, profissional e com identidade.
+        </p>
+        <p>
+          Estou em constante desenvolvimento, construindo meu próprio estilo de comunicação e aprimorando habilidades que unem <strong>estratégia de marketing, design e criação de conteúdo</strong> em um fluxo integrado.
+        </p>
+        <p>
+          Minha abordagem vai além do operacional: busco entender o posicionamento de cada empresa para entregar soluções visuais e de conteúdo que realmente comuniquem, gerem conexão e tragam resultados.
+        </p>
+        <p>
+          Acredito que boas marcas se constroem com consistência, identidade clara e comunicação estratégica — e é isso que entrego em cada projeto.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIÊNCIA -->
+  <section id="experiencia" aria-labelledby="experiencia-titulo">
+    <div class="section-header">
+      <span class="tag" aria-hidden="true">// 02</span>
+      <h2 class="section-title" id="experiencia-titulo">EXPERIÊNCIA</h2>
+      <div class="section-line" aria-hidden="true"></div>
+    </div>
+
+    <div class="experiencia-card">
+      <div class="exp-header">
+        <h3 class="exp-title">Social Media · Redator · Gestor de Tráfego</h3>
+        <p class="exp-meta">Cargo atual &nbsp;·&nbsp; 2024 – Presente</p>
+      </div>
+      <div class="exp-body">
+        <p>
+          Atuo com foco em planejamento, execução e otimização de estratégias digitais integradas para fortalecer o posicionamento da marca e apoiar os objetivos de negócio.
+        </p>
+        <ul class="exp-list" aria-label="Responsabilidades">
+          <li>
+            <strong>Gestão estratégica de redes sociais:</strong> Planejamento de conteúdo alinhado aos objetivos da empresa, definição de linhas editoriais, calendário de postagens, análise de público e acompanhamento de métricas.
+          </li>
+          <li>
+            <strong>Produção de conteúdo e redação:</strong> Criação de textos para posts, anúncios, roteiros e materiais institucionais com foco em clareza, relevância e conversão.
+          </li>
+          <li>
+            <strong>Gestão de tráfego pago:</strong> Planejamento e otimização de campanhas em mídia paga com acompanhamento de CPC, CTR e CPA para maximizar resultados.
+          </li>
+          <li>
+            <strong>Captação de vídeos e criação de roteiros:</strong> Desenvolvimento de roteiros e participação na captação de vídeos institucionais e para redes sociais.
+          </li>
+          <li>
+            <strong>Análise e alinhamento estratégico:</strong> Análise de desempenho das ações, identificação de oportunidades de melhoria e alinhamento com as áreas envolvidas.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- HABILIDADES -->
+    <div class="skills-section" aria-labelledby="skills-titulo">
+      <h3 class="skills-title" id="skills-titulo">FERRAMENTAS & HABILIDADES</h3>
+      <div class="skills-grid" role="list" aria-label="Lista de ferramentas e habilidades">
+        <span class="skill-tag" role="listitem">Photoshop</span>
+        <span class="skill-tag" role="listitem">Illustrator</span>
+        <span class="skill-tag" role="listitem">Figma</span>
+        <span class="skill-tag" role="listitem">Canva</span>
+        <span class="skill-tag" role="listitem">CapCut</span>
+        <span class="skill-tag" role="listitem">DaVinci Resolve</span>
+        <span class="skill-tag" role="listitem">ClickUp</span>
+        <span class="skill-tag" role="listitem">Copywriting</span>
+        <span class="skill-tag" role="listitem">IAs de Criação de Texto</span>
+        <span class="skill-tag" role="listitem">Gestão de Tráfego</span>
+        <span class="skill-tag" role="listitem">Social Media</span>
+        <span class="skill-tag" role="listitem">Design de Marketing</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRABALHOS -->
+  <section id="trabalhos" aria-labelledby="trabalhos-titulo">
+    <div class="section-header">
+      <span class="tag" aria-hidden="true">// 03</span>
+      <h2 class="section-title" id="trabalhos-titulo">MEUS TRABALHOS</h2>
+      <div class="section-line" aria-hidden="true"></div>
+    </div>
+    <div class="trabalhos-grid">
+
+      <article class="trabalho-card" aria-label="Projeto 01 - Em breve">
+        <div class="trabalho-thumb" role="img" aria-label="Imagem do projeto em breve">
+          <span class="trabalho-thumb-icon" aria-hidden="true">🖼</span>
+          <span>Em breve</span>
+        </div>
+        <div class="trabalho-info">
+          <div class="trabalho-num" aria-hidden="true">01</div>
+          <h3 class="trabalho-nome">Projeto 01</h3>
+          <p class="trabalho-desc">Em desenvolvimento</p>
+        </div>
+      </article>
+
+      <article class="trabalho-card" aria-label="Projeto 02 - Em breve">
+        <div class="trabalho-thumb" role="img" aria-label="Imagem do projeto em breve">
+          <span class="trabalho-thumb-icon" aria-hidden="true">🖼</span>
+          <span>Em breve</span>
+        </div>
+        <div class="trabalho-info">
+          <div class="trabalho-num" aria-hidden="true">02</div>
+          <h3 class="trabalho-nome">Projeto 02</h3>
+          <p class="trabalho-desc">Em desenvolvimento</p>
+        </div>
+      </article>
+
+      <article class="trabalho-card" aria-label="Projeto 03 - Em breve">
+        <div class="trabalho-thumb" role="img" aria-label="Imagem do projeto em breve">
+          <span class="trabalho-thumb-icon" aria-hidden="true">🖼</span>
+          <span>Em breve</span>
+        </div>
+        <div class="trabalho-info">
+          <div class="trabalho-num" aria-hidden="true">03</div>
+          <h3 class="trabalho-nome">Projeto 03</h3>
+          <p class="trabalho-desc">Em desenvolvimento</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- REDES SOCIAIS -->
+  <section id="redes" aria-labelledby="redes-titulo">
+    <div class="section-header">
+      <span class="tag" aria-hidden="true">// 04</span>
+      <h2 class="section-title" id="redes-titulo">REDES SOCIAIS</h2>
+      <div class="section-line" aria-hidden="true" style="margin-left: auto; margin-right: auto;"></div>
+    </div>
+    <div class="redes-grid">
+
+      <a href="https://www.instagram.com/faeuxdsg_" target="_blank" rel="noopener noreferrer" class="rede-card" aria-label="Instagram do Faeux - @faeuxdsg_">
+        <span class="rede-icon" aria-hidden="true">📸</span>
+        <span class="rede-nome">Instagram</span>
+        <span class="rede-handle">@faeuxdsg_</span>
+      </a>
+
+      <a href="https://www.facebook.com/faeux" target="_blank" rel="noopener noreferrer" class="rede-card" aria-label="Facebook do Faeux">
+        <span class="rede-icon" aria-hidden="true">📘</span>
+        <span class="rede-nome">Facebook</span>
+        <span class="rede-handle">Faeux</span>
+      </a>
+
+      <a href="https://www.tiktok.com/@faeuxdsg_" target="_blank" rel="noopener noreferrer" class="rede-card" aria-label="TikTok do Faeux - @faeuxdsg_">
+        <span class="rede-icon" aria-hidden="true">🎵</span>
+        <span class="rede-nome">TikTok</span>
+        <span class="rede-handle">@faeuxdsg_</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato" aria-labelledby="contato-titulo">
+    <div class="section-header">
+      <span class="tag" aria-hidden="true">// 05</span>
+      <h2 class="section-title" id="contato-titulo">CONTATO</h2>
+      <div class="section-line" aria-hidden="true"></div>
+    </div>
+    <div class="contato-grid">
+
+      <div class="contato-info">
+        <p>
+          Tem um projeto em mente ou precisa de gestão estratégica de redes sociais e design de marketing para sua empresa? Me chama, vamos conversar.
+        </p>
+        <div class="contato-links">
+          <a href="https://wa.me/5534997951522" target="_blank" rel="noopener noreferrer" class="contato-link" aria-label="WhatsApp: +55 34 99795-1522">
+            <span class="contato-link-icon" aria-hidden="true">💬</span>
+            <span>+55 (34) 99795-1522</span>
+          </a>
+          <a href="mailto:faeuxdesigner@gmail.com" class="contato-link" aria-label="E-mail: faeuxdesigner@gmail.com">
+            <span class="contato-link-icon" aria-hidden="true">✉️</span>
+            <span>faeuxdesigner@gmail.com</span>
+          </a>
+          <a href="https://www.instagram.com/faeuxdsg_" target="_blank" rel="noopener noreferrer" class="contato-link" aria-label="Instagram: @faeuxdsg_">
+            <span class="contato-link-icon" aria-hidden="true">📸</span>
+            <span>@faeuxdsg_</span>
+          </a>
+        </div>
+      </div>
+
+      <form action="#" method="POST" aria-label="Formulário de contato" onsubmit="handleForm(event)">
+        <div class="form-group">
+          <label for="nome">Seu nome</label>
+          <input type="text" id="nome" name="nome" placeholder="Como posso te chamar?" required autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="seu@email.com" required autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="servico">Serviço de interesse</label>
+          <select id="servico" name="servico" required>
+            <option value="" disabled selected>Selecione um serviço</option>
+            <option value="social-media">Gestão de Redes Sociais</option>
+            <option value="design">Design de Marketing</option>
+            <option value="trafego">Gestão de Tráfego</option>
+            <option value="conteudo">Criação de Conteúdo</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="mensagem">Mensagem</label>
+          <textarea id="mensagem" name="mensagem" placeholder="Conte um pouco sobre o seu projeto ou empresa..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Enviar mensagem</button>
+      </form>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="footer-logo" aria-label="Faeux">FAEU<span>X</span></div>
+    <p class="footer-copy">© 2025 Faeux. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Menu hamburguer
+    function toggleMenu(btn) {
+      const menu = document.getElementById('nav-menu');
+      const isOpen = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen);
+      btn.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+    }
+
+    // Fechar menu ao clicar em link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        const menu = document.getElementById('nav-menu');
+        const btn = document.querySelector('.menu-toggle');
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Abrir menu');
+      });
+    });
+
+    // Formulário (placeholder - conectar a backend ou Formspree)
+    function handleForm(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Mensagem enviada!';
+      btn.style.background = '#2d6a4f';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = 'Enviar mensagem';
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
