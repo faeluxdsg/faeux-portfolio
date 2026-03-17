@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Portfólio Faeux — Rafael, Social Media, Designer de Marketing e Gestor de Tráfego." />
   <title>Faeux | Portfólio</title>
-
-  <!-- FONTES -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
 
   <style>
@@ -14,280 +12,300 @@
        VARIÁVEIS
     =============================== */
     :root {
-      --bg: #231123;
-      --accent: #961B2B;
-      --text: #F2F2F2;
-      --text-dim: rgba(242,242,242,0.7);
-      --border: rgba(150,27,43,0.35);
-      --soft: rgba(242,242,242,0.06);
-      --font-body: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --font-display: 'Bebas Neue', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --bg:          #231123;
+      --accent:      #961B2B;
+      --accent-dark: #7a1522;
+      --smoke:       #F2F2F2;
+      --dim:         rgba(242,242,242,0.65);
+      --faint:       rgba(242,242,242,0.05);
+      --border:      rgba(150,27,43,0.35);
+      --border-soft: rgba(242,242,242,0.12);
+      --font-body:   'Space Grotesk', system-ui, sans-serif;
+      --font-display:'Bebas Neue', system-ui, sans-serif;
     }
 
     /* ==============================
-       RESET BÁSICO
+       RESET
     =============================== */
-    *,*::before,*::after{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html  { scroll-behavior:smooth; }
+    body  {
+      background: var(--bg);
+      color: var(--smoke);
+      font-family: var(--font-body);
+      line-height: 1.7;
+      overflow-x: hidden;
     }
+    img   { max-width:100%; display:block; }
+    a     { text-decoration:none; color:inherit; }
+    ul    { list-style:none; }
 
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      background:var(--bg);
-      color:var(--text);
-      font-family:var(--font-body);
-      line-height:1.7;
-      overflow-x:hidden;
-    }
-
-    img{max-width:100%;display:block;}
-    a{text-decoration:none;color:inherit;}
-    ul{list-style:none;}
-
-    :focus-visible{
-      outline:2px solid var(--accent);
-      outline-offset:4px;
-      border-radius:3px;
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 3px;
     }
 
     /* ==============================
-       CURSOR SIMPLES (NÃO QUEBRA NADA)
+       CURSOR
     =============================== */
-    .cursor{
-      position:fixed;
-      inset:auto auto 0 0;
-      width:12px;
-      height:12px;
-      border-radius:50%;
-      background:var(--text);
-      pointer-events:none;
-      transform:translate(-50%,-50%);
-      z-index:9999;
-      transition:width .15s,height .15s;
-      box-shadow:0 0 8px rgba(242,242,242,0.6);
+    .cursor {
+      position: fixed;
+      inset: auto;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--smoke);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      transition: width .15s, height .15s;
+      box-shadow: 0 0 8px rgba(242,242,242,0.55);
     }
-    .cursor.big{
-      width:18px;
-      height:18px;
+    .cursor.big { width:18px; height:18px; }
+    @media (hover:none) { .cursor { display:none; } }
+
+    /* ==============================
+       BOTÕES — SISTEMA
+    =============================== */
+
+    /* Vermelho sólido — apenas para CTAs de contato direto */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: 3px;
+      background: var(--accent);
+      color: var(--smoke);
+      font-family: var(--font-body);
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background .25s, transform .2s;
     }
-    @media(hover:none){
-      .cursor{display:none;}
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Vidro fosco — botões internos de navegação/ação secundária */
+    .btn-glass {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: 3px;
+      /* camada de vidro */
+      background: rgba(242,242,242,0.07);
+      backdrop-filter: blur(10px) saturate(140%);
+      -webkit-backdrop-filter: blur(10px) saturate(140%);
+      /* borda iluminada sutil */
+      border: 1px solid rgba(242,242,242,0.18);
+      /* sombra interna leve */
+      box-shadow:
+        inset 0 1px 0 rgba(242,242,242,0.12),
+        0 4px 14px rgba(0,0,0,0.25);
+      color: var(--smoke);
+      font-family: var(--font-body);
+      font-size: .85rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .25s, border-color .25s, transform .2s, box-shadow .25s;
+    }
+    .btn-glass:hover {
+      background: rgba(150,27,43,0.18);
+      border-color: rgba(150,27,43,0.55);
+      box-shadow:
+        inset 0 1px 0 rgba(242,242,242,0.1),
+        0 6px 18px rgba(150,27,43,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Fallback para Firefox (sem backdrop-filter) */
+    @supports not (backdrop-filter: blur(1px)) {
+      .btn-glass {
+        background: rgba(60,30,55,0.85);
+        border-color: rgba(242,242,242,0.2);
+      }
+    }
+
+    /* Versão reduzida em mobile (performance) */
+    @media (max-width:480px) {
+      .btn-glass {
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+      }
     }
 
     /* ==============================
        NAVBAR
     =============================== */
-    nav{
-      position:fixed;
-      top:0;
-      left:0;
-      width:100%;
-      padding:18px 6%;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      z-index:1000;
-      background:rgba(35,17,35,0.96);
-      border-bottom:1px solid rgba(150,27,43,0.35);
-      backdrop-filter:blur(10px);
+    nav {
+      position: fixed;
+      top:0; left:0; width:100%;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: rgba(35,17,35,0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
     }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: .14em;
+    }
+    .logo span { color:var(--accent); }
 
-    .logo{
-      font-family:var(--font-display);
-      font-size:2rem;
-      letter-spacing:.14em;
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
     }
-    .logo span{color:var(--accent);}
-
-    .nav-links{
-      display:flex;
-      gap:28px;
-      align-items:center;
+    .nav-links a {
+      font-size: .8rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      position: relative;
+      transition: color .25s;
     }
-    .nav-links a{
-      font-size:.8rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:var(--text-dim);
-      position:relative;
-    }
-    .nav-links a::after{
+    .nav-links a::after {
       content:'';
-      position:absolute;
-      bottom:-3px;
-      left:0;
-      width:0;
-      height:1px;
-      background:var(--accent);
-      transition:width .25s;
+      position: absolute;
+      bottom:-3px; left:0;
+      width:0; height:1px;
+      background: var(--accent);
+      transition: width .25s;
     }
-    .nav-links a:hover{
-      color:var(--text);
-    }
-    .nav-links a:hover::after{
-      width:100%;
-    }
+    .nav-links a:hover { color:var(--smoke); }
+    .nav-links a:hover::after { width:100%; }
 
-    .nav-cta{
-      padding:9px 20px;
-      border-radius:3px;
-      background:var(--accent);
-      color:var(--text);
-      font-size:.8rem;
-      font-weight:600;
-      letter-spacing:.12em;
-      text-transform:uppercase;
+    .nav-cta {
+      padding: 9px 20px;
+      border-radius: 3px;
+      background: var(--accent);
+      color: var(--smoke);
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      transition: background .25s;
     }
-    .nav-cta:hover{
-      background:#7a1522;
-    }
+    .nav-cta:hover { background: var(--accent-dark); }
 
-    .nav-toggle{
-      display:none;
-      flex-direction:column;
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
       gap:4px;
       border:none;
       background:none;
       cursor:pointer;
     }
-    .nav-toggle span{
-      width:22px;
-      height:2px;
-      background:var(--text);
+    .nav-toggle span {
+      width:22px; height:2px;
+      background: var(--smoke);
       border-radius:2px;
     }
 
-    .nav-mobile{
-      display:none;
-      position:fixed;
-      top:60px;
-      left:0;
-      width:100%;
-      background:rgba(35,17,35,0.98);
-      padding:24px 6%;
-      border-bottom:1px solid var(--border);
-      flex-direction:column;
-      gap:18px;
-      z-index:999;
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top:60px; left:0; width:100%;
+      background: rgba(35,17,35,0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      flex-direction: column;
+      padding: 24px 6%;
+      gap: 18px;
+      z-index: 999;
     }
-    .nav-mobile a{
+    .nav-mobile a {
       font-size:.9rem;
       letter-spacing:.12em;
       text-transform:uppercase;
-      color:var(--text-dim);
+      color:var(--dim);
+      transition:color .25s;
     }
-    .nav-mobile a:hover{
-      color:var(--text);
+    .nav-mobile a:hover { color:var(--smoke); }
+
+    /* ==============================
+       MAIN / SECTION
+    =============================== */
+    main { padding-top:80px; }
+    section { padding:80px 6%; }
+
+    /* divisor entre seções */
+    section + section {
+      border-top: 1px solid var(--border);
     }
 
     /* ==============================
        HERO
     =============================== */
-    main{
-      padding-top:80px; /* para não ficar atrás da nav */
+    .hero {
+      min-height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 28px;
     }
-
-    section{
-      padding:80px 6%;
-    }
-
-    .hero{
-      min-height:calc(100vh - 80px);
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      gap:32px;
-    }
-
-    .hero-label{
+    .hero-label {
       font-size:.78rem;
       letter-spacing:.2em;
       text-transform:uppercase;
       color:var(--accent);
       font-weight:600;
     }
-
-    .hero-title{
-      font-family:var(--font-display);
-      font-size:clamp(3.4rem,8vw,5.6rem);
-      line-height:.95;
-      letter-spacing:.05em;
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.4rem,8vw,5.6rem);
+      line-height: .95;
+      letter-spacing: .05em;
     }
-    .hero-title span{
-      color:var(--accent);
-    }
+    .hero-title span { color:var(--accent); }
 
-    .hero-sub{
+    .hero-sub {
       max-width:520px;
-      color:var(--text-dim);
+      color:var(--dim);
       font-size:1rem;
     }
-
-    .hero-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-top:10px;
-    }
-
-    .btn-primary{
-      padding:14px 26px;
-      border-radius:3px;
-      background:var(--accent);
-      color:var(--text);
-      font-size:.85rem;
-      font-weight:600;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      border:none;
-      cursor:pointer;
-    }
-    .btn-primary:hover{
-      background:#7a1522;
-    }
-
-    .btn-ghost{
-      padding:13px 26px;
-      border-radius:3px;
-      border:1px solid rgba(242,242,242,0.28);
-      background:transparent;
-      color:var(--text);
-      font-size:.85rem;
-      font-weight:500;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      cursor:pointer;
-    }
-    .btn-ghost:hover{
-      border-color:var(--accent);
-      color:var(--accent);
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
     }
 
     /* ==============================
-       TÍTULOS DE SEÇÃO
+       SEÇÃO — RÓTULOS E TÍTULOS
     =============================== */
-    .section-label{
-      font-size:.8rem;
+    .section-label {
+      font-size:.78rem;
       letter-spacing:.18em;
       text-transform:uppercase;
       color:var(--accent);
       margin-bottom:10px;
+      font-weight:600;
     }
-
-    .section-title{
-      font-family:var(--font-display);
-      font-size:clamp(2.4rem,4.5vw,3.4rem);
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem,4.5vw,3.4rem);
       letter-spacing:.06em;
-      margin-bottom:20px;
+      margin-bottom:18px;
     }
-
-    .section-text{
-      color:var(--text-dim);
+    .section-text {
+      color:var(--dim);
       max-width:620px;
       font-size:.98rem;
     }
@@ -295,213 +313,209 @@
     /* ==============================
        QUEM SOU
     =============================== */
-    .about-grid{
+    .about-grid {
       display:grid;
       grid-template-columns:1.2fr 1fr;
       gap:50px;
       align-items:flex-start;
+      margin-top:28px;
     }
-
-    .photo-placeholder{
+    .photo-placeholder {
       aspect-ratio:3/4;
       border-radius:4px;
       border:1px dashed var(--border);
-      background:rgba(150,27,43,0.12);
+      background:rgba(150,27,43,0.1);
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:center;
       gap:10px;
-      color:rgba(242,242,242,0.5);
+      color:rgba(242,242,242,0.45);
       font-size:.8rem;
       letter-spacing:.12em;
       text-transform:uppercase;
     }
-
-    .about-stats{
+    .about-stats {
       display:flex;
       flex-wrap:wrap;
       gap:24px;
-      margin-top:30px;
+      margin-top:28px;
       padding-top:18px;
       border-top:1px solid var(--border);
     }
-    .stat-number{
+    .stat-number {
       font-family:var(--font-display);
       font-size:2.4rem;
       letter-spacing:.06em;
     }
-    .stat-number span{
-      color:var(--accent);
-    }
-    .stat-label{
+    .stat-number span { color:var(--accent); }
+    .stat-label {
       font-size:.78rem;
       text-transform:uppercase;
       letter-spacing:.14em;
-      color:var(--text-dim);
+      color:var(--dim);
     }
 
     /* ==============================
-       SERVIÇOS (ACCORDION SIMPLES)
+       SERVIÇOS (ACCORDION)
     =============================== */
-    .services-list{
+    .services-list {
       display:flex;
       flex-direction:column;
       gap:10px;
-      margin-top:24px;
+      margin-top:28px;
     }
-
-    .service{
+    .service {
       border:1px solid var(--border);
       border-radius:4px;
       background:rgba(242,242,242,0.02);
       overflow:hidden;
     }
-
-    .service-header{
+    .service-header {
       display:flex;
       justify-content:space-between;
       align-items:center;
       gap:12px;
-      padding:16px 18px;
+      padding:18px 20px;
       cursor:pointer;
+      width:100%;
+      background:none;
+      border:none;
+      color:var(--smoke);
+      text-align:left;
     }
-
-    .service-title{
+    .service-header:hover .service-title {
+      color:var(--accent);
+    }
+    .service-title {
       font-family:var(--font-display);
-      font-size:1.5rem;
+      font-size:1.55rem;
       letter-spacing:.06em;
+      transition:color .2s;
     }
-
-    .service-badge{
+    .service-badge {
       font-size:.72rem;
       text-transform:uppercase;
       letter-spacing:.14em;
-      color:var(--text-dim);
+      color:var(--dim);
+      margin-top:4px;
     }
-
-    .service-toggle{
-      font-size:1.3rem;
-      color:var(--text-dim);
+    .service-toggle {
+      font-size:1.5rem;
+      color:var(--dim);
+      flex-shrink:0;
+      line-height:1;
     }
-
-    .service-body{
+    .service-body {
       max-height:0;
       overflow:hidden;
-      padding:0 18px;
+      padding:0 20px;
       border-top:1px solid transparent;
-      transition:max-height .25s ease-out, padding .25s ease-out, border-color .25s;
+      transition:max-height .3s ease-out, padding .3s, border-color .3s;
     }
-
-    .service-body.open{
-      border-color:var(--border);
-      padding:10px 18px 16px;
+    .service-body.open {
       max-height:400px;
+      padding:14px 20px 20px;
+      border-color:var(--border);
     }
-
-    .service-body p{
+    .service-body p {
       font-size:.95rem;
-      color:var(--text-dim);
+      color:var(--dim);
       margin-bottom:12px;
-    }
-
-    .service-body .btn-primary{
-      padding:10px 18px;
-      font-size:.78rem;
     }
 
     /* ==============================
        TRABALHOS
     =============================== */
-    .projects-grid{
+    .projects-grid {
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
       gap:18px;
       margin-top:28px;
     }
-
-    .project-card{
+    .project-card {
       border-radius:4px;
       border:1px solid var(--border);
       background:rgba(242,242,242,0.02);
       overflow:hidden;
       display:flex;
       flex-direction:column;
-      min-height:220px;
+      transition:border-color .25s, transform .25s;
     }
-
-    .project-thumb{
+    .project-card:hover {
+      border-color:rgba(150,27,43,0.6);
+      transform:translateY(-5px);
+    }
+    .project-thumb {
       aspect-ratio:4/3;
-      background:rgba(150,27,43,0.15);
+      background:rgba(150,27,43,0.1);
       display:flex;
+      flex-direction:column;
       align-items:center;
       justify-content:center;
-      flex-direction:column;
       gap:8px;
-      color:rgba(242,242,242,0.7);
-      font-size:.8rem;
-      letter-spacing:.12em;
+      color:rgba(242,242,242,0.6);
+      font-size:.78rem;
+      letter-spacing:.1em;
       text-transform:uppercase;
     }
+    .project-thumb span:first-child { font-size:2rem; }
 
-    .project-thumb span:first-child{
-      font-size:2rem;
-    }
-
-    .project-body{
-      padding:16px 16px 18px;
+    .project-body {
+      padding:18px 18px 20px;
       display:flex;
       flex-direction:column;
       gap:6px;
+      flex:1;
     }
-
-    .project-title{
+    .project-title {
       font-family:var(--font-display);
       font-size:1.4rem;
       letter-spacing:.06em;
     }
-
-    .project-meta{
-      font-size:.8rem;
-      color:var(--text-dim);
+    .project-meta {
+      font-size:.78rem;
+      color:var(--dim);
       letter-spacing:.1em;
       text-transform:uppercase;
     }
-
-    .project-body .btn-ghost{
-      margin-top:8px;
-      padding:9px 14px;
-      font-size:.75rem;
+    .project-desc {
+      font-size:.88rem;
+      color:var(--dim);
+      margin-bottom:6px;
     }
 
     /* ==============================
        REDES
     =============================== */
-    .socials-grid{
+    .socials-grid {
       display:flex;
       flex-wrap:wrap;
-      gap:16px;
+      gap:14px;
       margin-top:28px;
     }
-
-    .social-card{
+    .social-card {
+      display:block;
       border-radius:4px;
       border:1px solid var(--border);
       background:rgba(242,242,242,0.02);
-      padding:20px 24px;
-      min-width:190px;
-      text-align:left;
+      padding:20px 28px;
+      min-width:180px;
+      transition:border-color .25s, background .25s, transform .25s;
     }
-
-    .social-label{
-      font-size:.8rem;
-      color:var(--text-dim);
-      letter-spacing:.12em;
+    .social-card:hover {
+      border-color:rgba(150,27,43,0.55);
+      background:rgba(150,27,43,0.08);
+      transform:translateY(-3px);
+    }
+    .social-label {
+      font-size:.75rem;
+      color:var(--dim);
+      letter-spacing:.14em;
       text-transform:uppercase;
-      margin-bottom:6px;
+      margin-bottom:5px;
     }
-
-    .social-handle{
+    .social-handle {
       font-family:var(--font-display);
       font-size:1.3rem;
       letter-spacing:.08em;
@@ -510,529 +524,579 @@
     /* ==============================
        CONTATO
     =============================== */
-    .contact-grid{
+    .contact-grid {
       display:grid;
-      grid-template-columns:1.2fr 1fr;
-      gap:40px;
-      margin-top:24px;
+      grid-template-columns:1.1fr 1fr;
+      gap:48px;
+      margin-top:28px;
     }
-
-    .contact-info p{
-      color:var(--text-dim);
+    .contact-info p {
+      color:var(--dim);
       margin-bottom:18px;
-    }
-
-    .contact-item{
-      margin-bottom:14px;
       font-size:.95rem;
     }
-    .contact-label{
-      font-size:.75rem;
+    .contact-item {
+      margin-bottom:14px;
+    }
+    .contact-label {
+      font-size:.72rem;
       text-transform:uppercase;
-      letter-spacing:.12em;
+      letter-spacing:.14em;
       color:var(--accent);
+      margin-bottom:2px;
+    }
+    .contact-value {
+      font-size:.95rem;
+      color:var(--smoke);
     }
 
-    form .field{
+    /* formulário */
+    form .field {
       margin-bottom:14px;
       display:flex;
       flex-direction:column;
       gap:5px;
     }
-    form label{
-      font-size:.8rem;
+    form label {
+      font-size:.75rem;
       letter-spacing:.12em;
       text-transform:uppercase;
-      color:var(--text-dim);
+      color:rgba(242,242,242,0.5);
+      font-weight:600;
     }
-
-    input,textarea,select{
+    input, textarea, select {
       border-radius:3px;
       border:1px solid rgba(150,27,43,0.4);
       background:rgba(255,255,255,0.03);
-      color:var(--text);
-      padding:10px 11px;
+      color:var(--smoke);
+      padding:10px 12px;
       font-family:var(--font-body);
       font-size:.9rem;
+      width:100%;
+      transition:border-color .25s;
     }
-    input::placeholder,textarea::placeholder{
-      color:rgba(242,242,242,0.35);
+    input::placeholder, textarea::placeholder {
+      color:rgba(242,242,242,0.28);
     }
+    input:focus, textarea:focus, select:focus {
+      border-color:rgba(150,27,43,0.7);
+      outline:none;
+    }
+    textarea { min-height:110px; resize:vertical; }
+    select option { background:var(--bg); }
 
-    textarea{
-      min-height:110px;
-      resize:vertical;
+    /* ==============================
+       CTA BANNERS (entre seções)
+    =============================== */
+    .cta-strip {
+      padding:44px 6%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:22px;
+      background:rgba(150,27,43,0.07);
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
     }
-
-    .contact-submit{
-      margin-top:6px;
+    .cta-strip-label {
+      font-size:.75rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--accent);
+      margin-bottom:6px;
+      font-weight:600;
+    }
+    .cta-strip-title {
+      font-family:var(--font-display);
+      font-size:clamp(1.6rem,3.5vw,2.6rem);
+      letter-spacing:.04em;
+    }
+    .cta-strip-actions {
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
     }
 
     /* ==============================
        FOOTER
     =============================== */
-    footer{
-      padding:22px 6% 26px;
+    footer {
+      padding:22px 6%;
       border-top:1px solid var(--border);
       display:flex;
       flex-wrap:wrap;
-      gap:14px;
+      gap:12px;
       justify-content:space-between;
       align-items:center;
       font-size:.8rem;
-      color:rgba(242,242,242,0.6);
+      color:rgba(242,242,242,0.5);
     }
 
     /* ==============================
        RESPONSIVO
     =============================== */
-    @media(max-width:900px){
-      .about-grid{grid-template-columns:1fr;gap:30px;}
-      .contact-grid{grid-template-columns:1fr;}
-      .projects-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    @media (max-width:900px) {
+      .about-grid    { grid-template-columns:1fr; gap:30px; }
+      .contact-grid  { grid-template-columns:1fr; gap:36px; }
+      .projects-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
     }
-
-    @media(max-width:720px){
-      .nav-links{display:none;}
-      .nav-toggle{display:flex;}
-
-      .projects-grid{
-        grid-template-columns:1fr;
-      }
-
-      .hero-actions{
-        flex-direction:column;
-      }
-
-      .btn-primary,.btn-ghost{
-        width:100%;
-        text-align:center;
-        justify-content:center;
-      }
+    @media (max-width:680px) {
+      .nav-links  { display:none; }
+      .nav-toggle { display:flex; }
+      .projects-grid { grid-template-columns:1fr; }
+      .hero-actions  { flex-direction:column; }
+      .btn-primary, .btn-glass { width:100%; }
+      .cta-strip { flex-direction:column; align-items:flex-start; }
+      .cta-strip-actions { flex-direction:column; width:100%; }
+      .cta-strip-actions .btn-primary,
+      .cta-strip-actions .btn-glass { width:100%; }
     }
   </style>
 </head>
 <body>
 
-  <!-- CURSOR -->
-  <div class="cursor" id="cursor" aria-hidden="true"></div>
+<!-- CURSOR -->
+<div class="cursor" id="cursor" aria-hidden="true"></div>
 
-  <!-- NAVBAR -->
-  <nav>
-    <a href="#hero" class="logo">FAEU<span>X</span></a>
+<!-- NAVBAR -->
+<nav role="navigation" aria-label="Menu principal">
+  <a href="#hero" class="logo">FAEU<span>X</span></a>
 
-    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">
-      <span></span><span></span><span></span>
-    </button>
+  <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 
-    <ul class="nav-links">
-      <li><a href="#sobre">Quem sou</a></li>
-      <li><a href="#servicos">Serviços</a></li>
-      <li><a href="#trabalhos">Trabalhos</a></li>
-      <li><a href="#redes">Redes</a></li>
-      <li><a href="#contato" class="nav-cta">Solicite orçamento</a></li>
-    </ul>
-  </nav>
+  <ul class="nav-links" role="list">
+    <li><a href="#sobre">Quem sou</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#trabalhos">Trabalhos</a></li>
+    <li><a href="#redes">Redes</a></li>
+    <li><a href="#contato" class="nav-cta">Solicite orçamento</a></li>
+  </ul>
+</nav>
 
-  <!-- MENU MOBILE -->
-  <div class="nav-mobile" id="navMobile">
-    <a href="#sobre">Quem sou</a>
-    <a href="#servicos">Serviços</a>
-    <a href="#trabalhos">Trabalhos</a>
-    <a href="#redes">Redes</a>
-    <a href="#contato">Solicite orçamento</a>
+<!-- MENU MOBILE -->
+<div class="nav-mobile" id="navMobile" role="navigation" aria-label="Menu mobile">
+  <a href="#sobre"     onclick="closeMobile()">Quem sou</a>
+  <a href="#servicos"  onclick="closeMobile()">Serviços</a>
+  <a href="#trabalhos" onclick="closeMobile()">Trabalhos</a>
+  <a href="#redes"     onclick="closeMobile()">Redes</a>
+  <a href="#contato"   onclick="closeMobile()">Solicite orçamento</a>
+</div>
+
+<main>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero" id="hero" aria-label="Apresentação">
+    <p class="hero-label">Portfólio · Street Clean · 2025</p>
+    <h1 class="hero-title">
+      Rafael<br>
+      <span>Faeux</span><br>
+      Social Media & Design
+    </h1>
+    <p class="hero-sub">
+      Social media, redator e gestor de tráfego. Crio e organizo a presença digital de empresas com design estratégico, conteúdo e anúncios que convertem.
+    </p>
+    <div class="hero-actions">
+      <!-- vidro fosco: navega para seção interna -->
+      <a href="#trabalhos" class="btn-glass">Ver trabalhos</a>
+      <!-- vermelho: ação de contato -->
+      <a href="#contato"   class="btn-primary">Solicite seu orçamento</a>
+    </div>
+  </section>
+
+  <!-- ══ QUEM SOU ══ -->
+  <section id="sobre" aria-labelledby="sobre-h2">
+    <p class="section-label">Quem sou</p>
+    <h2 class="section-title" id="sobre-h2">Rafael · Faeux</h2>
+
+    <div class="about-grid">
+      <div>
+        <p class="section-text" style="margin-bottom:14px;">
+          Tenho 23 anos e atuo como <strong>Social Media, Redator e Gestor de Tráfego</strong>, desenvolvendo estratégias digitais completas para empresas que querem presença profissional nas redes.
+        </p>
+        <p class="section-text" style="margin-bottom:14px;">
+          Estou construindo meu próprio estilo visual, o <strong>Street Clean</strong>, que mistura referências urbanas com design limpo, cores fortes e foco em legibilidade.
+        </p>
+        <p class="section-text">
+          Meu objetivo é transformar a comunicação das marcas em algo claro, consistente e estratégico: conteúdo bem pensado, identidade visual marcante e anúncios otimizados trabalhando juntos.
+        </p>
+
+        <!-- vidro fosco: navega para seção interna -->
+        <a href="#servicos" class="btn-glass" style="margin-top:22px;">Ver o que faço</a>
+
+        <div class="about-stats" aria-label="Destaques">
+          <div>
+            <div class="stat-number">3<span>+</span></div>
+            <div class="stat-label">Áreas de atuação</div>
+          </div>
+          <div>
+            <div class="stat-number">3<span>+</span></div>
+            <div class="stat-label">Projetos autorais</div>
+          </div>
+          <div>
+            <div class="stat-number">100<span>%</span></div>
+            <div class="stat-label">Foco em estratégia</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="photo-placeholder" role="img" aria-label="Foto de Rafael em breve">
+        <span style="font-size:2.4rem;" aria-hidden="true">📷</span>
+        <span>Foto em breve</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA STRIP 1 -->
+  <div class="cta-strip" aria-label="Chamada para ação">
+    <div>
+      <div class="cta-strip-label">Pronto para começar?</div>
+      <div class="cta-strip-title">Vamos construir sua presença digital.</div>
+    </div>
+    <div class="cta-strip-actions">
+      <!-- vermelho: ação de contato -->
+      <a href="#contato"   class="btn-primary">Fale comigo</a>
+      <!-- vidro: navega para seção interna -->
+      <a href="#servicos"  class="btn-glass">Ver serviços</a>
+    </div>
   </div>
 
-  <main>
-    <!-- HERO -->
-    <section class="hero" id="hero">
-      <p class="hero-label">Portfólio · Street Clean · 2025</p>
-      <h1 class="hero-title">
-        Rafael<br>
-        <span>Faeux</span><br>
-        Social Media & Design
-      </h1>
-      <p class="hero-sub">
-        Social media, redator e gestor de tráfego. Crio e organizo a presença digital de empresas com design estratégico, conteúdo e anúncios que convertem.
-      </p>
-      <div class="hero-actions">
-        <a href="#trabalhos" class="btn-primary">Ver trabalhos</a>
-        <a href="#contato" class="btn-ghost">Solicite seu orçamento</a>
-      </div>
-    </section>
+  <!-- ══ SERVIÇOS ══ -->
+  <section id="servicos" aria-labelledby="servicos-h2">
+    <p class="section-label">Serviços</p>
+    <h2 class="section-title" id="servicos-h2">O que eu faço</h2>
+    <p class="section-text">
+      Clique em cada serviço para entender, em linguagem simples, o que ele inclui e como pode ajudar sua empresa.
+    </p>
 
-    <!-- QUEM SOU -->
-    <section id="sobre">
-      <p class="section-label">Quem sou</p>
-      <div class="about-grid">
-        <div>
-          <h2 class="section-title">Rafael · Faeux</h2>
-          <p class="section-text" style="margin-bottom:14px;">
-            Tenho 23 anos e atuo como <strong>Social Media, Redator e Gestor de Tráfego</strong>, desenvolvendo estratégias digitais completas para empresas que querem presença profissional nas redes.
-          </p>
-          <p class="section-text" style="margin-bottom:14px;">
-            Estou construindo meu próprio estilo visual, o <strong>Street Clean</strong>, que mistura referências urbanas com design limpo, cores fortes e foco em legibilidade.
-          </p>
-          <p class="section-text">
-            Meu objetivo é transformar a comunicação das marcas em algo claro, consistente e estratégico: conteúdo bem pensado, identidade visual marcante e anúncios otimizados trabalhando juntos.
-          </p>
+    <div class="services-list" role="list">
 
-          <div class="about-stats">
-            <div>
-              <div class="stat-number">3<span>+</span></div>
-              <div class="stat-label">Áreas de atuação</div>
-            </div>
-            <div>
-              <div class="stat-number">3<span>+</span></div>
-              <div class="stat-label">Projetos autorais</div>
-            </div>
-            <div>
-              <div class="stat-number">100<span>%</span></div>
-              <div class="stat-label">Foco em estratégia</div>
-            </div>
+      <article class="service" role="listitem">
+        <button class="service-header" type="button" aria-expanded="false">
+          <div>
+            <div class="service-title">Gestão de Redes Sociais</div>
+            <div class="service-badge">Planejamento · Conteúdo · Métricas</div>
           </div>
+          <span class="service-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="service-body" aria-live="polite">
+          <p>Planejo e organizo todo o conteúdo das redes sociais da sua empresa: linha editorial, calendário de postagens, tipos de conteúdo e formatos ideais.</p>
+          <p>Acompanho os resultados (alcance, engajamento, crescimento) e faço ajustes constantes para garantir que o perfil cresça com identidade e estratégia.</p>
+          <!-- vermelho: CTA de contato direto -->
+          <a href="#contato" class="btn-primary">Solicitar orçamento</a>
         </div>
+      </article>
 
-        <div class="photo-placeholder">
-          <span style="font-size:2.4rem;">📷</span>
-          <span>Foto em breve</span>
+      <article class="service" role="listitem">
+        <button class="service-header" type="button" aria-expanded="false">
+          <div>
+            <div class="service-title">Design de Marketing</div>
+            <div class="service-badge">Peças visuais · Identidade · Layout</div>
+          </div>
+          <span class="service-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="service-body" aria-live="polite">
+          <p>Crio artes para feeds, stories, anúncios e materiais digitais seguindo um padrão visual pensado para sua marca, usando a estética Street Clean.</p>
+          <p>Layouts que chamam atenção e principalmente comunicam o que sua empresa faz.</p>
+          <a href="#contato" class="btn-primary">Solicitar orçamento</a>
         </div>
-      </div>
-    </section>
+      </article>
 
-    <!-- SERVIÇOS -->
-    <section id="servicos">
-      <p class="section-label">Serviços</p>
-      <h2 class="section-title">O que eu faço</h2>
-      <p class="section-text">
-        Clique em cada serviço para entender, em linguagem simples, o que ele inclui e como pode ajudar sua empresa.
-      </p>
-
-      <div class="services-list" id="servicesList">
-        <!-- 1 -->
-        <article class="service">
-          <button class="service-header" type="button">
-            <div>
-              <div class="service-title">Gestão de Redes Sociais</div>
-              <div class="service-badge">Planejamento · Conteúdo · Métricas</div>
-            </div>
-            <span class="service-toggle">+</span>
-          </button>
-          <div class="service-body">
-            <p>
-              Planejo e organizo todo o conteúdo das redes sociais da sua empresa: linha editorial, calendário de postagens, tipos de conteúdo, horários e formatos ideais.
-            </p>
-            <p>
-              Acompanho os resultados (alcance, engajamento, crescimento) e faço ajustes constantes para garantir que o perfil cresça com identidade e estratégia.
-            </p>
-            <a href="#contato" class="btn-primary">Solicitar orçamento desse serviço</a>
+      <article class="service" role="listitem">
+        <button class="service-header" type="button" aria-expanded="false">
+          <div>
+            <div class="service-title">Redação & Copywriting</div>
+            <div class="service-badge">Posts · Anúncios · Roteiros</div>
           </div>
-        </article>
+          <span class="service-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="service-body" aria-live="polite">
+          <p>Escrevo legendas, textos para anúncios, roteiros de vídeo e materiais de comunicação com linguagem clara, direta e adaptada ao seu público.</p>
+          <p>O objetivo é fazer as pessoas entenderem a proposta da sua marca e darem o próximo passo.</p>
+          <a href="#contato" class="btn-primary">Solicitar orçamento</a>
+        </div>
+      </article>
 
-        <!-- 2 -->
-        <article class="service">
-          <button class="service-header" type="button">
-            <div>
-              <div class="service-title">Design de Marketing</div>
-              <div class="service-badge">Peças visuais · Identidade · Layout</div>
-            </div>
-            <span class="service-toggle">+</span>
-          </button>
-          <div class="service-body">
-            <p>
-              Crio artes para feeds, stories, anúncios, capas e materiais digitais seguindo um padrão visual pensado para sua marca, usando a estética Street Clean.
-            </p>
-            <p>
-              O foco é unir beleza e função: layouts que chamam atenção, mas principalmente comunicam e ajudam o público a entender o que sua empresa faz.
-            </p>
-            <a href="#contato" class="btn-primary">Solicitar orçamento desse serviço</a>
+      <article class="service" role="listitem">
+        <button class="service-header" type="button" aria-expanded="false">
+          <div>
+            <div class="service-title">Gestão de Tráfego</div>
+            <div class="service-badge">Meta Ads · CPC · Leads</div>
           </div>
-        </article>
+          <span class="service-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="service-body" aria-live="polite">
+          <p>Crio, configuro e otimizo campanhas de anúncios no Meta Ads (Instagram e Facebook) para alcançar pessoas certas com a mensagem certa.</p>
+          <p>Acompanho métricas como CPC, CTR e CPA para reduzir desperdício de verba e aumentar resultados em leads e vendas.</p>
+          <a href="#contato" class="btn-primary">Solicitar orçamento</a>
+        </div>
+      </article>
 
-        <!-- 3 -->
-        <article class="service">
-          <button class="service-header" type="button">
-            <div>
-              <div class="service-title">Redação & Copywriting</div>
-              <div class="service-badge">Textos para posts · anúncios · roteiros</div>
-            </div>
-            <span class="service-toggle">+</span>
-          </button>
-          <div class="service-body">
-            <p>
-              Escrevo legendas, textos para anúncios, roteiros de vídeo e materiais de comunicação com linguagem clara, direta e adaptada ao seu público.
-            </p>
-            <p>
-              O objetivo é fazer as pessoas entenderem rapidamente a proposta da sua marca e darem o próximo passo: seguir, clicar, chamar no WhatsApp ou comprar.
-            </p>
-            <a href="#contato" class="btn-primary">Solicitar orçamento desse serviço</a>
+      <article class="service" role="listitem">
+        <button class="service-header" type="button" aria-expanded="false">
+          <div>
+            <div class="service-title">Captação & Roteiros de Vídeo</div>
+            <div class="service-badge">Reels · Institucional · Edição</div>
           </div>
-        </article>
+          <span class="service-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="service-body" aria-live="polite">
+          <p>Desenvolvo roteiros para vídeos e participo da captação, pensando em enquadramento, ritmo e narrativa para cada conteúdo.</p>
+          <p>Vídeos que fazem sentido dentro da estratégia da marca e geram conexão real com o público.</p>
+          <a href="#contato" class="btn-primary">Solicitar orçamento</a>
+        </div>
+      </article>
 
-        <!-- 4 -->
-        <article class="service">
-          <button class="service-header" type="button">
-            <div>
-              <div class="service-title">Gestão de Tráfego</div>
-              <div class="service-badge">Anúncios · Meta Ads · Resultados</div>
-            </div>
-            <span class="service-toggle">+</span>
-          </button>
-          <div class="service-body">
-            <p>
-              Crio, configuro e otimizo campanhas de anúncios (principalmente em Meta Ads: Instagram e Facebook) para alcançar pessoas certas, com a mensagem certa.
-            </p>
-            <p>
-              Acompanho métricas como CPC, CTR e CPA para reduzir desperdício de verba e aumentar resultados em leads, mensagens ou vendas.
-            </p>
-            <a href="#contato" class="btn-primary">Solicitar orçamento desse serviço</a>
-          </div>
-        </article>
+    </div>
+  </section>
 
-        <!-- 5 -->
-        <article class="service">
-          <button class="service-header" type="button">
-            <div>
-              <div class="service-title">Captação & Roteiros de Vídeo</div>
-              <div class="service-badge">Reels · vídeos institucionais · bastidores</div>
-            </div>
-            <span class="service-toggle">+</span>
-          </button>
-          <div class="service-body">
-            <p>
-              Desenvolvo roteiros simples e diretos para vídeos, e também participo da captação, pensando em enquadramento, ritmo e narrativa para cada conteúdo.
-            </p>
-            <p>
-              A ideia é que seus vídeos não sejam só “bonitos”, mas que façam sentido dentro da estratégia da marca e ajudem a gerar conexão real.
-            </p>
-            <a href="#contato" class="btn-primary">Solicitar orçamento desse serviço</a>
-          </div>
-        </article>
-      </div>
-    </section>
+  <!-- CTA STRIP 2 -->
+  <div class="cta-strip" aria-label="Chamada para ação">
+    <div>
+      <div class="cta-strip-label">Vamos trabalhar juntos?</div>
+      <div class="cta-strip-title">Sua marca merece uma presença que converte.</div>
+    </div>
+    <div class="cta-strip-actions">
+      <a href="#contato" class="btn-primary">Solicite seu orçamento</a>
+    </div>
+  </div>
 
-    <!-- TRABALHOS -->
-    <section id="trabalhos">
-      <p class="section-label">Portfólio</p>
-      <h2 class="section-title">Meus trabalhos</h2>
-      <p class="section-text">
-        Aqui entrarão projetos criados do zero. Enquanto finalizo cada um, você já consegue ter uma ideia do tipo de entrega que faço.
-      </p>
+  <!-- ══ TRABALHOS ══ -->
+  <section id="trabalhos" aria-labelledby="trabalhos-h2">
+    <p class="section-label">Portfólio</p>
+    <h2 class="section-title" id="trabalhos-h2">Meus trabalhos</h2>
+    <p class="section-text">
+      Projetos criados do zero. Enquanto finalizo cada um, você já consegue ter uma ideia do tipo de entrega que faço.
+    </p>
 
-      <div class="projects-grid">
-        <article class="project-card">
-          <div class="project-thumb">
-            <span>🖼</span>
-            <span>Projeto 01 · Em breve</span>
-          </div>
-          <div class="project-body">
-            <div class="project-title">Projeto 01</div>
-            <div class="project-meta">Social media · Design</div>
-            <p class="section-text" style="max-width:none;margin:0;font-size:.9rem;">
-              Projeto focado em identidade visual e organização da presença em redes sociais.
-            </p>
-            <a href="#contato" class="btn-ghost">Quero algo assim</a>
-          </div>
-        </article>
+    <div class="projects-grid">
 
-        <article class="project-card">
-          <div class="project-thumb">
-            <span>🖼</span>
-            <span>Projeto 02 · Em breve</span>
-          </div>
-          <div class="project-body">
-            <div class="project-title">Projeto 02</div>
-            <div class="project-meta">Tráfego · Conteúdo</div>
-            <p class="section-text" style="max-width:none;margin:0;font-size:.9rem;">
-              Combinação entre campanhas pagas e conteúdo estratégico para atrair leads.
-            </p>
-            <a href="#contato" class="btn-ghost">Quero algo assim</a>
-          </div>
-        </article>
+      <article class="project-card" aria-label="Projeto 01">
+        <div class="project-thumb">
+          <span aria-hidden="true">🖼</span>
+          <span>Em breve</span>
+        </div>
+        <div class="project-body">
+          <div class="project-title">Projeto 01</div>
+          <div class="project-meta">Social media · Design</div>
+          <p class="project-desc">Identidade visual e presença estratégica em redes sociais.</p>
+          <!-- vidro: navega para contato, mas de forma secundária -->
+          <a href="#contato" class="btn-glass">Quero algo assim</a>
+        </div>
+      </article>
 
-        <article class="project-card">
-          <div class="project-thumb">
-            <span>🖼</span>
-            <span>Projeto 03 · Em breve</span>
-          </div>
-          <div class="project-body">
-            <div class="project-title">Projeto 03</div>
-            <div class="project-meta">Vídeo · Roteiro</div>
-            <p class="section-text" style="max-width:none;margin:0;font-size:.9rem;">
-              Conteúdo em vídeo com roteiro pensado para humanizar e aproximar a marca do público.
-            </p>
-            <a href="#contato" class="btn-ghost">Quero algo assim</a>
-          </div>
-        </article>
-      </div>
-    </section>
+      <article class="project-card" aria-label="Projeto 02">
+        <div class="project-thumb">
+          <span aria-hidden="true">🖼</span>
+          <span>Em breve</span>
+        </div>
+        <div class="project-body">
+          <div class="project-title">Projeto 02</div>
+          <div class="project-meta">Tráfego · Conteúdo</div>
+          <p class="project-desc">Campanhas pagas e conteúdo estratégico para captação de leads.</p>
+          <a href="#contato" class="btn-glass">Quero algo assim</a>
+        </div>
+      </article>
 
-    <!-- REDES -->
-    <section id="redes">
-      <p class="section-label">Redes sociais</p>
-      <h2 class="section-title">Onde me encontrar</h2>
-      <p class="section-text">
-        Acompanhe meu trabalho, bastidores e testes de conteúdo nas redes onde estou mais ativo.
-      </p>
+      <article class="project-card" aria-label="Projeto 03">
+        <div class="project-thumb">
+          <span aria-hidden="true">🖼</span>
+          <span>Em breve</span>
+        </div>
+        <div class="project-body">
+          <div class="project-title">Projeto 03</div>
+          <div class="project-meta">Vídeo · Roteiro</div>
+          <p class="project-desc">Conteúdo em vídeo para humanizar e aproximar a marca do público.</p>
+          <a href="#contato" class="btn-glass">Quero algo assim</a>
+        </div>
+      </article>
 
-      <div class="socials-grid">
-        <a class="social-card" href="https://www.instagram.com/faeuxdsg_" target="_blank" rel="noopener noreferrer">
-          <div class="social-label">Instagram</div>
-          <div class="social-handle">@faeuxdsg_</div>
-        </a>
-        <a class="social-card" href="https://www.facebook.com/faeux" target="_blank" rel="noopener noreferrer">
-          <div class="social-label">Facebook</div>
-          <div class="social-handle">Faeux</div>
-        </a>
-        <a class="social-card" href="https://www.tiktok.com/@faeuxdsg_" target="_blank" rel="noopener noreferrer">
-          <div class="social-label">TikTok</div>
-          <div class="social-handle">@faeuxdsg_</div>
+    </div>
+  </section>
+
+  <!-- ══ REDES ══ -->
+  <section id="redes" aria-labelledby="redes-h2">
+    <p class="section-label">Redes sociais</p>
+    <h2 class="section-title" id="redes-h2">Onde me encontrar</h2>
+    <p class="section-text">
+      Acompanhe meu trabalho, bastidores e testes de conteúdo nas redes onde estou mais ativo.
+    </p>
+
+    <div class="socials-grid">
+      <a class="social-card" href="https://www.instagram.com/faeuxdsg_" target="_blank" rel="noopener noreferrer" aria-label="Instagram @faeuxdsg_">
+        <div class="social-label">Instagram</div>
+        <div class="social-handle">@faeuxdsg_</div>
+      </a>
+      <a class="social-card" href="https://www.facebook.com/faeux" target="_blank" rel="noopener noreferrer" aria-label="Facebook Faeux">
+        <div class="social-label">Facebook</div>
+        <div class="social-handle">Faeux</div>
+      </a>
+      <a class="social-card" href="https://www.tiktok.com/@faeuxdsg_" target="_blank" rel="noopener noreferrer" aria-label="TikTok @faeuxdsg_">
+        <div class="social-label">TikTok</div>
+        <div class="social-handle">@faeuxdsg_</div>
+      </a>
+    </div>
+
+    <div style="margin-top:26px;">
+      <!-- vidro: explorar mais -->
+      <a href="#trabalhos" class="btn-glass">Ver meus trabalhos</a>
+    </div>
+  </section>
+
+  <!-- ══ CONTATO ══ -->
+  <section id="contato" aria-labelledby="contato-h2">
+    <p class="section-label">Contato</p>
+    <h2 class="section-title" id="contato-h2">Solicite seu orçamento</h2>
+    <p class="section-text">
+      Me conte um pouco sobre a sua empresa ou ideia. Vou analisar com calma e responder com uma proposta alinhada ao seu momento.
+    </p>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-label">WhatsApp</div>
+          <div class="contact-value">+55 (34) 99795-1522</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">E-mail</div>
+          <div class="contact-value">faeuxdesigner@gmail.com</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">Instagram</div>
+          <div class="contact-value">@faeuxdsg_</div>
+        </div>
+        <p>Se preferir algo mais rápido, pode me chamar diretamente no WhatsApp.</p>
+        <!-- vermelho: ação de contato direto -->
+        <a href="https://wa.me/5534997951522" class="btn-primary" target="_blank" rel="noopener noreferrer">
+          Chamar no WhatsApp
         </a>
       </div>
 
-      <div style="margin-top:26px;">
-        <a href="#contato" class="btn-primary">Fale comigo</a>
-      </div>
-    </section>
-
-    <!-- CONTATO -->
-    <section id="contato">
-      <p class="section-label">Contato</p>
-      <h2 class="section-title">Solicite seu orçamento</h2>
-      <p class="section-text">
-        Me conte um pouco sobre a sua empresa ou ideia. Vou analisar com calma e responder com uma proposta alinhada ao seu momento.
-      </p>
-
-      <div class="contact-grid">
-        <div class="contact-info">
-          <div class="contact-item">
-            <div class="contact-label">WhatsApp</div>
-            <div>+55 (34) 99795-1522</div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-label">E-mail</div>
-            <div>faeuxdesigner@gmail.com</div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-label">Instagram</div>
-            <div>@faeuxdsg_</div>
-          </div>
-
-          <p>
-            Se preferir algo mais rápido, pode me chamar diretamente no WhatsApp. Mas, se quiser detalhar melhor o que precisa, use o formulário ao lado.
-          </p>
-          <a href="https://wa.me/5534997951522" class="btn-primary" target="_blank" rel="noopener noreferrer">Chamar no WhatsApp</a>
+      <form onsubmit="handleForm(event)" novalidate>
+        <div class="field">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" name="nome" placeholder="Como posso te chamar?" required />
         </div>
+        <div class="field">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+        </div>
+        <div class="field">
+          <label for="servico">Serviço de interesse</label>
+          <select id="servico" name="servico" required>
+            <option value="" disabled selected>Selecione uma opção</option>
+            <option value="social">Gestão de redes sociais</option>
+            <option value="design">Design de marketing</option>
+            <option value="trafego">Gestão de tráfego</option>
+            <option value="copy">Redação & copywriting</option>
+            <option value="video">Captação e roteiros de vídeo</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="mensagem">Mensagem</label>
+          <textarea id="mensagem" name="mensagem" placeholder="Conte um pouco sobre o seu projeto ou empresa..." required></textarea>
+        </div>
+        <!-- vermelho: envio de contato direto -->
+        <button type="submit" class="btn-primary" style="width:100%;margin-top:4px;">
+          Enviar mensagem
+        </button>
+      </form>
+    </div>
+  </section>
 
-        <form onsubmit="handleForm(event)">
-          <div class="field">
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome" placeholder="Como posso te chamar?" required />
-          </div>
-          <div class="field">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" placeholder="seu@email.com" required />
-          </div>
-          <div class="field">
-            <label for="servico">Serviço de interesse</label>
-            <select id="servico" name="servico" required>
-              <option value="" disabled selected>Selecione uma opção</option>
-              <option value="social">Gestão de redes sociais</option>
-              <option value="design">Design de marketing</option>
-              <option value="trafego">Gestão de tráfego</option>
-              <option value="copy">Redação & copywriting</option>
-              <option value="video">Captação e roteiros de vídeo</option>
-              <option value="outro">Outro</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="mensagem">Mensagem</label>
-            <textarea id="mensagem" name="mensagem" placeholder="Conte um pouco sobre o seu projeto ou empresa..." required></textarea>
-          </div>
-          <div class="contact-submit">
-            <button type="submit" class="btn-primary">Enviar mensagem</button>
-          </div>
-        </form>
-      </div>
-    </section>
-  </main>
+</main>
 
-  <footer>
-    <div>© 2025 Faeux · Rafael</div>
-    <div>Street Clean · Social Media & Design</div>
-  </footer>
+<footer role="contentinfo">
+  <div>© 2025 Faeux · Rafael</div>
+  <div>Street Clean · Social Media & Design</div>
+</footer>
 
-  <script>
-    // MENU MOBILE
-    const navToggle = document.getElementById('navToggle');
-    const navMobile = document.getElementById('navMobile');
+<script>
+  /* ── CURSOR ── */
+  (function () {
+    const cur = document.getElementById('cursor');
+    if (!cur) return;
 
-    navToggle.addEventListener('click', () => {
-      const open = navMobile.style.display === 'flex';
-      navMobile.style.display = open ? 'none' : 'flex';
+    let mx = window.innerWidth  / 2;
+    let my = window.innerHeight / 2;
+
+    cur.style.left = mx + 'px';
+    cur.style.top  = my + 'px';
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX;
+      my = e.clientY;
+      cur.style.left = mx + 'px';
+      cur.style.top  = my + 'px';
     });
 
-    document.querySelectorAll('.nav-mobile a').forEach(link => {
-      link.addEventListener('click', () => {
-        navMobile.style.display = 'none';
-      });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('big'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('big'));
     });
+  })();
 
-    // CURSOR SIMPLES
-    const cursor = document.getElementById('cursor');
-    if (cursor) {
-      let mouseX = window.innerWidth / 2;
-      let mouseY = window.innerHeight / 2;
+  /* ── NAVBAR: scroll + mobile ── */
+  const nav       = document.querySelector('nav');
+  const navToggle = document.getElementById('navToggle');
+  const navMobile = document.getElementById('navMobile');
 
-      cursor.style.left = mouseX + 'px';
-      cursor.style.top  = mouseY + 'px';
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 40
+      ? 'rgba(35,17,35,0.97)'
+      : 'rgba(35,17,35,0.96)';
+  });
 
-      document.addEventListener('mousemove', e => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        cursor.style.left = mouseX + 'px';
-        cursor.style.top  = mouseY + 'px';
-      });
+  navToggle.addEventListener('click', () => {
+    const open = navMobile.style.display === 'flex';
+    navMobile.style.display = open ? 'none' : 'flex';
+    navToggle.setAttribute('aria-expanded', String(!open));
+  });
 
-      const interactive = document.querySelectorAll('a, button');
-      interactive.forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('big'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
-      });
-    }
+  function closeMobile () {
+    navMobile.style.display = 'none';
+    navToggle.setAttribute('aria-expanded', 'false');
+  }
 
-    // ACCORDION DE SERVIÇOS
-    document.querySelectorAll('.service').forEach(service => {
-      const header = service.querySelector('.service-header');
-      const body   = service.querySelector('.service-body');
-      const icon   = service.querySelector('.service-toggle');
+  /* ── ACCORDION DE SERVIÇOS ── */
+  document.querySelectorAll('.service').forEach(service => {
+    const btn  = service.querySelector('.service-header');
+    const body = service.querySelector('.service-body');
+    const icon = service.querySelector('.service-toggle');
 
-      header.addEventListener('click', () => {
-        const open = body.classList.contains('open');
-        // fecha todos
-        document.querySelectorAll('.service-body').forEach(b => b.classList.remove('open'));
-        document.querySelectorAll('.service-toggle').forEach(i => i.textContent = '+');
+    btn.addEventListener('click', () => {
+      const isOpen = body.classList.contains('open');
 
-        if (!open) {
-          body.classList.add('open');
-          icon.textContent = '–';
-        }
-      });
+      /* fecha todos */
+      document.querySelectorAll('.service-body').forEach(b => b.classList.remove('open'));
+      document.querySelectorAll('.service-toggle').forEach(i => i.textContent = '+');
+      document.querySelectorAll('.service-header').forEach(b => b.setAttribute('aria-expanded','false'));
+
+      /* abre o clicado, se estava fechado */
+      if (!isOpen) {
+        body.classList.add('open');
+        icon.textContent = '–';
+        btn.setAttribute('aria-expanded', 'true');
+      }
     });
+  });
 
-    // FORM (apenas feedback visual)
-    function handleForm(e){
-      e.preventDefault();
-      const btn = e.target.querySelector('button[type="submit"]');
-      const original = btn.textContent;
-      btn.textContent = 'Mensagem enviada!';
-      btn.disabled = true;
-      setTimeout(() => {
-        btn.textContent = original;
-        btn.disabled = false;
-        e.target.reset();
-      }, 2500);
-    }
-  </script>
+  /* ── FORMULÁRIO (feedback visual) ── */
+  function handleForm(e) {
+    e.preventDefault();
+    const btn      = e.target.querySelector('button[type="submit"]');
+    const original = btn.textContent;
+    btn.textContent = 'Mensagem enviada ✓';
+    btn.disabled    = true;
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.disabled    = false;
+      e.target.reset();
+    }, 2800);
+  }
+</script>
 </body>
 </html>
