@@ -1,398 +1,237 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Faeux | Portfólio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body {
-      background-color: #231123;
-      color: #F2F2F2;
-      font-family: 'Space Grotesk', sans-serif;
-      line-height: 1.7;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-    * { color: inherit; }
-    a { text-decoration: none; }
-    ul { list-style: none; }
-    button { font-family: inherit; cursor: pointer; }
-    :focus-visible { outline: 2px solid #961B2B; outline-offset: 4px; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Faeux | Portfólio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#231123;color:#F2F2F2;font-family:'Space Grotesk',sans-serif;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+*{color:inherit}
+a{text-decoration:none}
+ul{list-style:none}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2px solid #961B2B;outline-offset:4px}
+:root{--red:#961B2B;--dk:#7a1522;--smoke:#F2F2F2;--dim:rgba(242,242,242,.68);--border:rgba(150,27,43,.38)}
 
-    :root {
-      --red:    #961B2B;
-      --red-dk: #7a1522;
-      --smoke:  #F2F2F2;
-      --dim:    rgba(242,242,242,0.68);
-      --border: rgba(150,27,43,0.38);
-    }
+/* CURSOR */
+#cur{position:fixed;width:12px;height:12px;border-radius:50%;background:#F2F2F2;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s;box-shadow:0 0 8px rgba(242,242,242,.5)}
+#cur.big{width:20px;height:20px}
+@media(hover:none){#cur{display:none}}
 
-    /* CURSOR */
-    #cur {
-      position: fixed;
-      width: 12px; height: 12px;
-      border-radius: 50%;
-      background: #F2F2F2;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%,-50%);
-      transition: width .15s, height .15s;
-      box-shadow: 0 0 8px rgba(242,242,242,0.5);
-    }
-    #cur.big { width: 20px; height: 20px; }
-    @media (hover:none) { #cur { display:none; } }
+/* NAVBAR */
+#navbar{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(35,17,35,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);padding:16px 6%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.14em}
+.logo em{color:#961B2B;font-style:normal}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{font-size:.8rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);position:relative;transition:color .2s}
+.nav-links a:hover{color:#F2F2F2}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:#961B2B;transition:width .25s}
+.nav-links a:hover::after{width:100%}
+.nav-cta{padding:9px 20px;border-radius:3px;background:#961B2B;color:#F2F2F2!important;font-weight:700;border:none;transition:background .2s}
+.nav-cta:hover{background:#7a1522}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:#F2F2F2;border-radius:2px}
+#mobileMenu{display:none;position:fixed;top:60px;left:0;width:100%;background:rgba(35,17,35,.99);border-bottom:1px solid var(--border);flex-direction:column;padding:22px 6%;gap:16px;z-index:998}
+#mobileMenu a{font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+#mobileMenu a:hover{color:#F2F2F2}
 
-    /* NAVBAR */
-    #navbar {
-      position: fixed; top:0; left:0; width:100%;
-      z-index: 1000;
-      background: rgba(35,17,35,0.97);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(12px);
-      padding: 16px 6%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .logo { font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:.14em; }
-    .logo em { color:#961B2B; font-style:normal; }
-    .nav-links { display:flex; align-items:center; gap:28px; }
-    .nav-links a {
-      font-size:.8rem; font-weight:500;
-      letter-spacing:.12em; text-transform:uppercase;
-      color:var(--dim); position:relative; transition:color .2s;
-    }
-    .nav-links a:hover { color:#F2F2F2; }
-    .nav-links a::after {
-      content:''; position:absolute; bottom:-3px; left:0;
-      width:0; height:1px; background:#961B2B; transition:width .25s;
-    }
-    .nav-links a:hover::after { width:100%; }
-    .nav-cta {
-      padding:9px 20px; border-radius:3px;
-      background:#961B2B; color:#F2F2F2 !important;
-      font-weight:700; transition:background .2s;
-    }
-    .nav-cta::after { display:none !important; }
-    .nav-cta:hover { background:#7a1522; }
-    .hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; }
-    .hamburger span { display:block; width:22px; height:2px; background:#F2F2F2; border-radius:2px; }
-    #mobileMenu {
-      display:none; position:fixed; top:60px; left:0; width:100%;
-      background:rgba(35,17,35,0.99); border-bottom:1px solid var(--border);
-      flex-direction:column; padding:22px 6%; gap:16px; z-index:998;
-    }
-    #mobileMenu a { font-size:.9rem; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); }
-    #mobileMenu a:hover { color:#F2F2F2; }
+/* LAYOUT */
+main{padding-top:62px}
+.section{padding:80px 6%;border-top:1px solid var(--border)}
 
-    main { padding-top:62px; }
-    .section { padding:80px 6%; border-top:1px solid var(--border); }
+/* BOTÕES */
+.btn-red{display:inline-flex;align-items:center;justify-content:center;padding:13px 26px;border-radius:3px;background:#961B2B;color:#F2F2F2;font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:none;transition:background .2s,transform .18s;cursor:pointer}
+.btn-red:hover{background:#7a1522;transform:translateY(-2px);color:#F2F2F2}
+.btn-glass{display:inline-flex;align-items:center;justify-content:center;padding:13px 26px;border-radius:3px;background:rgba(242,242,242,.08);backdrop-filter:blur(10px) saturate(130%);-webkit-backdrop-filter:blur(10px) saturate(130%);border:1px solid rgba(242,242,242,.18);box-shadow:inset 0 1px 0 rgba(242,242,242,.1),0 4px 12px rgba(0,0,0,.22);color:#F2F2F2;font-size:.85rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;transition:background .22s,border-color .22s,transform .18s;cursor:pointer}
+.btn-glass:hover{background:rgba(150,27,43,.2);border-color:rgba(150,27,43,.5);transform:translateY(-2px);color:#F2F2F2}
+@supports not (backdrop-filter:blur(1px)){.btn-glass{background:rgba(55,25,50,.88)}}
+@media(max-width:480px){.btn-red,.btn-glass{width:100%}}
 
-    /* BOTÕES */
-    .btn-red {
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:13px 26px; border-radius:3px;
-      background:#961B2B; color:#F2F2F2;
-      font-size:.85rem; font-weight:700;
-      letter-spacing:.12em; text-transform:uppercase;
-      border:none; transition:background .2s, transform .18s; cursor:pointer;
-    }
-    .btn-red:hover { background:#7a1522; transform:translateY(-2px); color:#F2F2F2; }
+/* HERO */
+#hero{min-height:calc(100vh - 62px);display:flex;flex-direction:column;justify-content:center;padding:60px 6% 80px;gap:24px}
+.hero-eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#961B2B}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.2rem,8vw,6rem);line-height:.95;letter-spacing:.04em}
+.hero-title .accent{color:#961B2B}
+.hero-title .outline{color:transparent;-webkit-text-stroke:2px #F2F2F2}
+.hero-desc{font-size:clamp(.95rem,1.4vw,1.08rem);color:var(--dim);max-width:520px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
 
-    .btn-glass {
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:13px 26px; border-radius:3px;
-      background:rgba(242,242,242,0.08);
-      backdrop-filter:blur(10px) saturate(130%);
-      -webkit-backdrop-filter:blur(10px) saturate(130%);
-      border:1px solid rgba(242,242,242,0.18);
-      box-shadow:inset 0 1px 0 rgba(242,242,242,0.1), 0 4px 12px rgba(0,0,0,0.22);
-      color:#F2F2F2; font-size:.85rem; font-weight:500;
-      letter-spacing:.12em; text-transform:uppercase;
-      transition:background .22s, border-color .22s, transform .18s; cursor:pointer;
-    }
-    .btn-glass:hover { background:rgba(150,27,43,0.2); border-color:rgba(150,27,43,0.5); transform:translateY(-2px); color:#F2F2F2; }
-    @supports not (backdrop-filter:blur(1px)) { .btn-glass { background:rgba(55,25,50,0.88); } }
-    @media (max-width:480px) { .btn-red,.btn-glass { width:100%; } }
+/* TICKER */
+.ticker-wrap{width:100%;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(255,255,255,.02);padding:18px 0;pointer-events:none}
+.ticker-track{display:flex;align-items:center;width:max-content;animation:tick 90s linear infinite}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.tk-item{display:inline-flex;align-items:center;gap:10px;padding:0 40px;white-space:nowrap;flex-shrink:0}
+.tk-icon{width:30px;height:30px;border-radius:6px;flex-shrink:0;overflow:hidden}
+.tk-icon svg{width:30px;height:30px;display:block}
+.tk-name{font-size:.84rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.tk-sep{display:inline-block;width:5px;height:5px;border-radius:50%;background:#961B2B;margin-left:40px;flex-shrink:0}
 
-    /* HERO */
-    #hero {
-      min-height:calc(100vh - 62px);
-      display:flex; flex-direction:column; justify-content:center;
-      padding:60px 6% 80px; gap:24px;
-    }
-    .hero-eyebrow { font-size:.78rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:#961B2B; }
-    .hero-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(3.2rem,8vw,6rem); line-height:.95; letter-spacing:.04em; }
-    .hero-title .accent  { color:#961B2B; }
-    .hero-title .outline { color:transparent; -webkit-text-stroke:2px #F2F2F2; }
-    .hero-desc { font-size:clamp(.95rem,1.4vw,1.08rem); color:var(--dim); max-width:520px; }
-    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:8px; }
+/* SEÇÃO */
+.sec-label{font-size:.76rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#961B2B;margin-bottom:10px;display:block}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,4.5vw,3.4rem);letter-spacing:.06em;margin-bottom:16px}
+.sec-text{color:var(--dim);font-size:.98rem;max-width:640px}
 
-    /* TICKER */
-    .ticker-wrap {
-      width:100%; overflow:hidden;
-      border-top:1px solid var(--border); border-bottom:1px solid var(--border);
-      background:rgba(255,255,255,0.02); padding:18px 0;
-      pointer-events:none;
-    }
-    .ticker-track {
-      display:flex; align-items:center; width:max-content;
-      animation:ticker-scroll 90s linear infinite;
-    }
-    @keyframes ticker-scroll { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
-    .tk-item { display:inline-flex; align-items:center; gap:10px; padding:0 40px; white-space:nowrap; flex-shrink:0; }
-    .tk-icon { width:30px; height:30px; border-radius:6px; flex-shrink:0; overflow:hidden; }
-    .tk-icon svg { width:30px; height:30px; display:block; }
-    .tk-name { font-size:.84rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:#F2F2F2; }
-    .tk-sep { display:inline-block; width:5px; height:5px; border-radius:50%; background:#961B2B; margin-left:40px; flex-shrink:0; }
+/* QUEM SOU */
+.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:50px;align-items:start;margin-top:28px}
+.about-text p{color:var(--dim);font-size:.98rem;margin-bottom:14px}
+.about-text strong{color:#F2F2F2;font-weight:700}
+.about-text em{color:#961B2B;font-style:normal;font-weight:600}
+.photo-box{aspect-ratio:3/4;border-radius:4px;border:1px dashed var(--border);background:rgba(150,27,43,.08);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:rgba(242,242,242,.45);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase}
+.about-stats{display:flex;flex-wrap:wrap;gap:24px;margin-top:28px;padding-top:18px;border-top:1px solid var(--border)}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:.06em;line-height:1}
+.stat-num em{color:#961B2B;font-style:normal}
+.stat-lbl{font-size:.76rem;text-transform:uppercase;letter-spacing:.14em;color:var(--dim);margin-top:4px}
 
-    /* TÍTULOS */
-    .sec-label { font-size:.76rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:#961B2B; margin-bottom:10px; display:block; }
-    .sec-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.2rem,4.5vw,3.4rem); letter-spacing:.06em; margin-bottom:16px; }
-    .sec-text { color:var(--dim); font-size:.98rem; max-width:640px; }
+/* CTA STRIP */
+.cta-strip{padding:44px 6%;background:rgba(150,27,43,.07);border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px}
+.cta-strip-lbl{font-size:.74rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#961B2B;margin-bottom:6px}
+.cta-strip-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,3.5vw,2.6rem);letter-spacing:.04em}
+.cta-strip-btns{display:flex;gap:12px;flex-wrap:wrap}
 
-    /* QUEM SOU */
-    .about-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:50px; align-items:start; margin-top:28px; }
-    .about-text p { color:var(--dim); font-size:.98rem; margin-bottom:14px; }
-    .about-text strong { color:#F2F2F2; font-weight:700; }
-    .about-text em { color:#961B2B; font-style:normal; font-weight:600; }
-    .photo-box {
-      aspect-ratio:3/4; border-radius:4px; border:1px dashed var(--border);
-      background:rgba(150,27,43,0.08); display:flex; flex-direction:column;
-      align-items:center; justify-content:center; gap:10px;
-      color:rgba(242,242,242,0.45); font-size:.8rem; letter-spacing:.1em; text-transform:uppercase;
-    }
-    .about-stats { display:flex; flex-wrap:wrap; gap:24px; margin-top:28px; padding-top:18px; border-top:1px solid var(--border); }
-    .stat-num { font-family:'Bebas Neue',sans-serif; font-size:2.4rem; letter-spacing:.06em; line-height:1; }
-    .stat-num em { color:#961B2B; font-style:normal; }
-    .stat-lbl { font-size:.76rem; text-transform:uppercase; letter-spacing:.14em; color:var(--dim); margin-top:4px; }
+/* SERVIÇOS */
+.services{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.svc{border:1px solid var(--border);border-radius:6px;background:rgba(242,242,242,.02);overflow:hidden;transition:border-color .25s}
+.svc.open{border-color:rgba(150,27,43,.6)}
+.svc-head{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:20px 22px;background:none;border:none;color:#F2F2F2;text-align:left;cursor:pointer;transition:background .2s}
+.svc-head:hover{background:rgba(150,27,43,.06)}
+.svc.open .svc-head{background:rgba(150,27,43,.08)}
+.svc-head-left{display:flex;flex-direction:column;gap:4px}
+.svc-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,2.5vw,1.8rem);letter-spacing:.06em;transition:color .2s}
+.svc.open .svc-title,.svc-head:hover .svc-title{color:#961B2B}
+.svc-subtitle{font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--dim)}
+.svc-chevron{width:28px;height:28px;flex-shrink:0;border:1px solid rgba(242,242,242,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--dim);transition:transform .35s,border-color .2s,color .2s}
+.svc.open .svc-chevron{transform:rotate(45deg);border-color:#961B2B;color:#961B2B}
+.svc-panel{height:0;overflow:hidden;transition:height .38s cubic-bezier(.25,.46,.45,.94)}
+.svc-panel-inner{padding:20px 22px 24px;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--border)}
+.svc-panel-hint{font-size:.75rem;color:rgba(242,242,242,.38);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.sub-btn{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-radius:4px;border:1px solid rgba(242,242,242,.1);background:rgba(242,242,242,.03);color:#F2F2F2;cursor:pointer;transition:background .22s,border-color .22s,transform .18s;text-align:left;width:100%}
+.sub-btn:hover{background:rgba(150,27,43,.15);border-color:rgba(150,27,43,.5);transform:translateX(4px)}
+.sub-btn-label{font-size:.9rem;font-weight:600;letter-spacing:.08em}
+.sub-btn-desc{font-size:.75rem;color:var(--dim);margin-top:2px}
+.sub-btn-arrow{font-size:1rem;color:rgba(242,242,242,.3);flex-shrink:0;transition:color .2s,transform .2s}
+.sub-btn:hover .sub-btn-arrow{color:#961B2B;transform:translateX(3px)}
+.svc-panel-cta{margin-top:10px;padding-top:14px;border-top:1px solid rgba(150,27,43,.2);display:flex;justify-content:flex-end}
 
-    /* CTA STRIP */
-    .cta-strip {
-      padding:44px 6%; background:rgba(150,27,43,0.07);
-      border-top:1px solid var(--border); border-bottom:1px solid var(--border);
-      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:22px;
-    }
-    .cta-strip-lbl { font-size:.74rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:#961B2B; margin-bottom:6px; }
-    .cta-strip-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(1.6rem,3.5vw,2.6rem); letter-spacing:.04em; }
-    .cta-strip-btns { display:flex; gap:12px; flex-wrap:wrap; }
+/* MODAL SERVIÇO */
+#modal-overlay{position:fixed;inset:0;background:rgba(18,8,18,.82);backdrop-filter:blur(6px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+#modal-overlay.active{opacity:1;visibility:visible}
+#modal-box{background:#2e1530;border:1px solid rgba(150,27,43,.5);border-radius:8px;max-width:540px;width:100%;padding:36px 32px 32px;position:relative;transform:translateY(20px) scale(.97);transition:transform .3s cubic-bezier(.25,.46,.45,.94);box-shadow:0 24px 60px rgba(0,0,0,.55);max-height:90vh;overflow-y:auto}
+#modal-overlay.active #modal-box{transform:translateY(0) scale(1)}
+#modal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#961B2B,transparent);border-radius:8px 8px 0 0}
+#modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:1px solid rgba(242,242,242,.2);background:rgba(242,242,242,.06);font-size:1.1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s}
+#modal-close:hover{background:rgba(150,27,43,.25);border-color:#961B2B}
+#modal-tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#961B2B;border:1px solid rgba(150,27,43,.4);padding:4px 10px;border-radius:2px;margin-bottom:14px}
+#modal-title{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.06em;margin-bottom:16px;line-height:1}
+#modal-body{font-size:.97rem;color:var(--dim);line-height:1.8;margin-bottom:24px}
+#modal-body p{margin-bottom:10px}
+#modal-body strong{color:#F2F2F2;font-weight:600}
+#modal-footer{display:flex;gap:12px;flex-wrap:wrap}
 
-    /* SERVIÇOS */
-    .services { display:flex; flex-direction:column; gap:10px; margin-top:28px; }
-    .svc { border:1px solid var(--border); border-radius:6px; background:rgba(242,242,242,0.02); overflow:hidden; transition:border-color .25s; }
-    .svc.open { border-color:rgba(150,27,43,0.6); }
-    .svc-head {
-      width:100%; display:flex; justify-content:space-between; align-items:center;
-      gap:12px; padding:20px 22px; background:none; border:none; color:#F2F2F2;
-      text-align:left; cursor:pointer; transition:background .2s;
-    }
-    .svc-head:hover { background:rgba(150,27,43,0.06); }
-    .svc.open .svc-head { background:rgba(150,27,43,0.08); }
-    .svc-head-left { display:flex; flex-direction:column; gap:4px; }
-    .svc-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(1.4rem,2.5vw,1.8rem); letter-spacing:.06em; transition:color .2s; }
-    .svc.open .svc-title, .svc-head:hover .svc-title { color:#961B2B; }
-    .svc-subtitle { font-size:.75rem; text-transform:uppercase; letter-spacing:.14em; color:var(--dim); }
-    .svc-chevron {
-      width:28px; height:28px; flex-shrink:0;
-      border:1px solid rgba(242,242,242,0.2); border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      font-size:.9rem; color:var(--dim);
-      transition:transform .35s, border-color .2s, color .2s;
-    }
-    .svc.open .svc-chevron { transform:rotate(45deg); border-color:#961B2B; color:#961B2B; }
-    .svc-panel { height:0; overflow:hidden; transition:height .38s cubic-bezier(.25,.46,.45,.94); }
-    .svc-panel-inner { padding:20px 22px 24px; display:flex; flex-direction:column; gap:8px; border-top:1px solid var(--border); }
-    .svc-panel-hint { font-size:.75rem; color:rgba(242,242,242,0.38); letter-spacing:.1em; text-transform:uppercase; margin-bottom:4px; }
-    .sub-btn {
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:14px 18px; border-radius:4px;
-      border:1px solid rgba(242,242,242,0.1); background:rgba(242,242,242,0.03);
-      color:#F2F2F2; cursor:pointer;
-      transition:background .22s, border-color .22s, transform .18s;
-      text-align:left; width:100%;
-    }
-    .sub-btn:hover { background:rgba(150,27,43,0.15); border-color:rgba(150,27,43,0.5); transform:translateX(4px); }
-    .sub-btn-label { font-size:.9rem; font-weight:600; letter-spacing:.08em; }
-    .sub-btn-desc { font-size:.75rem; color:var(--dim); margin-top:2px; }
-    .sub-btn-arrow { font-size:1rem; color:rgba(242,242,242,0.3); flex-shrink:0; transition:color .2s, transform .2s; }
-    .sub-btn:hover .sub-btn-arrow { color:#961B2B; transform:translateX(3px); }
-    .svc-panel-cta { margin-top:10px; padding-top:14px; border-top:1px solid rgba(150,27,43,0.2); display:flex; justify-content:flex-end; }
+/* MODAL ORÇAMENTO */
+#orc-overlay{position:fixed;inset:0;background:rgba(18,8,18,.88);backdrop-filter:blur(8px);z-index:3000;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+#orc-overlay.active{opacity:1;visibility:visible}
+#orc-box{background:#2a1229;border:1px solid rgba(150,27,43,.55);border-radius:10px;max-width:560px;width:100%;position:relative;transform:translateY(24px) scale(.96);transition:transform .35s cubic-bezier(.25,.46,.45,.94);box-shadow:0 32px 80px rgba(0,0,0,.7);max-height:92vh;overflow:hidden;display:flex;flex-direction:column}
+#orc-overlay.active #orc-box{transform:translateY(0) scale(1)}
+.orc-header{background:linear-gradient(135deg,#961B2B 0%,#5a1018 100%);padding:28px 32px 24px;position:relative;flex-shrink:0}
+.orc-tag{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(242,242,242,.7);margin-bottom:8px;display:block}
+.orc-htitle{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.06em;line-height:1}
+.orc-hsub{font-size:.82rem;color:rgba(242,242,242,.7);margin-top:6px}
+#orc-close{position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:50%;border:1px solid rgba(242,242,242,.3);background:rgba(0,0,0,.2);font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s}
+#orc-close:hover{background:rgba(0,0,0,.4)}
+.orc-tabs{display:flex;border-bottom:1px solid var(--border);background:#2a1229;flex-shrink:0}
+.orc-tab{flex:1;padding:14px 20px;background:none;border:none;border-bottom:2px solid transparent;font-size:.82rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,242,242,.4);cursor:pointer;transition:color .2s,border-color .2s}
+.orc-tab.active{color:#F2F2F2;border-bottom-color:#961B2B}
+.orc-tab:hover:not(.active){color:rgba(242,242,242,.7)}
+.orc-body{overflow-y:auto;flex:1}
+.orc-pane{display:none;padding:28px 32px 32px}
+.orc-pane.active{display:block}
+.orc-field{margin-bottom:16px;display:flex;flex-direction:column;gap:6px}
+.orc-field label{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,242,242,.5)}
+.orc-field input,.orc-field textarea,.orc-field select{width:100%;border:1px solid rgba(150,27,43,.4);border-radius:4px;background:rgba(255,255,255,.04);color:#F2F2F2;padding:11px 14px;font-family:'Space Grotesk',sans-serif;font-size:.92rem;transition:border-color .2s,background .2s}
+.orc-field input::placeholder,.orc-field textarea::placeholder{color:rgba(242,242,242,.25)}
+.orc-field input:focus,.orc-field textarea:focus,.orc-field select:focus{border-color:#961B2B;background:rgba(150,27,43,.07);outline:none}
+.orc-field textarea{min-height:90px;resize:vertical}
+.orc-field select option{background:#231123;color:#F2F2F2}
+.orc-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.orc-submit{width:100%;margin-top:8px;padding:14px;border-radius:4px;background:#961B2B;color:#F2F2F2;font-size:.9rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer;transition:background .2s,transform .18s}
+.orc-submit:hover{background:#7a1522;transform:translateY(-1px)}
+.orc-submit:disabled{background:#5a1018;cursor:default;transform:none}
+#orc-success{display:none;text-align:center;padding:24px 0;font-size:.95rem}
+.cal-info{background:rgba(150,27,43,.07);border:1px solid rgba(150,27,43,.2);border-radius:6px;padding:16px 18px;margin-bottom:20px}
+.cal-info-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.06em;margin-bottom:6px}
+.cal-info p{font-size:.85rem;color:var(--dim);line-height:1.6}
+.cal-slots{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
+.cal-slot{padding:12px 14px;border-radius:4px;border:1px solid rgba(242,242,242,.1);background:rgba(242,242,242,.03);text-align:center}
+.cal-slot-day{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--dim);margin-bottom:3px}
+.cal-slot-time{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em}
+.cal-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;border-radius:4px;background:#961B2B;color:#F2F2F2;font-size:.9rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer;transition:background .2s,transform .18s}
+.cal-btn:hover{background:#7a1522;transform:translateY(-1px);color:#F2F2F2}
+.cal-note{font-size:.76rem;color:rgba(242,242,242,.35);text-align:center;margin-top:12px;line-height:1.5}
 
-    /* MODAL SERVIÇO */
-    #modal-overlay {
-      position:fixed; inset:0; background:rgba(18,8,18,0.82);
-      backdrop-filter:blur(6px); z-index:2000;
-      display:flex; align-items:center; justify-content:center; padding:24px;
-      opacity:0; visibility:hidden; transition:opacity .3s, visibility .3s;
-    }
-    #modal-overlay.active { opacity:1; visibility:visible; }
-    #modal-box {
-      background:#2e1530; border:1px solid rgba(150,27,43,0.5);
-      border-radius:8px; max-width:540px; width:100%;
-      padding:36px 32px 32px; position:relative;
-      transform:translateY(20px) scale(.97);
-      transition:transform .3s cubic-bezier(.25,.46,.45,.94);
-      box-shadow:0 24px 60px rgba(0,0,0,0.55); max-height:90vh; overflow-y:auto;
-    }
-    #modal-overlay.active #modal-box { transform:translateY(0) scale(1); }
-    #modal-box::before {
-      content:''; position:absolute; top:0; left:0; right:0; height:3px;
-      background:linear-gradient(90deg,#961B2B,transparent); border-radius:8px 8px 0 0;
-    }
-    #modal-close {
-      position:absolute; top:14px; right:14px; width:32px; height:32px;
-      border-radius:50%; border:1px solid rgba(242,242,242,0.2);
-      background:rgba(242,242,242,0.06); font-size:1.1rem;
-      display:flex; align-items:center; justify-content:center; cursor:pointer;
-      transition:background .2s, border-color .2s;
-    }
-    #modal-close:hover { background:rgba(150,27,43,0.25); border-color:#961B2B; }
-    #modal-tag { display:inline-block; font-size:.7rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:#961B2B; border:1px solid rgba(150,27,43,0.4); padding:4px 10px; border-radius:2px; margin-bottom:14px; }
-    #modal-title { font-family:'Bebas Neue',sans-serif; font-size:2.2rem; letter-spacing:.06em; margin-bottom:16px; line-height:1; }
-    #modal-body { font-size:.97rem; color:var(--dim); line-height:1.8; margin-bottom:24px; }
-    #modal-body p { margin-bottom:10px; }
-    #modal-body strong { color:#F2F2F2; font-weight:600; }
-    #modal-footer { display:flex; gap:12px; flex-wrap:wrap; }
+/* TRABALHOS */
+.projects{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:28px}
+.proj-card{border:1px solid var(--border);border-radius:4px;background:rgba(242,242,242,.02);overflow:hidden;display:flex;flex-direction:column;transition:border-color .25s,transform .25s}
+.proj-card:hover{border-color:rgba(150,27,43,.6);transform:translateY(-5px)}
+.proj-thumb{aspect-ratio:4/3;background:rgba(150,27,43,.1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:rgba(242,242,242,.55);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase}
+.proj-thumb span:first-child{font-size:2.2rem}
+.proj-body{padding:18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.proj-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em}
+.proj-meta{font-size:.76rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
+.proj-desc{font-size:.88rem;color:var(--dim);margin-bottom:4px}
 
-    /* MODAL ORÇAMENTO */
-    #orcamento-overlay {
-      position:fixed; inset:0; background:rgba(18,8,18,0.88);
-      backdrop-filter:blur(8px); z-index:3000;
-      display:flex; align-items:center; justify-content:center; padding:24px;
-      opacity:0; visibility:hidden; transition:opacity .3s, visibility .3s;
-    }
-    #orcamento-overlay.active { opacity:1; visibility:visible; }
-    #orcamento-box {
-      background:#2a1229; border:1px solid rgba(150,27,43,0.55);
-      border-radius:10px; max-width:560px; width:100%;
-      position:relative; transform:translateY(24px) scale(.96);
-      transition:transform .35s cubic-bezier(.25,.46,.45,.94);
-      box-shadow:0 32px 80px rgba(0,0,0,0.7);
-      max-height:92vh; overflow:hidden; display:flex; flex-direction:column;
-    }
-    #orcamento-overlay.active #orcamento-box { transform:translateY(0) scale(1); }
-    .orc-header {
-      background:linear-gradient(135deg,#961B2B 0%,#5a1018 100%);
-      padding:28px 32px 24px; position:relative; flex-shrink:0;
-    }
-    .orc-header-tag { font-size:.7rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:rgba(242,242,242,0.7); margin-bottom:8px; display:block; }
-    .orc-header-title { font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:.06em; line-height:1; }
-    .orc-header-sub { font-size:.82rem; color:rgba(242,242,242,0.7); margin-top:6px; }
-    #orc-close {
-      position:absolute; top:16px; right:16px; width:30px; height:30px;
-      border-radius:50%; border:1px solid rgba(242,242,242,0.3);
-      background:rgba(0,0,0,0.2); font-size:1rem;
-      display:flex; align-items:center; justify-content:center; cursor:pointer;
-      transition:background .2s;
-    }
-    #orc-close:hover { background:rgba(0,0,0,0.4); }
-    .orc-tabs { display:flex; border-bottom:1px solid var(--border); background:#2a1229; flex-shrink:0; }
-    .orc-tab {
-      flex:1; padding:14px 20px; background:none; border:none;
-      font-size:.82rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
-      color:rgba(242,242,242,0.4); cursor:pointer;
-      border-bottom:2px solid transparent; transition:color .2s, border-color .2s;
-    }
-    .orc-tab.active { color:#F2F2F2; border-bottom-color:#961B2B; }
-    .orc-tab:hover:not(.active) { color:rgba(242,242,242,0.7); }
-    .orc-body { overflow-y:auto; flex:1; }
-    .orc-pane { display:none; padding:28px 32px 32px; }
-    .orc-pane.active { display:block; }
-    .orc-field { margin-bottom:16px; display:flex; flex-direction:column; gap:6px; }
-    .orc-field label { font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:rgba(242,242,242,0.5); }
-    .orc-field input,
-    .orc-field textarea,
-    .orc-field select {
-      width:100%; border:1px solid rgba(150,27,43,0.4); border-radius:4px;
-      background:rgba(255,255,255,0.04); color:#F2F2F2;
-      padding:11px 14px; font-family:'Space Grotesk',sans-serif; font-size:.92rem;
-      transition:border-color .2s, background .2s;
-    }
-    .orc-field input::placeholder, .orc-field textarea::placeholder { color:rgba(242,242,242,0.25); }
-    .orc-field input:focus, .orc-field textarea:focus, .orc-field select:focus { border-color:#961B2B; background:rgba(150,27,43,0.07); outline:none; }
-    .orc-field textarea { min-height:90px; resize:vertical; }
-    .orc-field select option { background:#231123; color:#F2F2F2; }
-    .orc-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .orc-submit {
-      width:100%; margin-top:8px; padding:14px; border-radius:4px;
-      background:#961B2B; color:#F2F2F2; font-size:.9rem; font-weight:700;
-      letter-spacing:.12em; text-transform:uppercase; border:none; cursor:pointer;
-      transition:background .2s, transform .18s;
-    }
-    .orc-submit:hover { background:#7a1522; transform:translateY(-1px); }
-    .orc-submit:disabled { background:#5a1018; cursor:default; transform:none; }
-    .cal-info { background:rgba(150,27,43,0.07); border:1px solid rgba(150,27,43,0.2); border-radius:6px; padding:16px 18px; margin-bottom:20px; }
-    .cal-info-title { font-family:'Bebas Neue',sans-serif; font-size:1.2rem; letter-spacing:.06em; margin-bottom:6px; }
-    .cal-info p { font-size:.85rem; color:var(--dim); line-height:1.6; }
-    .cal-slots { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:22px; }
-    .cal-slot { padding:12px 14px; border-radius:4px; border:1px solid rgba(242,242,242,0.1); background:rgba(242,242,242,0.03); text-align:center; }
-    .cal-slot-day { font-size:.7rem; text-transform:uppercase; letter-spacing:.12em; color:var(--dim); margin-bottom:3px; }
-    .cal-slot-time { font-family:'Bebas Neue',sans-serif; font-size:1.1rem; letter-spacing:.06em; }
-    .cal-btn {
-      display:flex; align-items:center; justify-content:center; gap:10px; width:100%;
-      padding:15px; border-radius:4px; background:#961B2B; color:#F2F2F2;
-      font-size:.9rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
-      border:none; cursor:pointer; transition:background .2s, transform .18s;
-    }
-    .cal-btn:hover { background:#7a1522; transform:translateY(-1px); color:#F2F2F2; }
-    .cal-note { font-size:.76rem; color:rgba(242,242,242,0.35); text-align:center; margin-top:12px; line-height:1.5; }
+/* REDES */
+.socials{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
+.social-card{border:1px solid var(--border);border-radius:4px;background:rgba(242,242,242,.02);padding:20px 28px;min-width:170px;display:block;transition:border-color .25s,background .25s,transform .22s}
+.social-card:hover{border-color:rgba(150,27,43,.55);background:rgba(150,27,43,.08);transform:translateY(-3px)}
+.social-lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--dim);margin-bottom:5px}
+.social-handle{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.08em}
 
-    /* TRABALHOS */
-    .projects { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; margin-top:28px; }
-    .proj-card { border:1px solid var(--border); border-radius:4px; background:rgba(242,242,242,0.02); overflow:hidden; display:flex; flex-direction:column; transition:border-color .25s, transform .25s; }
-    .proj-card:hover { border-color:rgba(150,27,43,0.6); transform:translateY(-5px); }
-    .proj-thumb { aspect-ratio:4/3; background:rgba(150,27,43,0.1); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:rgba(242,242,242,0.55); font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; }
-    .proj-thumb span:first-child { font-size:2.2rem; }
-    .proj-body { padding:18px; display:flex; flex-direction:column; gap:6px; flex:1; }
-    .proj-title { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:.06em; }
-    .proj-meta { font-size:.76rem; color:var(--dim); letter-spacing:.1em; text-transform:uppercase; }
-    .proj-desc { font-size:.88rem; color:var(--dim); margin-bottom:4px; }
+/* CONTATO */
+.contact-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;margin-top:28px}
+.contact-info p{color:var(--dim);font-size:.95rem;margin-bottom:18px}
+.c-item{margin-bottom:14px}
+.c-lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:#961B2B;margin-bottom:2px}
+.c-val{font-size:.95rem}
+.form-field{margin-bottom:14px;display:flex;flex-direction:column;gap:5px}
+.form-field label{font-size:.74rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(242,242,242,.5)}
+.form-field input,.form-field textarea,.form-field select{width:100%;border:1px solid rgba(150,27,43,.4);border-radius:3px;background:rgba(255,255,255,.03);color:#F2F2F2;padding:10px 12px;font-family:'Space Grotesk',sans-serif;font-size:.9rem;transition:border-color .2s}
+.form-field input::placeholder,.form-field textarea::placeholder{color:rgba(242,242,242,.28)}
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-color:rgba(150,27,43,.7);outline:none}
+.form-field textarea{min-height:110px;resize:vertical}
+.form-field select option{background:#231123;color:#F2F2F2}
 
-    /* REDES */
-    .socials { display:flex; flex-wrap:wrap; gap:14px; margin-top:28px; }
-    .social-card { border:1px solid var(--border); border-radius:4px; background:rgba(242,242,242,0.02); padding:20px 28px; min-width:170px; display:block; transition:border-color .25s, background .25s, transform .22s; }
-    .social-card:hover { border-color:rgba(150,27,43,0.55); background:rgba(150,27,43,0.08); transform:translateY(-3px); }
-    .social-lbl { font-size:.72rem; text-transform:uppercase; letter-spacing:.14em; color:var(--dim); margin-bottom:5px; }
-    .social-handle { font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:.08em; }
+/* FOOTER */
+footer{padding:22px 6%;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;font-size:.8rem;color:rgba(242,242,242,.45)}
 
-    /* CONTATO */
-    .contact-grid { display:grid; grid-template-columns:1.1fr 1fr; gap:48px; margin-top:28px; }
-    .contact-info p { color:var(--dim); font-size:.95rem; margin-bottom:18px; }
-    .c-item { margin-bottom:14px; }
-    .c-lbl { font-size:.72rem; text-transform:uppercase; letter-spacing:.14em; color:#961B2B; margin-bottom:2px; }
-    .c-val { font-size:.95rem; }
-
-    /* FOOTER */
-    footer { padding:22px 6%; border-top:1px solid var(--border); display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px; font-size:.8rem; color:rgba(242,242,242,0.45); }
-
-    /* RESPONSIVO */
-    @media (max-width:900px) {
-      .about-grid   { grid-template-columns:1fr; }
-      .contact-grid { grid-template-columns:1fr; }
-      .projects     { grid-template-columns:repeat(2,minmax(0,1fr)); }
-    }
-    @media (max-width:680px) {
-      .nav-links  { display:none; }
-      .hamburger  { display:flex; }
-      .projects   { grid-template-columns:1fr; }
-      .hero-actions, .cta-strip, .cta-strip-btns { flex-direction:column; }
-      .cta-strip  { align-items:flex-start; }
-      .cta-strip-btns .btn-red, .cta-strip-btns .btn-glass { width:100%; }
-      .orc-row    { grid-template-columns:1fr; }
-      .cal-slots  { grid-template-columns:1fr; }
-      .orc-header { padding:22px 20px 18px; }
-      .orc-pane   { padding:20px; }
-    }
-  </style>
+/* RESPONSIVO */
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .projects{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:680px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .projects{grid-template-columns:1fr}
+  .hero-actions{flex-direction:column}
+  .cta-strip{flex-direction:column;align-items:flex-start}
+  .cta-strip-btns{flex-direction:column;width:100%}
+  .cta-strip-btns .btn-red,.cta-strip-btns .btn-glass{width:100%}
+  .orc-row{grid-template-columns:1fr}
+  .cal-slots{grid-template-columns:1fr}
+  .orc-header{padding:22px 20px 18px}
+  .orc-pane{padding:20px}
+}
+</style>
 </head>
 <body>
 
 <div id="cur" aria-hidden="true"></div>
 
-<!-- MODAL SERVIÇO -->
+<!-- ═══ MODAL SERVIÇO ═══ -->
 <div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div id="modal-box">
     <button id="modal-close" aria-label="Fechar">✕</button>
@@ -401,24 +240,27 @@
     <div id="modal-body"></div>
     <div id="modal-footer">
       <button class="btn-red" id="modal-orc-btn">Solicitar orçamento</button>
-      <button class="btn-glass" id="modal-close-btn">Fechar</button>
+      <button class="btn-glass" id="modal-cls-btn">Fechar</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL ORÇAMENTO -->
-<div id="orcamento-overlay" role="dialog" aria-modal="true">
-  <div id="orcamento-box">
+<!-- ═══ MODAL ORÇAMENTO ═══ -->
+<div id="orc-overlay" role="dialog" aria-modal="true">
+  <div id="orc-box">
+
     <div class="orc-header">
       <button id="orc-close" aria-label="Fechar">✕</button>
-      <span class="orc-header-tag">Faeux · Rafael</span>
-      <div class="orc-header-title">Vamos trabalhar juntos?</div>
-      <p class="orc-header-sub">Preencha o formulário ou agende uma reunião diretamente na minha agenda.</p>
+      <span class="orc-tag">Faeux · Rafael</span>
+      <div class="orc-htitle">Vamos trabalhar juntos?</div>
+      <p class="orc-hsub">Preencha o formulário ou agende uma reunião na minha agenda.</p>
     </div>
+
     <div class="orc-tabs">
       <button class="orc-tab active" id="tab-form" onclick="switchTab('form')">📋 Solicitar orçamento</button>
       <button class="orc-tab"        id="tab-cal"  onclick="switchTab('cal')">📅 Agendar reunião</button>
     </div>
+
     <div class="orc-body">
 
       <!-- PAINEL FORMULÁRIO -->
@@ -426,25 +268,25 @@
         <form id="orc-form" action="https://formspree.io/f/COLE_SEU_ID_AQUI" method="POST">
           <div class="orc-row">
             <div class="orc-field">
-              <label for="orc-nome">Nome *</label>
-              <input type="text" id="orc-nome" name="nome" placeholder="Seu nome" required autocomplete="name"/>
+              <label for="f-nome">Nome *</label>
+              <input type="text" id="f-nome" name="nome" placeholder="Seu nome" required autocomplete="name"/>
             </div>
             <div class="orc-field">
-              <label for="orc-whats">WhatsApp *</label>
-              <input type="tel" id="orc-whats" name="whatsapp" placeholder="(XX) XXXXX-XXXX" required/>
+              <label for="f-whats">WhatsApp *</label>
+              <input type="tel" id="f-whats" name="whatsapp" placeholder="(XX) XXXXX-XXXX" required/>
             </div>
           </div>
           <div class="orc-field">
-            <label for="orc-email">E-mail *</label>
-            <input type="email" id="orc-email" name="email" placeholder="seu@email.com" required autocomplete="email"/>
+            <label for="f-email">E-mail *</label>
+            <input type="email" id="f-email" name="email" placeholder="seu@email.com" required autocomplete="email"/>
           </div>
           <div class="orc-field">
-            <label for="orc-empresa">Empresa</label>
-            <input type="text" id="orc-empresa" name="empresa" placeholder="Nome da empresa (opcional)"/>
+            <label for="f-empresa">Empresa</label>
+            <input type="text" id="f-empresa" name="empresa" placeholder="Nome da empresa (opcional)"/>
           </div>
           <div class="orc-field">
-            <label for="orc-servico">Serviço de interesse *</label>
-            <select id="orc-servico" name="servico" required>
+            <label for="f-servico">Serviço de interesse *</label>
+            <select id="f-servico" name="servico" required>
               <option value="" disabled selected>Selecione uma opção</option>
               <option value="social-media">Gestão de redes sociais</option>
               <option value="design">Design de marketing</option>
@@ -456,41 +298,39 @@
             </select>
           </div>
           <div class="orc-field">
-            <label for="orc-msg">Mensagem</label>
-            <textarea id="orc-msg" name="mensagem" placeholder="Conte um pouco sobre sua empresa e o que precisa..."></textarea>
+            <label for="f-msg">Mensagem</label>
+            <textarea id="f-msg" name="mensagem" placeholder="Conte um pouco sobre sua empresa e o que precisa..."></textarea>
           </div>
           <input type="hidden" name="_subject" value="Novo orçamento — Faeux"/>
           <button type="submit" class="orc-submit" id="orc-submit-btn">Enviar solicitação</button>
         </form>
-        <p id="orc-success" style="display:none;text-align:center;padding:20px 0;font-size:.95rem;">
-          ✅ Mensagem enviada! Entrarei em contato em até 24h.
-        </p>
+        <p id="orc-success">✅ Mensagem enviada! Entrarei em contato em até 24h.</p>
       </div>
 
-      <!-- PAINEL AGENDAMENTO -->
+      <!-- PAINEL CALENDÁRIO -->
       <div class="orc-pane" id="pane-cal">
         <div class="cal-info">
           <div class="cal-info-title">Reunião com Rafael · Faeux</div>
-          <p>Agende um horário diretamente na minha agenda. A reunião dura 30 minutos e acontece por videochamada (Google Meet).</p>
+          <p>Agende um horário diretamente na minha agenda. A reunião dura 30 minutos por Google Meet.</p>
         </div>
         <div class="cal-slots">
-          <div class="cal-slot"><div class="cal-slot-day">Segunda a sexta</div><div class="cal-slot-time">09h → 17h</div></div>
+          <div class="cal-slot"><div class="cal-slot-day">Disponibilidade</div><div class="cal-slot-time">Seg → Sex</div></div>
+          <div class="cal-slot"><div class="cal-slot-day">Horário</div><div class="cal-slot-time">09h → 17h</div></div>
           <div class="cal-slot"><div class="cal-slot-day">Duração</div><div class="cal-slot-time">30 min</div></div>
           <div class="cal-slot"><div class="cal-slot-day">Formato</div><div class="cal-slot-time">Google Meet</div></div>
-          <div class="cal-slot"><div class="cal-slot-day">Confirmação</div><div class="cal-slot-time">Por e-mail</div></div>
         </div>
         <a href="https://calendar.app.google/f9hu3caDEtrt5nT37"
            target="_blank" rel="noopener noreferrer" class="cal-btn">
           📅 Ver horários disponíveis
         </a>
-        <p class="cal-note">Você será redirecionado para o Google Calendar.<br>Escolha o dia e horário e confirme com seu e-mail.</p>
+        <p class="cal-note">Você será redirecionado para o Google Calendar.<br>Escolha o horário e confirme com seu e-mail.</p>
       </div>
 
     </div>
   </div>
 </div>
 
-<!-- NAVBAR -->
+<!-- ═══ NAVBAR ═══ -->
 <nav id="navbar" role="navigation" aria-label="Menu principal">
   <a href="#hero" class="logo">FAEU<em>X</em></a>
   <button class="hamburger" id="hambBtn" aria-label="Abrir menu" aria-expanded="false">
@@ -501,16 +341,16 @@
     <li><a href="#servicos">Serviços</a></li>
     <li><a href="#trabalhos">Trabalhos</a></li>
     <li><a href="#redes">Redes</a></li>
-    <li><button class="nav-cta" onclick="openOrcamento()">Solicite orçamento</button></li>
+    <li><button class="nav-cta" onclick="openOrc()">Solicite orçamento</button></li>
   </ul>
 </nav>
 
-<div id="mobileMenu">
+<div id="mobileMenu" aria-label="Menu mobile">
   <a href="#sobre"     onclick="closeMob()">Quem sou</a>
   <a href="#servicos"  onclick="closeMob()">Serviços</a>
   <a href="#trabalhos" onclick="closeMob()">Trabalhos</a>
   <a href="#redes"     onclick="closeMob()">Redes</a>
-  <button class="btn-red" onclick="closeMob();openOrcamento();" style="margin-top:4px;">Solicite orçamento</button>
+  <button class="btn-red" onclick="closeMob();openOrc();" style="margin-top:4px;">Solicite orçamento</button>
 </div>
 
 <main>
@@ -526,8 +366,8 @@
     </h1>
     <p class="hero-desc">Social media, redator e gestor de tráfego. Crio e organizo a presença digital de empresas com design estratégico, conteúdo e anúncios que convertem.</p>
     <div class="hero-actions">
-      <a href="#trabalhos" class="btn-glass">Ver trabalhos</a>
-      <button class="btn-red" onclick="openOrcamento()">Solicite seu orçamento</button>
+      <button class="btn-glass" onclick="document.getElementById('trabalhos').scrollIntoView({behavior:'smooth'})">Ver trabalhos</button>
+      <button class="btn-red"   onclick="openOrc()">Solicite seu orçamento</button>
     </div>
   </section>
 
@@ -544,7 +384,7 @@
       <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 30 30"><rect width="30" height="30" rx="5" fill="#0866FF"/><path d="M5 17C5 13 7.5 10 10 10c1.3 0 2.2.9 4 3 1.8-2.1 2.7-3 4-3 2.5 0 5 3 5 7 0 1.8-.9 2.7-2.2 2.7s-2.2-.9-3.5-3.2L15 13l-2.3 3.5C11.4 18.8 10.4 19.7 9 19.7S5 18.8 5 17z" fill="#fff"/></svg></span><span class="tk-name">Meta Ads</span><span class="tk-sep"></span></span>
       <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 30 30"><rect width="30" height="30" rx="5" fill="#961B2B"/><line x1="7" y1="9" x2="23" y2="9" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/><line x1="7" y1="15" x2="23" y2="15" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/><line x1="7" y1="21" x2="16" y2="21" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/></svg></span><span class="tk-name">Copywriting</span><span class="tk-sep"></span></span>
       <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 30 30"><rect width="30" height="30" rx="5" fill="#10a37f"/><circle cx="15" cy="12" r="4" fill="#fff"/><path d="M7 23c0-4 3.6-7 8-7s8 3 8 7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span><span class="tk-name">IA de Texto</span><span class="tk-sep"></span></span>
-      <!-- BLOCO B (espelho para loop) -->
+      <!-- espelho para loop contínuo -->
       <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 30 30"><rect width="30" height="30" rx="5" fill="#001e36"/><text x="15" y="21" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="11" fill="#31A8FF">Ps</text></svg></span><span class="tk-name">Photoshop</span><span class="tk-sep"></span></span>
       <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 30 30"><rect width="30" height="30" rx="5" fill="#261300"/><text x="15" y="21" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="11" fill="#FF9A00">Ai</text></svg></span><span class="tk-name">Illustrator</span><span class="tk-sep"></span></span>
       <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 30 30"><rect width="30" height="30" rx="5" fill="#1e1e1e"/><rect x="8" y="3" width="6" height="6" rx="3" fill="#F24E1E"/><rect x="15" y="3" width="6" height="6" rx="3" fill="#FF7262"/><rect x="8" y="11" width="6" height="6" rx="3" fill="#A259FF"/><rect x="8" y="19" width="6" height="6" rx="3" fill="#0ACF83"/><circle cx="18" cy="14" r="3" fill="#1ABCFE"/></svg></span><span class="tk-name">Figma</span><span class="tk-sep"></span></span>
@@ -581,14 +421,14 @@
     </div>
   </section>
 
-  <!-- CTA STRIP 1 -->
+  <!-- CTA 1 -->
   <div class="cta-strip">
     <div>
       <div class="cta-strip-lbl">Pronto para começar?</div>
       <div class="cta-strip-title">Vamos construir sua presença digital.</div>
     </div>
     <div class="cta-strip-btns">
-      <button class="btn-red"   onclick="openOrcamento()">Fale comigo</button>
+      <button class="btn-red"   onclick="openOrc()">Fale comigo</button>
       <button class="btn-glass" onclick="document.getElementById('servicos').scrollIntoView({behavior:'smooth'})">Ver serviços</button>
     </div>
   </div>
@@ -597,9 +437,8 @@
   <section id="servicos" class="section" aria-labelledby="servicos-h2">
     <span class="sec-label">Serviços</span>
     <h2 class="sec-title" id="servicos-h2">O que eu faço</h2>
-    <p class="sec-text">Clique em cada serviço para ver os detalhes. Depois clique em qualquer item para saber exatamente como funciona.</p>
-
-    <div class="services">
+    <p class="sec-text">Clique em cada serviço para expandir. Depois clique em qualquer item para ver os detalhes.</p>
+    <div class="services" id="services-list">
 
       <article class="svc">
         <button class="svc-head" aria-expanded="false">
@@ -607,24 +446,33 @@
             <span class="svc-title">Gestão de Redes Sociais</span>
             <span class="svc-subtitle">Instagram · Facebook · TikTok</span>
           </div>
-          <span class="svc-chevron" aria-hidden="true">+</span>
+          <span class="svc-chevron">+</span>
         </button>
         <div class="svc-panel">
           <div class="svc-panel-inner">
             <p class="svc-panel-hint">Clique em um item para saber mais</p>
-            <button class="sub-btn" data-tag="Gestão de Redes" data-title="Planejamento" data-body="<p>Defino a <strong>linha editorial</strong> da marca: tom de voz, temas, frequência e formatos ideais para cada plataforma.</p><p>O planejamento mensal garante previsibilidade e consistência, dois fatores essenciais para crescimento orgânico nas redes sociais.</p>">
+            <button class="sub-btn"
+              data-tag="Gestão de Redes"
+              data-title="Planejamento"
+              data-body="<p>Defino a <strong>linha editorial</strong> da marca: tom de voz, temas, frequência e formatos ideais para cada plataforma.</p><p>O planejamento mensal garante previsibilidade e consistência, dois fatores essenciais para crescimento orgânico nas redes sociais.</p>">
               <div><div class="sub-btn-label">Planejamento</div><div class="sub-btn-desc">Como organizo a estratégia de conteúdo</div></div>
               <span class="sub-btn-arrow">›</span>
             </button>
-            <button class="sub-btn" data-tag="Gestão de Redes" data-title="Conteúdo" data-body="<p>Cuido da <strong>criação e publicação</strong> das postagens: textos, artes, legendas, hashtags e horários estratégicos.</p><p>Cada publicação segue a identidade visual da marca e é pensada para gerar engajamento real com o público certo.</p>">
+            <button class="sub-btn"
+              data-tag="Gestão de Redes"
+              data-title="Conteúdo"
+              data-body="<p>Cuido da <strong>criação e publicação</strong> das postagens: textos, artes, legendas, hashtags e horários estratégicos.</p><p>Cada publicação segue a identidade visual da marca e é pensada para gerar engajamento real com o público certo.</p>">
               <div><div class="sub-btn-label">Conteúdo</div><div class="sub-btn-desc">Criação e publicação das postagens</div></div>
               <span class="sub-btn-arrow">›</span>
             </button>
-            <button class="sub-btn" data-tag="Gestão de Redes" data-title="Métricas" data-body="<p>Acompanho <strong>alcance, engajamento, crescimento de seguidores</strong> e outros indicadores relevantes para o objetivo da marca.</p><p>Com base nos dados, faço ajustes na estratégia mensalmente para garantir evolução contínua e resultados reais.</p>">
+            <button class="sub-btn"
+              data-tag="Gestão de Redes"
+              data-title="Métricas"
+              data-body="<p>Acompanho <strong>alcance, engajamento e crescimento</strong> de seguidores e outros indicadores relevantes.</p><p>Com base nos dados, faço ajustes mensais na estratégia para garantir evolução contínua e resultados reais.</p>">
               <div><div class="sub-btn-label">Métricas</div><div class="sub-btn-desc">Análise de resultados e ajustes</div></div>
               <span class="sub-btn-arrow">›</span>
             </button>
-            <div class="svc-panel-cta"><button class="btn-red" onclick="openOrcamento()">Solicitar orçamento</button></div>
+            <div class="svc-panel-cta"><button class="btn-red" onclick="openOrc()">Solicitar orçamento</button></div>
           </div>
         </div>
       </article>
@@ -635,10 +483,55 @@
             <span class="svc-title">Design de Marketing</span>
             <span class="svc-subtitle">Visual · Identidade · Peças</span>
           </div>
-          <span class="svc-chevron" aria-hidden="true">+</span>
+          <span class="svc-chevron">+</span>
         </button>
         <div class="svc-panel">
           <div class="svc-panel-inner">
             <p class="svc-panel-hint">Clique em um item para saber mais</p>
-            <button class="
+            <button class="sub-btn"
+              data-tag="Design de Marketing"
+              data-title="Identidade Visual"
+              data-body="<p>Crio o <strong>padrão visual da marca</strong> nas redes: paleta de cores, tipografia, estilo de imagem e elementos gráficos que se reconhecem à primeira vista.</p><p>Uma identidade visual sólida transmite profissionalismo e diferencia a marca da concorrência.</p>">
+              <div><div class="sub-btn-label">Identidade Visual</div><div class="sub-btn-desc">Criação do estilo visual da marca</div></div>
+              <span class="sub-btn-arrow">›</span>
+            </button>
+            <button class="sub-btn"
+              data-tag="Design de Marketing"
+              data-title="Peças para Redes"
+              data-body="<p>Desenvolvo <strong>artes para feed, stories e anúncios</strong> seguindo a identidade visual da marca, com foco em comunicação clara e estética profissional.</p><p>Cada peça é pensada para o objetivo específico daquela publicação: informar, engajar ou converter.</p>">
+              <div><div class="sub-btn-label">Peças para Redes</div><div class="sub-btn-desc">Artes para feed, stories e anúncios</div></div>
+              <span class="sub-btn-arrow">›</span>
+            </button>
+            <button class="sub-btn"
+              data-tag="Design de Marketing"
+              data-title="Layout Estratégico"
+              data-body="<p>O design precisa <strong>comunicar e converter</strong>, não apenas ser bonito. Cada elemento visual é posicionado para guiar o olhar do usuário até a ação desejada.</p><p>Aplico princípios de hierarquia visual, contraste e legibilidade para que a mensagem chegue com clareza.</p>">
+              <div><div class="sub-btn-label">Layout Estratégico</div><div class="sub-btn-desc">Design que comunica e converte</div></div>
+              <span class="sub-btn-arrow">›</span>
+            </button>
+            <div class="svc-panel-cta"><button class="btn-red" onclick="openOrc()">Solicitar orçamento</button></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="svc">
+        <button class="svc-head" aria-expanded="false">
+          <div class="svc-head-left">
+            <span class="svc-title">Redação & Copywriting</span>
+            <span class="svc-subtitle">Posts · Anúncios · Roteiros</span>
+          </div>
+          <span class="svc-chevron">+</span>
+        </button>
+        <div class="svc-panel">
+          <div class="svc-panel-inner">
+            <p class="svc-panel-hint">Clique em um item para saber mais</p>
+            <button class="sub-btn"
+              data-tag="Redação & Copy"
+              data-title="Legendas & Posts"
+              data-body="<p>Escrevo <strong>legendas estratégicas</strong> para redes sociais com linguagem adaptada ao tom da marca e ao comportamento do público em cada plataforma.</p><p>Cada texto tem um objetivo claro: informar, gerar identificação, provocar engajamento ou conduzir à ação.</p>">
+              <div><div class="sub-btn-label">Legendas & Posts</div><div class="sub-btn-desc">Textos para publicações nas redes</div></div>
+              <span class="sub-btn-arrow">›</span>
+            </button>
+            <button class="sub-btn"
+              data-tag
 
