@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
   <style>
 
+    /* ── RESET ── */
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; font-size:16px; }
     body {
@@ -18,11 +19,13 @@
       -webkit-font-smoothing: antialiased;
     }
     * { color: inherit; }
-    a { text-decoration: none; }
-    ul { list-style: none; }
-    button { font-family: inherit; cursor: pointer; }
-    :focus-visible { outline: 2px solid #961B2B; outline-offset: 4px; }
+    a { text-decoration:none; }
+    ul { list-style:none; }
+    img { max-width:100%; display:block; }
+    button { font-family:inherit; cursor:pointer; }
+    :focus-visible { outline:2px solid #961B2B; outline-offset:4px; }
 
+    /* ── VARIÁVEIS ── */
     :root {
       --bg:     #231123;
       --red:    #961B2B;
@@ -34,36 +37,38 @@
 
     /* ── CURSOR ── */
     #cur {
-      position: fixed;
-      width: 12px; height: 12px;
-      border-radius: 50%;
-      background: #F2F2F2;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%,-50%);
-      transition: width .15s, height .15s;
-      box-shadow: 0 0 8px rgba(242,242,242,0.5);
+      position:fixed;
+      width:12px; height:12px;
+      border-radius:50%;
+      background:#F2F2F2;
+      pointer-events:none;
+      z-index:9999;
+      transform:translate(-50%,-50%);
+      transition:width .15s, height .15s;
+      box-shadow:0 0 8px rgba(242,242,242,0.5);
     }
-    #cur.big { width: 20px; height: 20px; }
+    #cur.big { width:20px; height:20px; }
     @media (hover:none) { #cur { display:none; } }
 
     /* ── NAVBAR ── */
     #navbar {
-      position: fixed; top:0; left:0; width:100%;
-      z-index: 1000;
-      background: rgba(35,17,35,0.97);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(12px);
-      padding: 16px 6%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      position:fixed; top:0; left:0; width:100%;
+      z-index:1000;
+      background:rgba(35,17,35,0.97);
+      border-bottom:1px solid var(--border);
+      backdrop-filter:blur(12px);
+      padding:16px 6%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
     }
     .logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem; letter-spacing: .14em; color: #F2F2F2;
+      font-family:'Bebas Neue',sans-serif;
+      font-size:2rem;
+      letter-spacing:.14em;
+      color:#F2F2F2;
     }
-    .logo em { color: #961B2B; font-style: normal; }
+    .logo em { color:#961B2B; font-style:normal; }
 
     .nav-links { display:flex; align-items:center; gap:28px; }
     .nav-links a {
@@ -73,8 +78,10 @@
     }
     .nav-links a:hover { color:#F2F2F2; }
     .nav-links a::after {
-      content:''; position:absolute; bottom:-3px; left:0;
-      width:0; height:1px; background:#961B2B; transition:width .25s;
+      content:''; position:absolute;
+      bottom:-3px; left:0;
+      width:0; height:1px;
+      background:#961B2B; transition:width .25s;
     }
     .nav-links a:hover::after { width:100%; }
     .nav-cta {
@@ -93,6 +100,7 @@
       display:block; width:22px; height:2px;
       background:#F2F2F2; border-radius:2px;
     }
+
     #mobileMenu {
       display:none; position:fixed;
       top:60px; left:0; width:100%;
@@ -107,6 +115,7 @@
     }
     #mobileMenu a:hover { color:#F2F2F2; }
 
+    /* ── MAIN ── */
     main { padding-top:62px; }
     .section { padding:80px 6%; border-top:1px solid var(--border); }
 
@@ -139,7 +148,7 @@
       transform:translateY(-2px); color:#F2F2F2;
     }
     @supports not (backdrop-filter:blur(1px)) {
-      .btn-glass { background:rgba(55,25,50,0.88); }
+      .btn-glass { background:rgba(55,25,50,0.88); border-color:rgba(242,242,242,0.22); }
     }
     @media (max-width:480px) {
       .btn-red, .btn-glass { width:100%; }
@@ -167,123 +176,55 @@
     .hero-desc { font-size:clamp(.95rem,1.4vw,1.08rem); color:var(--dim); max-width:520px; }
     .hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:8px; }
 
-    /* ══════════════════════════════════════════════
-       TICKER FERRAMENTAS — logo após o Hero
-    ══════════════════════════════════════════════ */
-    .tool-ticker-wrap {
+    /* ─────────────────────────────────────────────
+       TICKER
+       • animation-play-state sempre "running"
+       • NÃO tem :hover { paused }
+       • velocidade 90s = leitura confortável
+    ───────────────────────────────────────────── */
+    .ticker-wrap {
       width:100%; overflow:hidden;
       border-top:1px solid var(--border);
       border-bottom:1px solid var(--border);
-      background:rgba(255,255,255,0.015);
-      padding:16px 0;
+      background:rgba(255,255,255,0.025);
+      padding:18px 0;
+      /* pointer-events none garante que o mouse
+         nunca "entra" no ticker e não causa bugs */
       pointer-events:none;
-      -webkit-mask-image:linear-gradient(to right,transparent 0%,black 6%,black 94%,transparent 100%);
-      mask-image:linear-gradient(to right,transparent 0%,black 6%,black 94%,transparent 100%);
     }
-    .tool-ticker-track {
+    .ticker-track {
       display:flex; align-items:center;
       width:max-content;
-      animation:scroll-loop 90s linear infinite;
+      /* Nunca pausa — nem via CSS :hover */
+      animation:ticker-scroll 90s linear infinite;
       animation-play-state:running !important;
     }
-    .tk-item {
-      display:inline-flex; align-items:center;
-      gap:10px; padding:0 36px;
-      white-space:nowrap; flex-shrink:0;
-    }
-    .tk-icon { width:28px; height:28px; border-radius:5px; overflow:hidden; flex-shrink:0; }
-    .tk-icon svg { width:28px; height:28px; display:block; }
-    .tk-name {
-      font-size:.82rem; font-weight:600;
-      letter-spacing:.1em; text-transform:uppercase; color:#F2F2F2;
-    }
-    .tk-sep {
-      display:inline-block; width:5px; height:5px;
-      border-radius:50%; background:#961B2B; margin-left:36px; flex-shrink:0;
-    }
-
-    /* ══════════════════════════════════════════════
-       TICKER SERVIÇOS — logo acima de "Quem sou"
-       Células de vidro fosco estilo Dialedweb
-    ══════════════════════════════════════════════ */
-    .svc-ticker-wrap {
-      width:100%; overflow:hidden;
-      border-top:1px solid var(--border);
-      border-bottom:1px solid var(--border);
-      background:rgba(255,255,255,0.018);
-      padding:22px 0;
-      pointer-events:none;
-      -webkit-mask-image:linear-gradient(to right,transparent 0%,black 8%,black 92%,transparent 100%);
-      mask-image:linear-gradient(to right,transparent 0%,black 8%,black 92%,transparent 100%);
-    }
-    .svc-ticker-track {
-      display:flex; align-items:stretch;
-      width:max-content; gap:14px;
-      animation:scroll-loop 80s linear infinite;
-      animation-play-state:running !important;
-    }
-
-    @keyframes scroll-loop {
+    @keyframes ticker-scroll {
       0%   { transform:translateX(0); }
       100% { transform:translateX(-50%); }
     }
 
-    /* célula de vidro */
-    .svc-cell {
-      width:290px; flex-shrink:0;
-      border-radius:10px;
-      background:rgba(242,242,242,0.055);
-      backdrop-filter:blur(14px) saturate(150%);
-      -webkit-backdrop-filter:blur(14px) saturate(150%);
-      border:1px solid rgba(242,242,242,0.13);
-      box-shadow:inset 0 1px 0 rgba(242,242,242,0.1), 0 8px 24px rgba(0,0,0,0.3);
-      padding:18px 20px 20px;
-      display:flex; flex-direction:column; gap:12px;
-      position:relative; overflow:hidden;
+    .tk-item {
+      display:inline-flex; align-items:center;
+      gap:10px; padding:0 44px;
+      white-space:nowrap; flex-shrink:0;
     }
-    .svc-cell::after {
-      content:''; position:absolute;
-      bottom:0; left:0; right:0; height:2px;
-      background:linear-gradient(90deg,#961B2B 0%,rgba(150,27,43,0.2) 100%);
-      border-radius:0 0 10px 10px;
+    .tk-icon {
+      width:32px; height:32px; border-radius:6px;
+      flex-shrink:0; overflow:hidden;
     }
-    .svc-cell-head {
-      display:flex; align-items:center; gap:12px;
+    .tk-icon svg { width:32px; height:32px; display:block; }
+    .tk-name {
+      font-size:.85rem; font-weight:600;
+      letter-spacing:.1em; text-transform:uppercase; color:#F2F2F2;
     }
-    .svc-cell-icon {
-      width:38px; height:38px; border-radius:8px;
-      flex-shrink:0; display:flex;
-      align-items:center; justify-content:center; font-size:1.1rem;
-      background:rgba(150,27,43,0.18);
-      border:1px solid rgba(150,27,43,0.35);
-    }
-    .svc-cell-name {
-      font-family:'Bebas Neue',sans-serif;
-      font-size:1.1rem; letter-spacing:.08em;
-      color:#F2F2F2; line-height:1.1;
-    }
-    .svc-cell-tag {
-      display:inline-block;
-      font-size:.65rem; font-weight:600;
-      letter-spacing:.16em; text-transform:uppercase;
-      color:#961B2B;
-      background:rgba(150,27,43,0.12);
-      border:1px solid rgba(150,27,43,0.3);
-      padding:2px 8px; border-radius:2px; margin-top:1px;
-    }
-    .svc-cell-desc {
-      font-size:.82rem; color:rgba(242,242,242,0.68); line-height:1.65;
-    }
-    .svc-cell-desc strong { color:#F2F2F2; font-weight:600; }
-
-    @supports not (backdrop-filter:blur(1px)) {
-      .svc-cell { background:rgba(50,20,48,0.92); }
-    }
-    @media (max-width:480px) {
-      .svc-cell { width:250px; backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+    .tk-sep {
+      display:inline-block; width:6px; height:6px;
+      border-radius:50%; background:#961B2B; margin-left:44px;
+      flex-shrink:0;
     }
 
-    /* ── TÍTULOS SEÇÃO ── */
+    /* ── SEÇÃO GENÉRICA ── */
     .sec-label {
       font-size:.76rem; font-weight:600;
       letter-spacing:.2em; text-transform:uppercase;
@@ -351,137 +292,101 @@
     }
     .cta-strip-btns { display:flex; gap:12px; flex-wrap:wrap; }
 
-    /* ══════════════════════════════════════════════
-       SERVIÇOS — DOIS NÍVEIS
-    ══════════════════════════════════════════════ */
+    /* ─────────────────────────────────────────────
+       SERVIÇOS — ACCORDION CORRIGIDO
+
+       Problema anterior: .svc-body tinha max-height:0
+       mas o JS não conseguia alternar porque o seletor
+       ou o evento estava errado.
+
+       Solução: lógica 100% via JS com height explícito,
+       sem depender de max-height CSS.
+    ───────────────────────────────────────────── */
     .services { display:flex; flex-direction:column; gap:10px; margin-top:28px; }
 
     .svc {
-      border:1px solid var(--border); border-radius:6px;
-      background:rgba(242,242,242,0.02); overflow:hidden;
-      transition:border-color .25s;
+      border:1px solid var(--border);
+      border-radius:4px;
+      background:rgba(242,242,242,0.02);
+      overflow:hidden;
     }
-    .svc.open { border-color:rgba(150,27,43,0.6); }
 
-    .svc-head {
-      width:100%; display:flex;
-      justify-content:space-between; align-items:center;
-      gap:12px; padding:20px 22px;
-      background:none; border:none; color:#F2F2F2;
-      text-align:left; cursor:pointer; transition:background .2s;
+    /* Botão do cabeçalho */
+    .svc-btn {
+      width:100%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:18px 20px;
+      background:none;
+      border:none;
+      color:#F2F2F2;
+      text-align:left;
+      cursor:pointer;
     }
-    .svc-head:hover { background:rgba(150,27,43,0.06); }
-    .svc.open .svc-head { background:rgba(150,27,43,0.08); }
-    .svc-head-left { display:flex; flex-direction:column; gap:4px; }
+    .svc-btn:hover .svc-title { color:#961B2B; }
+
     .svc-title {
       font-family:'Bebas Neue',sans-serif;
-      font-size:clamp(1.4rem,2.5vw,1.8rem);
-      letter-spacing:.06em; color:#F2F2F2; transition:color .2s;
+      font-size:1.55rem;
+      letter-spacing:.06em;
+      color:#F2F2F2;
+      transition:color .2s;
     }
-    .svc.open .svc-title, .svc-head:hover .svc-title { color:#961B2B; }
-    .svc-subtitle {
-      font-size:.75rem; text-transform:uppercase;
-      letter-spacing:.14em; color:var(--dim);
+    .svc-badge {
+      font-size:.72rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:var(--dim);
+      margin-top:4px;
     }
-    .svc-chevron {
-      width:28px; height:28px; flex-shrink:0;
-      border:1px solid rgba(242,242,242,0.2); border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      font-size:.9rem; color:var(--dim);
-      transition:transform .35s, border-color .2s, color .2s;
+    .svc-arrow {
+      font-size:1.6rem;
+      color:var(--dim);
+      flex-shrink:0;
+      line-height:1;
+      transition:transform .3s, color .2s;
+      /* impede que o símbolo herde color:inherit errado */
+      color:rgba(242,242,242,0.5);
     }
-    .svc.open .svc-chevron { transform:rotate(45deg); border-color:#961B2B; color:#961B2B; }
+    .svc.open .svc-arrow { transform:rotate(45deg); color:#961B2B; }
+    .svc.open .svc-title { color:#961B2B; }
 
-    .svc-panel { height:0; overflow:hidden; transition:height .38s cubic-bezier(.25,.46,.45,.94); border-top:0px solid var(--border); }
-    .svc.open .svc-panel { border-top-width:1px; }
-    .svc-panel-inner { padding:20px 22px 24px; display:flex; flex-direction:column; gap:8px; }
-    .svc-panel-hint {
-      font-size:.75rem; color:rgba(242,242,242,0.38);
-      letter-spacing:.1em; text-transform:uppercase; margin-bottom:4px;
+    /* Corpo — começa colapsado via JS, não via CSS
+       para evitar conflito de especificidade         */
+    .svc-body {
+      /* overflow hidden é o único CSS necessário aqui */
+      overflow:hidden;
+      /* altura inicial = 0, controlada pelo JS */
+      height:0;
+      transition:height .35s ease;
+      border-top:0px solid var(--border);
     }
+    /* quando aberto, border-top aparece */
+    .svc.open .svc-body { border-top:1px solid var(--border); }
 
-    /* sub-botão vidro */
-    .sub-btn {
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:14px 18px; border-radius:4px;
-      border:1px solid rgba(242,242,242,0.1);
-      background:rgba(242,242,242,0.03);
-      backdrop-filter:blur(8px) saturate(120%);
-      -webkit-backdrop-filter:blur(8px) saturate(120%);
-      color:#F2F2F2; cursor:pointer;
-      transition:background .22s, border-color .22s, transform .18s;
-      text-align:left; width:100%;
+    /* conteúdo interno tem padding próprio */
+    .svc-inner {
+      padding:16px 20px 22px;
     }
-    .sub-btn:hover {
-      background:rgba(150,27,43,0.15);
-      border-color:rgba(150,27,43,0.5);
-      transform:translateX(4px);
+    .svc-inner p {
+      font-size:.95rem;
+      color:var(--dim);
+      margin-bottom:12px;
     }
-    .sub-btn-label { font-size:.9rem; font-weight:600; letter-spacing:.08em; color:#F2F2F2; }
-    .sub-btn-desc  { font-size:.75rem; color:var(--dim); margin-top:2px; }
-    .sub-btn-arrow { font-size:1rem; color:rgba(242,242,242,0.3); flex-shrink:0; transition:color .2s, transform .2s; }
-    .sub-btn:hover .sub-btn-arrow { color:#961B2B; transform:translateX(3px); }
-
-    .svc-panel-cta {
-      margin-top:10px; padding-top:14px;
-      border-top:1px solid rgba(150,27,43,0.2);
-      display:flex; justify-content:flex-end;
+    /* garante que o btn-red dentro do serviço
+       não herda cores erradas                   */
+    .svc-inner .btn-red {
+      color:#F2F2F2;
+      margin-top:4px;
+      display:inline-flex;
     }
-
-    /* ── MODAL ── */
-    #modal-overlay {
-      position:fixed; inset:0;
-      background:rgba(18,8,18,0.82);
-      backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
-      z-index:2000; display:flex;
-      align-items:center; justify-content:center;
-      padding:24px; opacity:0; visibility:hidden;
-      transition:opacity .3s, visibility .3s;
-    }
-    #modal-overlay.active { opacity:1; visibility:visible; }
-    #modal-box {
-      background:#2e1530;
-      border:1px solid rgba(150,27,43,0.5);
-      border-radius:8px; max-width:540px; width:100%;
-      padding:36px 32px 32px; position:relative;
-      transform:translateY(20px) scale(.97);
-      transition:transform .3s cubic-bezier(.25,.46,.45,.94);
-      box-shadow:0 24px 60px rgba(0,0,0,0.55);
-    }
-    #modal-overlay.active #modal-box { transform:translateY(0) scale(1); }
-    #modal-box::before {
-      content:''; position:absolute; top:0; left:0; right:0;
-      height:3px; background:linear-gradient(90deg,#961B2B,transparent);
-      border-radius:8px 8px 0 0;
-    }
-    #modal-close {
-      position:absolute; top:14px; right:14px;
-      width:32px; height:32px; border-radius:50%;
-      border:1px solid rgba(242,242,242,0.2);
-      background:rgba(242,242,242,0.06);
-      color:var(--dim); font-size:1.1rem;
-      display:flex; align-items:center; justify-content:center;
-      cursor:pointer; transition:background .2s, border-color .2s, color .2s;
-    }
-    #modal-close:hover { background:rgba(150,27,43,0.25); border-color:#961B2B; color:#F2F2F2; }
-    #modal-tag {
-      display:inline-block; font-size:.7rem; font-weight:700;
-      letter-spacing:.18em; text-transform:uppercase; color:#961B2B;
-      border:1px solid rgba(150,27,43,0.4);
-      padding:4px 10px; border-radius:2px; margin-bottom:14px;
-    }
-    #modal-title {
-      font-family:'Bebas Neue',sans-serif; font-size:2.2rem;
-      letter-spacing:.06em; color:#F2F2F2; margin-bottom:16px; line-height:1;
-    }
-    #modal-body { font-size:.97rem; color:var(--dim); line-height:1.8; margin-bottom:24px; }
-    #modal-body p { margin-bottom:10px; }
-    #modal-body strong { color:#F2F2F2; font-weight:600; }
-    #modal-footer { display:flex; gap:12px; flex-wrap:wrap; }
 
     /* ── TRABALHOS ── */
     .projects {
-      display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
       gap:18px; margin-top:28px;
     }
     .proj-card {
@@ -499,7 +404,10 @@
       font-size:.78rem; letter-spacing:.1em; text-transform:uppercase;
     }
     .proj-thumb span:first-child { font-size:2.2rem; }
-    .proj-body { padding:18px; display:flex; flex-direction:column; gap:6px; flex:1; }
+    .proj-body {
+      padding:18px; display:flex; flex-direction:column;
+      gap:6px; flex:1;
+    }
     .proj-title { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:.06em; color:#F2F2F2; }
     .proj-meta  { font-size:.76rem; color:var(--dim); letter-spacing:.1em; text-transform:uppercase; }
     .proj-desc  { font-size:.88rem; color:var(--dim); margin-bottom:4px; }
@@ -509,10 +417,14 @@
     .social-card {
       border:1px solid var(--border); border-radius:4px;
       background:rgba(242,242,242,0.02);
-      padding:20px 28px; min-width:170px; display:block;
+      padding:20px 28px; min-width:170px;
+      display:block;
       transition:border-color .25s, background .25s, transform .22s;
     }
-    .social-card:hover { border-color:rgba(150,27,43,0.55); background:rgba(150,27,43,0.08); transform:translateY(-3px); }
+    .social-card:hover {
+      border-color:rgba(150,27,43,0.55);
+      background:rgba(150,27,43,0.08); transform:translateY(-3px);
+    }
     .social-lbl    { font-size:.72rem; text-transform:uppercase; letter-spacing:.14em; color:var(--dim); margin-bottom:5px; }
     .social-handle { font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:.08em; color:#F2F2F2; }
 
@@ -522,12 +434,19 @@
     .c-item { margin-bottom:14px; }
     .c-lbl  { font-size:.72rem; text-transform:uppercase; letter-spacing:.14em; color:#961B2B; margin-bottom:2px; }
     .c-val  { font-size:.95rem; color:#F2F2F2; }
+
     .form-field { margin-bottom:14px; display:flex; flex-direction:column; gap:5px; }
-    .form-field label { font-size:.74rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:rgba(242,242,242,0.5); }
+    .form-field label {
+      font-size:.74rem; font-weight:600;
+      letter-spacing:.12em; text-transform:uppercase;
+      color:rgba(242,242,242,0.5);
+    }
     input, textarea, select {
-      width:100%; border:1px solid rgba(150,27,43,0.4); border-radius:3px;
+      width:100%;
+      border:1px solid rgba(150,27,43,0.4); border-radius:3px;
       background:rgba(255,255,255,0.03); color:#F2F2F2;
-      padding:10px 12px; font-family:'Space Grotesk',sans-serif; font-size:.9rem;
+      padding:10px 12px;
+      font-family:'Space Grotesk',sans-serif; font-size:.9rem;
       transition:border-color .2s;
     }
     input::placeholder, textarea::placeholder { color:rgba(242,242,242,0.28); }
@@ -550,15 +469,14 @@
       .projects     { grid-template-columns:repeat(2,minmax(0,1fr)); }
     }
     @media (max-width:680px) {
-      .nav-links  { display:none; }
-      .hamburger  { display:flex; }
-      .projects   { grid-template-columns:1fr; }
+      .nav-links { display:none; }
+      .hamburger { display:flex; }
+      .projects  { grid-template-columns:1fr; }
       .hero-actions { flex-direction:column; }
-      .cta-strip  { flex-direction:column; align-items:flex-start; }
+      .cta-strip { flex-direction:column; align-items:flex-start; }
       .cta-strip-btns { flex-direction:column; width:100%; }
       .cta-strip-btns .btn-red,
       .cta-strip-btns .btn-glass { width:100%; }
-      #modal-box { padding:28px 20px 24px; }
     }
 
   </style>
@@ -567,20 +485,6 @@
 
 <!-- CURSOR -->
 <div id="cur" aria-hidden="true"></div>
-
-<!-- MODAL -->
-<div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-  <div id="modal-box">
-    <button id="modal-close" aria-label="Fechar">✕</button>
-    <div id="modal-tag">Serviço</div>
-    <h3 id="modal-title">Título</h3>
-    <div id="modal-body"></div>
-    <div id="modal-footer">
-      <a href="#contato" class="btn-red" id="modal-cta" onclick="closeModal()">Solicitar orçamento</a>
-      <button class="btn-glass" onclick="closeModal()">Fechar</button>
-    </div>
-  </div>
-</div>
 
 <!-- NAVBAR -->
 <nav id="navbar" role="navigation" aria-label="Menu principal">
@@ -597,6 +501,7 @@
   </ul>
 </nav>
 
+<!-- MENU MOBILE -->
 <div id="mobileMenu" role="navigation" aria-label="Menu mobile">
   <a href="#sobre"     onclick="closeMob()">Quem sou</a>
   <a href="#servicos"  onclick="closeMob()">Serviços</a>
@@ -607,7 +512,7 @@
 
 <main>
 
-  <!-- ══ HERO ══ -->
+  <!-- HERO -->
   <section id="hero">
     <p class="hero-eyebrow">Portfólio · Street Clean · 2025</p>
     <h1 class="hero-title">
@@ -616,66 +521,201 @@
       <span class="outline">SOCIAL MEDIA</span><br>
       & DESIGN
     </h1>
-    <p class="hero-desc">Social media, redator e gestor de tráfego. Crio e organizo a presença digital de empresas com design estratégico, conteúdo e anúncios que convertem.</p>
+    <p class="hero-desc">
+      Social media, redator e gestor de tráfego. Crio e organizo a presença digital de empresas com design estratégico, conteúdo e anúncios que convertem.
+    </p>
     <div class="hero-actions">
       <a href="#trabalhos" class="btn-glass">Ver trabalhos</a>
       <a href="#contato"   class="btn-red">Solicite seu orçamento</a>
     </div>
   </section>
 
-  <!-- ══ TICKER FERRAMENTAS ══ -->
-  <div class="tool-ticker-wrap" aria-label="Ferramentas que utilizo" role="region">
-    <div class="tool-ticker-track">
-      <!-- BLOCO A -->
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#001e36"/><text x="14" y="19" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="10" fill="#31A8FF">Ps</text></svg></span><span class="tk-name">Photoshop</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#261300"/><text x="14" y="19" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="10" fill="#FF9A00">Ai</text></svg></span><span class="tk-name">Illustrator</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#1e1e1e"/><rect x="7" y="3" width="6" height="6" rx="3" fill="#F24E1E"/><rect x="14" y="3" width="6" height="6" rx="3" fill="#FF7262"/><rect x="7" y="10" width="6" height="6" rx="3" fill="#A259FF"/><rect x="7" y="17" width="6" height="6" rx="3" fill="#0ACF83"/><circle cx="17" cy="13" r="3" fill="#1ABCFE"/></svg></span><span class="tk-name">Figma</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#7d2ae8"/><text x="14" y="19" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="10" fill="#fff">Ca</text></svg></span><span class="tk-name">Canva</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#111"/><polygon points="10,7 21,14 10,21" fill="#fff"/><rect x="6" y="7" width="3" height="14" rx="1.5" fill="#fff"/></svg></span><span class="tk-name">CapCut</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#1a1a1a"/><circle cx="14" cy="14" r="8" fill="none" stroke="#e63946" stroke-width="2"/><circle cx="14" cy="14" r="3.5" fill="#e63946"/></svg></span><span class="tk-name">DaVinci Resolve</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#7B68EE"/><polyline points="6,18 10,13 14,17 18,13 22,18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tk-name">ClickUp</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#0866FF"/><path d="M5 16C5 12 7.5 9 10 9c1.3 0 2.2.9 4 3 1.8-2.1 2.7-3 4-3 2.5 0 5 3 5 7 0 1.8-.9 2.7-2.2 2.7s-2.2-.9-3.5-3.2L14 12l-2.3 3.5C10.4 17.8 9.4 18.7 8 18.7S5 17.8 5 16z" fill="#fff"/></svg></span><span class="tk-name">Meta Ads</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#961B2B"/><line x1="6" y1="9" x2="22" y2="9" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/><line x1="6" y1="14" x2="22" y2="14" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/><line x1="6" y1="19" x2="15" y2="19" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/></svg></span><span class="tk-name">Copywriting</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#10a37f"/><circle cx="14" cy="12" r="4" fill="#fff"/><path d="M7 22c0-3.9 3.1-7 7-7s7 3.1 7 7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span><span class="tk-name">IA de Texto</span><span class="tk-sep"></span></span>
-      <!-- BLOCO B (espelho) -->
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#001e36"/><text x="14" y="19" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="10" fill="#31A8FF">Ps</text></svg></span><span class="tk-name">Photoshop</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#261300"/><text x="14" y="19" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="10" fill="#FF9A00">Ai</text></svg></span><span class="tk-name">Illustrator</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#1e1e1e"/><rect x="7" y="3" width="6" height="6" rx="3" fill="#F24E1E"/><rect x="14" y="3" width="6" height="6" rx="3" fill="#FF7262"/><rect x="7" y="10" width="6" height="6" rx="3" fill="#A259FF"/><rect x="7" y="17" width="6" height="6" rx="3" fill="#0ACF83"/><circle cx="17" cy="13" r="3" fill="#1ABCFE"/></svg></span><span class="tk-name">Figma</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#7d2ae8"/><text x="14" y="19" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="10" fill="#fff">Ca</text></svg></span><span class="tk-name">Canva</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#111"/><polygon points="10,7 21,14 10,21" fill="#fff"/><rect x="6" y="7" width="3" height="14" rx="1.5" fill="#fff"/></svg></span><span class="tk-name">CapCut</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#1a1a1a"/><circle cx="14" cy="14" r="8" fill="none" stroke="#e63946" stroke-width="2"/><circle cx="14" cy="14" r="3.5" fill="#e63946"/></svg></span><span class="tk-name">DaVinci Resolve</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#7B68EE"/><polyline points="6,18 10,13 14,17 18,13 22,18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tk-name">ClickUp</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#0866FF"/><path d="M5 16C5 12 7.5 9 10 9c1.3 0 2.2.9 4 3 1.8-2.1 2.7-3 4-3 2.5 0 5 3 5 7 0 1.8-.9 2.7-2.2 2.7s-2.2-.9-3.5-3.2L14 12l-2.3 3.5C10.4 17.8 9.4 18.7 8 18.7S5 17.8 5 16z" fill="#fff"/></svg></span><span class="tk-name">Meta Ads</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#961B2B"/><line x1="6" y1="9" x2="22" y2="9" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/><line x1="6" y1="14" x2="22" y2="14" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/><line x1="6" y1="19" x2="15" y2="19" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/></svg></span><span class="tk-name">Copywriting</span><span class="tk-sep"></span></span>
-      <span class="tk-item"><span class="tk-icon"><svg viewBox="0 0 28 28"><rect width="28" height="28" rx="4" fill="#10a37f"/><circle cx="14" cy="12" r="4" fill="#fff"/><path d="M7 22c0-3.9 3.1-7 7-7s7 3.1 7 7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span><span class="tk-name">IA de Texto</span><span class="tk-sep"></span></span>
+  <!-- ══════════════════════════════════════
+       TICKER — logo acima de "Quem sou"
+       • Nunca pausa (pointer-events:none)
+       • 90s de duração = leitura confortável
+  ════════════════════════════════════════ -->
+  <div class="ticker-wrap" aria-label="Ferramentas que utilizo" role="region">
+    <div class="ticker-track" id="tickerTrack">
+
+      <!-- ══ BLOCO A ══ -->
+
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#001e36"/>
+            <text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="12" fill="#31A8FF">Ps</text>
+          </svg>
+        </span>
+        <span class="tk-name">Photoshop</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#261300"/>
+            <text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="12" fill="#FF9A00">Ai</text>
+          </svg>
+        </span>
+        <span class="tk-name">Illustrator</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#1e1e1e"/>
+            <rect x="9"  y="4"  width="7" height="7" rx="3.5" fill="#F24E1E"/>
+            <rect x="16" y="4"  width="7" height="7" rx="3.5" fill="#FF7262"/>
+            <rect x="9"  y="12" width="7" height="7" rx="3.5" fill="#A259FF"/>
+            <rect x="9"  y="20" width="7" height="7" rx="3.5" fill="#0ACF83"/>
+            <circle cx="19.5" cy="15.5" r="3.5" fill="#1ABCFE"/>
+          </svg>
+        </span>
+        <span class="tk-name">Figma</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#7d2ae8"/>
+            <text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="12" fill="#ffffff">Ca</text>
+          </svg>
+        </span>
+        <span class="tk-name">Canva</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#111111"/>
+            <polygon points="12,9 24,16 12,23" fill="#ffffff"/>
+            <rect x="8" y="9" width="3" height="14" rx="1.5" fill="#ffffff"/>
+          </svg>
+        </span>
+        <span class="tk-name">CapCut</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#1a1a1a"/>
+            <circle cx="16" cy="16" r="9"   fill="none" stroke="#e63946" stroke-width="2"/>
+            <circle cx="16" cy="16" r="4"   fill="#e63946"/>
+            <circle cx="16" cy="16" r="1.5" fill="#1a1a1a"/>
+          </svg>
+        </span>
+        <span class="tk-name">DaVinci Resolve</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#7B68EE"/>
+            <polyline points="7,20 12,14 16,18 20,14 25,20"
+              fill="none" stroke="#fff" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="tk-name">ClickUp</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#0866FF"/>
+            <path d="M7 18.5C7 14 9.5 11 12 11c1.5 0 2.5 1 4 3 1.5-2 2.5-3 4-3 2.5 0 5 3 5 7.5 0 2-1 3-2.5 3s-2.5-1-4-3.5L16 14l-2.5 4C12 20.5 11 21.5 9.5 21.5S7 20.5 7 18.5z" fill="#fff"/>
+          </svg>
+        </span>
+        <span class="tk-name">Meta Ads</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#961B2B"/>
+            <line x1="8"  y1="10" x2="24" y2="10" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/>
+            <line x1="8"  y1="16" x2="24" y2="16" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/>
+            <line x1="8"  y1="22" x2="17" y2="22" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="24" cy="23" r="3" fill="#F2F2F2"/>
+            <line x1="26" y1="25" x2="29" y2="28" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="tk-name">Copywriting</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <span class="tk-item">
+        <span class="tk-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="5" fill="#10a37f"/>
+            <circle cx="16" cy="13" r="4" fill="#fff"/>
+            <path d="M9 24c0-3.9 3.1-7 7-7s7 3.1 7 7"
+              fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="23" cy="8" r="2" fill="#fff"/>
+            <line x1="23" y1="5" x2="23" y2="3" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="26" y1="6" x2="28" y2="4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="27" y1="9" x2="29" y2="9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="tk-name">IA de Texto</span>
+        <span class="tk-sep"></span>
+      </span>
+
+      <!-- ══ BLOCO B — espelho do A para loop sem salto ══ -->
+
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#001e36"/><text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="12" fill="#31A8FF">Ps</text></svg></span>
+        <span class="tk-name">Photoshop</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#261300"/><text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="12" fill="#FF9A00">Ai</text></svg></span>
+        <span class="tk-name">Illustrator</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#1e1e1e"/><rect x="9" y="4" width="7" height="7" rx="3.5" fill="#F24E1E"/><rect x="16" y="4" width="7" height="7" rx="3.5" fill="#FF7262"/><rect x="9" y="12" width="7" height="7" rx="3.5" fill="#A259FF"/><rect x="9" y="20" width="7" height="7" rx="3.5" fill="#0ACF83"/><circle cx="19.5" cy="15.5" r="3.5" fill="#1ABCFE"/></svg></span>
+        <span class="tk-name">Figma</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#7d2ae8"/><text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="12" fill="#ffffff">Ca</text></svg></span>
+        <span class="tk-name">Canva</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#111111"/><polygon points="12,9 24,16 12,23" fill="#ffffff"/><rect x="8" y="9" width="3" height="14" rx="1.5" fill="#ffffff"/></svg></span>
+        <span class="tk-name">CapCut</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#1a1a1a"/><circle cx="16" cy="16" r="9" fill="none" stroke="#e63946" stroke-width="2"/><circle cx="16" cy="16" r="4" fill="#e63946"/><circle cx="16" cy="16" r="1.5" fill="#1a1a1a"/></svg></span>
+        <span class="tk-name">DaVinci Resolve</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#7B68EE"/><polyline points="7,20 12,14 16,18 20,14 25,20" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="tk-name">ClickUp</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#0866FF"/><path d="M7 18.5C7 14 9.5 11 12 11c1.5 0 2.5 1 4 3 1.5-2 2.5-3 4-3 2.5 0 5 3 5 7.5 0 2-1 3-2.5 3s-2.5-1-4-3.5L16 14l-2.5 4C12 20.5 11 21.5 9.5 21.5S7 20.5 7 18.5z" fill="#fff"/></svg></span>
+        <span class="tk-name">Meta Ads</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#961B2B"/><line x1="8" y1="10" x2="24" y2="10" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="16" x2="24" y2="16" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/><line x1="8" y1="22" x2="17" y2="22" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/><circle cx="24" cy="23" r="3" fill="#F2F2F2"/><line x1="26" y1="25" x2="29" y2="28" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round"/></svg></span>
+        <span class="tk-name">Copywriting</span><span class="tk-sep"></span>
+      </span>
+      <span class="tk-item">
+        <span class="tk-icon"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="5" fill="#10a37f"/><circle cx="16" cy="13" r="4" fill="#fff"/><path d="M9 24c0-3.9 3.1-7 7-7s7 3.1 7 7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="23" cy="8" r="2" fill="#fff"/><line x1="23" y1="5" x2="23" y2="3" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><line x1="26" y1="6" x2="28" y2="4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><line x1="27" y1="9" x2="29" y2="9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        <span class="tk-name">IA de Texto</span><span class="tk-sep"></span>
+      </span>
+
     </div>
   </div>
 
-  <!-- ══ TICKER SERVIÇOS ══ -->
-  <div class="svc-ticker-wrap" aria-label="Resumo dos serviços" role="region">
-    <div class="svc-ticker-track">
-      <!-- BLOCO A -->
-      <div class="svc-cell"><div class="svc-cell-head"><div class="svc-cell-icon" aria-hidden="true">📱</div><div><div class="svc-cell-name">Redes Sociais</div><span class="svc-cell-tag">Gestão</span></div></div><p class="svc-cell-desc"><strong>Planejamento completo</strong> do conteúdo: linha editorial, calendário, formatos ideais e acompanhamento de métricas para crescimento consistente.</p></div>
-      <div class="svc-cell"><div class="svc-cell-head"><div class="svc-cell-icon" aria-hidden="true">🎨</div><div><div class="svc-cell-name">Design de Marketing</div><span class="svc-cell-tag">Visual</span></div></div><p class="svc-cell-desc"><strong>Peças visuais estratégicas</strong> para feed, stories e anúncios com identidade Street Clean: limpo, forte e com propósito.</p></div>
-      <div class="svc-cell"><div class="svc-cell-head"><div class="svc-cell-icon" aria-hidden="true">✍️</div><div><div class="svc-cell-name">Copywriting</div><span class="svc-cell-tag">Redação</span></div></div><p class="svc-cell-desc"><strong>Textos que convertem:</strong> legendas, anúncios e roteiros escritos com clareza, persuasão e linguagem adaptada ao seu público.</p></div>
-      <div class="svc-cell"><div class="svc-cell-head"><div class="svc-cell-icon" aria-hidden="true">📊</div><div><div class="svc-cell-name">Gestão de Tráfego</div><span class="svc-cell-tag">Meta Ads</span></div></div><p class="svc-cell-desc"><strong>Campanhas no Meta Ads</strong> configuradas, monitoradas e otimizadas. CPC, CTR e CPA acompanhados para maximizar cada real investido.</p></div>
-      <div class="svc-cell"><div class="svc-cell-head"><div class="svc-cell-icon" aria-hidden="true">🎬</div><div><div class="svc-cell-name">Captação de Vídeo</div><span class="svc-cell-tag">Produção</span></div></div><p class="svc-cell-desc"><strong>Filmagem com equipamento próprio</strong>, roteiro estruturado e edição profissional para Reels, vídeos institucionais e conteúdo de bastidores.</p></div>
-      <div class="svc-cell"><div class="svc-cell-head"><div class="svc-cell-icon" aria-hidden="true">📈</div><div><div class="svc-cell-name">Análise de Métricas</div><span class="svc-cell-tag">Resultados</span></div></div><p class="svc-cell-desc"><strong>Relatórios claros</strong> sobre alcance, engajamento e conversão, com ajustes de estratégia baseados em dados reais.</p></div>
-      <div class="svc-cell"><div class="svc-cell-head"><div class="svc-cell-icon" aria-hidden="true">🗓</div><div><div class="svc-cell-name">Calendário Editorial</div><span class="svc-cell-tag">Planejamento</span></div></div><p class="svc-cell-desc"><strong>Organização mensal do conteúdo</strong> com temas, formatos e datas definidas. Previsibilidade e consistência para sua marca crescer.</p></div>
-      <div class="svc-cell"><div class="svc-cell-head"><div class="svc-cell-icon" aria-hidden="true">🖼</div><div><div class="svc-cell-name">Identidade Visual</div><span class="svc-cell-tag">Branding</span></div></div><p class="svc-cell-desc"><strong>Criação do padrão visual</strong> da marca nas redes: paleta, tipografia e estilo de imagem que se reconhece à primeira vista.</p></div>
-      <!-- BLOCO B (espelho) -->
-      <div class="svc-cell"><div class="svc-cell-head"><div class="svc-cell-icon" aria-hidden="true">📱</div><div><div class="svc-cell-name">Redes Sociais</div><span class="svc-cell-tag">Gestão</span></div></div><p class="svc-cell-desc"><strong>Planejamento completo</strong> do conteúdo: linha editorial, calendário, formatos ideais e acompanhamento de métricas para crescimento consistente.</p></div>
-      <div class="svc-cell"><div class="svc-cell-head"><div class="svc-cell-icon" aria-hidden="true">🎨</div><div><div class="svc-cell-name">Design de Marketing</div><span class="svc-cell-tag">Visual</span></div></div><p class="svc-cell-desc"><strong>Peças visuais estratégicas</strong> para feed, stories e anúncios com identidade Street Clean: limpo, forte e com propósito.</p></div>
-      <div class="svc-cell"><div class="svc-cell-head"><div class="svc-cell-icon" aria-hidden="true">✍️</div><div><div class="svc-cell-name">Copywriting</div><span class="svc-cell-tag">Redação</span></div></div><p class="svc-cell-desc"><strong>Textos que convertem:</strong> legendas, anúncios e roteiros escritos com clareza, persuasão e linguagem adaptada ao seu público.</p></div>
-      <div class="svc-cell"><div class="svc-cell-head"><div class="svc-cell-icon" aria-hidden="true">📊</div><div><div class="svc-cell-name">Gestão de Tráfego</div><span class="svc-cell-tag">Meta Ads</span></div></div><p class="svc-cell-desc"><strong>Campanhas no Meta Ads</strong> configuradas, monitoradas e otimizadas. CPC, CTR e CPA acompanhados para maximizar cada real investido.</p></div>
-      <div class="svc-cell"><div class="svc-cell-head"><div class="svc-cell-icon" aria-hidden="true">🎬</div><div><div class="svc-cell-name">Captação de Vídeo</div><span class="svc-cell-tag">Produção</span></div></div><p class="svc-cell-desc"><strong>Filmagem com equipamento próprio</strong>, roteiro estruturado e edição profissional para Reels, vídeos institucionais e conteúdo de bastidores.</p></div>
-      <div class="svc-cell"><div class="svc-cell-head"><div class="svc-cell-icon" aria-hidden="true">📈</div><div><div class="svc-cell-name">Análise de Métricas</div><span class="svc-cell-tag">Resultados</span></div></div><p class="svc-cell-desc"><strong>Relatórios claros</strong> sobre alcance, engajamento e conversão, com ajustes de estratégia baseados em dados reais.</p></div>
-      <div class="svc-cell"><div class="svc-cell-head"><div class="svc-cell-icon" aria-hidden="true">🗓</div><div><div class="svc-cell-name">Calendário Editorial</div><span class="svc-cell-tag">Planejamento</span></div></div><p class="svc-cell-desc"><strong>Organização mensal do conteúdo</strong> com temas, formatos e datas definidas. Previsibilidade e consistência para sua marca crescer.</p></div>
-      <div class="svc-cell"><div class="svc-cell-head"><div class="svc-cell-icon" aria-hidden="true">🖼</div><div><div class="svc-cell-name">Identidade Visual</div><span class="svc-cell-tag">Branding</span></div></div><p class="svc-cell-desc"><strong>Criação do padrão visual</strong> da marca nas redes: paleta, tipografia e estilo de imagem que se reconhece à primeira vista.</p></div>
-    </div>
-  </div>
-
-  <!-- ══ QUEM SOU ══ -->
+  <!-- QUEM SOU -->
   <section id="sobre" class="section" aria-labelledby="sobre-h2">
     <span class="sec-label">Quem sou</span>
     <h2 class="sec-title" id="sobre-h2">Rafael · Faeux</h2>
@@ -685,10 +725,19 @@
         <p>Estou construindo meu próprio estilo visual, o <em>Street Clean</em>, que mistura referências urbanas com design limpo, cores fortes e foco em legibilidade.</p>
         <p>Meu objetivo é transformar a comunicação das marcas em algo claro, consistente e estratégico: conteúdo bem pensado, identidade visual marcante e anúncios otimizados trabalhando juntos.</p>
         <a href="#servicos" class="btn-glass" style="margin-top:20px;">Ver o que faço</a>
-        <div class="about-stats">
-          <div><div class="stat-num">3<em>+</em></div><div class="stat-lbl">Áreas de atuação</div></div>
-          <div><div class="stat-num">3<em>+</em></div><div class="stat-lbl">Projetos autorais</div></div>
-          <div><div class="stat-num">100<em>%</em></div><div class="stat-lbl">Foco em estratégia</div></div>
+        <div class="about-stats" aria-label="Números">
+          <div>
+            <div class="stat-num">3<em>+</em></div>
+            <div class="stat-lbl">Áreas de atuação</div>
+          </div>
+          <div>
+            <div class="stat-num">3<em>+</em></div>
+            <div class="stat-lbl">Projetos autorais</div>
+          </div>
+          <div>
+            <div class="stat-num">100<em>%</em></div>
+            <div class="stat-lbl">Foco em estratégia</div>
+          </div>
         </div>
       </div>
       <div class="photo-box" role="img" aria-label="Foto de Rafael em breve">
@@ -710,31 +759,272 @@
     </div>
   </div>
 
-  <!-- ══ SERVIÇOS ══ -->
+  <!-- SERVIÇOS -->
   <section id="servicos" class="section" aria-labelledby="servicos-h2">
     <span class="sec-label">Serviços</span>
     <h2 class="sec-title" id="servicos-h2">O que eu faço</h2>
-    <p class="sec-text">Clique em cada serviço para ver os detalhes. Depois clique em qualquer item para saber exatamente como funciona.</p>
+    <p class="sec-text">Clique em cada serviço para entender, em linguagem simples, o que ele inclui e como pode ajudar sua empresa.</p>
 
-    <div class="services">
+    <div class="services" role="list">
 
-      <article class="svc">
-        <button class="svc-head" aria-expanded="false">
-          <div class="svc-head-left"><span class="svc-title">Gestão de Redes Sociais</span><span class="svc-subtitle">Instagram · Facebook · TikTok</span></div>
-          <span class="svc-chevron" aria-hidden="true">+</span>
+      <article class="svc" role="listitem">
+        <button class="svc-btn" type="button" aria-expanded="false">
+          <div>
+            <div class="svc-title">Gestão de Redes Sociais</div>
+            <div class="svc-badge">Planejamento · Conteúdo · Métricas</div>
+          </div>
+          <span class="svc-arrow" aria-hidden="true">+</span>
         </button>
-        <div class="svc-panel">
-          <div class="svc-panel-inner">
-            <p class="svc-panel-hint">Clique em um item para saber mais</p>
-            <button class="sub-btn" data-modal="svc1-planejamento"><div><div class="sub-btn-label">Planejamento</div><div class="sub-btn-desc">Como organizo a estratégia de conteúdo</div></div><span class="sub-btn-arrow">›</span></button>
-            <button class="sub-btn" data-modal="svc1-conteudo"><div><div class="sub-btn-label">Conteúdo</div><div class="sub-btn-desc">Criação e publicação das postagens</div></div><span class="sub-btn-arrow">›</span></button>
-            <button class="sub-btn" data-modal="svc1-metricas"><div><div class="sub-btn-label">Métricas</div><div class="sub-btn-desc">Análise de resultados e ajustes</div></div><span class="sub-btn-arrow">›</span></button>
-            <div class="svc-panel-cta"><a href="#contato" class="btn-red">Solicitar orçamento</a></div>
+        <div class="svc-body" role="region" aria-label="Detalhes: Gestão de Redes Sociais">
+          <div class="svc-inner">
+            <p>Planejo e organizo todo o conteúdo das redes sociais da sua empresa: linha editorial, calendário de postagens, tipos de conteúdo e formatos ideais para cada plataforma (Instagram, Facebook, TikTok).</p>
+            <p>Acompanho alcance, engajamento e crescimento, fazendo ajustes constantes para garantir que o perfil evolua com consistência e identidade.</p>
+            <a href="#contato" class="btn-red">Solicitar orçamento</a>
           </div>
         </div>
       </article>
 
-      <article class="svc">
-        <button class="svc-head" aria-expanded="false">
-          <div class="svc-head-left"><span class="svc-title">Design de Marketing</span><span class="svc-
+      <article class="svc" role="listitem">
+        <button class="svc-btn" type="button" aria-expanded="false">
+          <div>
+            <div class="svc-title">Design de Marketing</div>
+            <div class="svc-badge">Peças visuais · Identidade · Layout</div>
+          </div>
+          <span class="svc-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="svc-body" role="region" aria-label="Detalhes: Design de Marketing">
+          <div class="svc-inner">
+            <p>Criação de artes para feeds, stories, anúncios e materiais digitais seguindo um padrão visual pensado para a sua marca, usando a estética Street Clean.</p>
+            <p>Layouts que chamam atenção e principalmente comunicam com clareza o que sua empresa oferece.</p>
+            <a href="#contato" class="btn-red">Solicitar orçamento</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="svc" role="listitem">
+        <button class="svc-btn" type="button" aria-expanded="false">
+          <div>
+            <div class="svc-title">Redação & Copywriting</div>
+            <div class="svc-badge">Posts · Anúncios · Roteiros</div>
+          </div>
+          <span class="svc-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="svc-body" role="region" aria-label="Detalhes: Redação e Copywriting">
+          <div class="svc-inner">
+            <p>Escrevo legendas, textos para anúncios, roteiros de vídeo e materiais com linguagem clara, direta e adaptada ao seu público e ao tom da sua marca.</p>
+            <p>O objetivo é fazer as pessoas entenderem rapidamente a proposta da sua marca e darem o próximo passo: seguir, clicar, chamar ou comprar.</p>
+            <a href="#contato" class="btn-red">Solicitar orçamento</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="svc" role="listitem">
+        <button class="svc-btn" type="button" aria-expanded="false">
+          <div>
+            <div class="svc-title">Gestão de Tráfego</div>
+            <div class="svc-badge">Meta Ads · CPC · Leads</div>
+          </div>
+          <span class="svc-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="svc-body" role="region" aria-label="Detalhes: Gestão de Tráfego">
+          <div class="svc-inner">
+            <p>Configuração e otimização de campanhas no Meta Ads (Instagram e Facebook) para alcançar as pessoas certas com a mensagem certa, no momento certo.</p>
+            <p>Monitoro CPC, CTR e CPA continuamente para reduzir desperdício de verba e maximizar o número de leads, mensagens e vendas geradas.</p>
+            <a href="#contato" class="btn-red">Solicitar orçamento</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="svc" role="listitem">
+        <button class="svc-btn" type="button" aria-expanded="false">
+          <div>
+            <div class="svc-title">Captação & Roteiros de Vídeo</div>
+            <div class="svc-badge">Reels · Institucional · Edição</div>
+          </div>
+          <span class="svc-arrow" aria-hidden="true">+</span>
+        </button>
+        <div class="svc-body" role="region" aria-label="Detalhes: Captação e Roteiros de Vídeo">
+          <div class="svc-inner">
+            <p>Desenvolvimento de roteiros e participação na captação, com atenção ao enquadramento, ritmo e narrativa para que cada vídeo transmita exatamente o que a marca precisa.</p>
+            <p>Vídeos que fazem sentido dentro da estratégia da marca e geram conexão real com o público, seja em Reels, vídeos institucionais ou conteúdo de bastidores.</p>
+            <a href="#contato" class="btn-red">Solicitar orçamento</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CTA STRIP 2 -->
+  <div class="cta-strip">
+    <div>
+      <div class="cta-strip-lbl">Vamos trabalhar juntos?</div>
+      <div class="cta-strip-title">Sua marca merece uma presença que converte.</div>
+    </div>
+    <div class="cta-strip-btns">
+      <a href="#contato" class="btn-red">Solicite seu orçamento</a>
+    </div>
+  </div>
+
+  <!-- TRABALHOS -->
+  <section id="trabalhos" class="section" aria-labelledby="trabalhos-h2">
+    <span class="sec-label">Portfólio</span>
+    <h2 class="sec-title" id="trabalhos-h2">Meus trabalhos</h2>
+    <p class="sec-text">Projetos criados do zero. Em breve disponíveis para visualização completa.</p>
+    <div class="projects">
+      <article class="proj-card" aria-label="Projeto 01">
+        <div class="proj-thumb"><span aria-hidden="true">🖼</span><span>Em breve</span></div>
+        <div class="proj-body">
+          <div class="proj-title">Projeto 01</div>
+          <div class="proj-meta">Social media · Design</div>
+          <p class="proj-desc">Identidade visual e presença estratégica em redes sociais.</p>
+          <a href="#contato" class="btn-glass">Quero algo assim</a>
+        </div>
+      </article>
+      <article class="proj-card" aria-label="Projeto 02">
+        <div class="proj-thumb"><span aria-hidden="true">🖼</span><span>Em breve</span></div>
+        <div class="proj-body">
+          <div class="proj-title">Projeto 02</div>
+          <div class="proj-meta">Tráfego · Conteúdo</div>
+          <p class="proj-desc">Campanhas pagas e conteúdo para captação de leads.</p>
+          <a href="#contato" class="btn-glass">Quero algo assim</a>
+        </div>
+      </article>
+      <article class="proj-card" aria-label="Projeto 03">
+        <div class="proj-thumb"><span aria-hidden="true">🖼</span><span>Em breve</span></div>
+        <div class="proj-body">
+          <div class="proj-title">Projeto 03</div>
+          <div class="proj-meta">Vídeo · Roteiro</div>
+          <p class="proj-desc">Conteúdo em vídeo para humanizar e aproximar a marca.</p>
+          <a href="#contato" class="btn-glass">Quero algo assim</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- REDES -->
+  <section id="redes" class="section" aria-labelledby="redes-h2">
+    <span class="sec-label">Redes sociais</span>
+    <h2 class="sec-title" id="redes-h2">Onde me encontrar</h2>
+    <p class="sec-text">Acompanhe meu trabalho, bastidores e testes de conteúdo nas redes onde estou mais ativo.</p>
+    <div class="socials">
+      <a class="social-card" href="https://www.instagram.com/faeuxdsg_" target="_blank" rel="noopener noreferrer" aria-label="Instagram @faeuxdsg_">
+        <div class="social-lbl">Instagram</div>
+        <div class="social-handle">@faeuxdsg_</div>
+      </a>
+      <a class="social-card" href="https://www.facebook.com/faeux" target="_blank" rel="noopener noreferrer" aria-label="Facebook Faeux">
+        <div class="social-lbl">Facebook</div>
+        <div class="social-handle">Faeux</div>
+      </a>
+      <a class="social-card" href="https://www.tiktok.com/@faeuxdsg_" target="_blank" rel="noopener noreferrer" aria-label="TikTok @faeuxdsg_">
+        <div class="social-lbl">TikTok</div>
+        <div class="social-handle">@faeuxdsg_</div>
+      </a>
+    </div>
+    <div style="margin-top:24px;">
+      <a href="#trabalhos" class="btn-glass">Ver meus trabalhos</a>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato" class="section" aria-labelledby="contato-h2">
+    <span class="sec-label">Contato</span>
+    <h2 class="sec-title" id="contato-h2">Solicite seu orçamento</h2>
+    <p class="sec-text">Me conte sobre sua empresa ou ideia. Vou analisar com calma e responder com uma proposta alinhada ao seu momento.</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="c-item">
+          <div class="c-lbl">WhatsApp</div>
+          <div class="c-val">+55 (34) 99795-1522</div>
+        </div>
+        <div class="c-item">
+          <div class="c-lbl">E-mail</div>
+          <div class="c-val">faeuxdesigner@gmail.com</div>
+        </div>
+        <div class="c-item">
+          <div class="c-lbl">Instagram</div>
+          <div class="c-val">@faeuxdsg_</div>
+        </div>
+        <p>Se preferir algo rápido, me chame direto no WhatsApp.</p>
+        <a href="https://wa.me/5534997951522" class="btn-red" target="_blank" rel="noopener noreferrer" style="margin-top:14px;">
+          Chamar no WhatsApp
+        </a>
+      </div>
+      <form onsubmit="handleForm(event)" novalidate>
+        <div class="form-field">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" name="nome" placeholder="Como posso te chamar?" required />
+        </div>
+        <div class="form-field">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+        </div>
+        <div class="form-field">
+          <label for="servico">Serviço de interesse</label>
+          <select id="servico" name="servico" required>
+            <option value="" disabled selected>Selecione uma opção</option>
+            <option value="social">Gestão de redes sociais</option>
+            <option value="design">Design de marketing</option>
+            <option value="trafego">Gestão de tráfego</option>
+            <option value="copy">Redação & copywriting</option>
+            <option value="video">Captação e roteiros de vídeo</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="mensagem">Mensagem</label>
+          <textarea id="mensagem" name="mensagem" placeholder="Conte um pouco sobre o seu projeto ou empresa..." required></textarea>
+        </div>
+        <button type="submit" class="btn-red" style="width:100%;margin-top:4px;">Enviar mensagem</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer role="contentinfo">
+  <div>© 2025 Faeux · Rafael</div>
+  <div>Street Clean · Social Media & Design</div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════
+   CURSOR
+═══════════════════════════════════════════ */
+(function () {
+  const cur = document.getElementById('cur');
+  if (!cur) return;
+
+  let mx = window.innerWidth  / 2;
+  let my = window.innerHeight / 2;
+  cur.style.left = mx + 'px';
+  cur.style.top  = my + 'px';
+
+  document.addEventListener('mousemove', function (e) {
+    mx = e.clientX;
+    my = e.clientY;
+    cur.style.left = mx + 'px';
+    cur.style.top  = my + 'px';
+  });
+
+  document.querySelectorAll('a, button').forEach(function (el) {
+    el.addEventListener('mouseenter', function () { cur.classList.add('big');    });
+    el.addEventListener('mouseleave', function () { cur.classList.remove('big'); });
+  });
+})();
+
+/* ═══════════════════════════════════════════
+   NAVBAR — menu mobile
+═══════════════════════════════════════════ */
+var hambBtn    = document.getElementById('hambBtn');
+var mobileMenu = document.getElementById('mobileMenu');
+
+hambBtn.addEventListener('click', function () {
+  var open = mobileMenu.style.display === 'flex';
+  mobileMenu.style.display = open ? 'none' : 'flex';
+  hambBtn.setAttribute('aria-expanded', String(!open));
+});
+
+function closeMob () {
+
 
