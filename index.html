@@ -8,13 +8,71 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:#231123;color:#F2F2F2;font-family:'Space Grotesk',sans-serif;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-*{color:inherit}
-a{text-decoration:none}
-ul{list-style:none}
-button{font-family:inherit;cursor:pointer}
-:focus-visible{outline:2px solid #961B2B;outline-offset:4px}
-:root{--red:#961B2B;--dk:#7a1522;--smoke:#F2F2F2;--dim:rgba(242,242,242,.68);--border:rgba(150,27,43,.38)}
+/* ═══════════════════════════════════════════
+   BACKGROUND — Cherry + Dark Purple + Noise
+═══════════════════════════════════════════ */
+
+body {
+  /*
+    Gradiente em 3 camadas sobrepostas:
+    1. Noise (SVG inline via data URI) — textura sutil
+    2. Radial cherry no canto sup. esquerdo — foco de luz quente
+    3. Linear diagonal dark purple dominante — base escura
+  */
+  background-color: #1a0c1e;
+  background-image:
+    /* camada 1 — noise sutil (opacity baixa para não virar granulado grosso) */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"),
+    /* camada 2 — brilho cherry radial no canto superior esquerdo */
+    radial-gradient(
+      ellipse 80% 60% at 15% 10%,
+      rgba(150, 27, 43, 0.38) 0%,
+      transparent 70%
+    ),
+    /* camada 3 — segundo brilho cherry no canto inferior direito (equilíbrio) */
+    radial-gradient(
+      ellipse 60% 50% at 88% 95%,
+      rgba(120, 18, 32, 0.28) 0%,
+      transparent 65%
+    ),
+    /* camada 4 — gradiente linear diagonal principal */
+    linear-gradient(
+      138deg,
+      #2c0f30 0%,
+      #1e0a22 25%,
+      #170818 55%,
+      #0e0410 80%,
+      #1a0c1e 100%
+    );
+
+  background-attachment: fixed;
+  background-size: 300px 300px, 100% 100%, 100% 100%, 100% 100%;
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat;
+
+  color: #F2F2F2;
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+  /* ── noise adicional sobre seções abertas ── */
+.section::before,
+.cta-strip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  border-radius: inherit;
+  z-index: 0;
+}
+
+.section { position: relative; }
+.section > * { position: relative; z-index: 1; }
+.cta-strip { position: relative; }
+.cta-strip > * { position: relative; z-index: 1; }
 
 /* CURSOR */
 #cur{position:fixed;width:12px;height:12px;border-radius:50%;background:#F2F2F2;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s;box-shadow:0 0 8px rgba(242,242,242,.5)}
